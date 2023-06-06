@@ -1,0 +1,40 @@
+package com.org.backend.controllers;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.org.backend.dtos.CustomerDto;
+import com.org.backend.interfaces.CustomerMethods;
+import com.org.backend.models.Customer;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
+@RestController
+@RequestMapping("/customers")
+public class CustomerController {
+	@Autowired
+	private CustomerMethods customerMethods;
+	
+	@Operation(description = "save")
+	@ApiResponses({
+		@ApiResponse(responseCode = "201", description = "Created"),
+		@ApiResponse(responseCode = "400", description = "Bad request")
+	})
+	@ResponseStatus(HttpStatus.CREATED)
+	@PostMapping("/save")
+	public ResponseEntity<String> save(@RequestBody CustomerDto customerDto) {	
+		Customer customer = new Customer();
+		BeanUtils.copyProperties(customerDto, customer);
+		String message = customerMethods.save(customer);
+		return ResponseEntity.status(HttpStatus.CREATED).body(message);
+	}
+}
