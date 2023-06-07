@@ -1,5 +1,6 @@
 package com.org.backend.models;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -9,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -17,14 +19,16 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Data
-@EqualsAndHashCode(exclude = {"accounts"})
-@ToString(exclude = {"accounts"})
+@EqualsAndHashCode(exclude = {"accountModels"})
+@ToString(exclude = {"accountModels"})
 @Entity
 @Table(name = "customer")
-@JsonIgnoreProperties({"accounts"})
-public class Customer {
+@JsonIgnoreProperties({"accountModels"})
+public class CustomerModel implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
 	@Column(nullable = false, length = 100)
 	private String name;
@@ -52,6 +56,6 @@ public class Customer {
 	private String addressCity;
 	@Column(nullable = false, length = 2)
 	private String addressState;
-	@OneToMany(mappedBy = "customer")
-	private List<Account> accounts;
+	@OneToMany(mappedBy = "customerModel")
+	private List<AccountModel> accountModels;
 }

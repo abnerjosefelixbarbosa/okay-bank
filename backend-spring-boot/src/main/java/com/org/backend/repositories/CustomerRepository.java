@@ -5,9 +5,13 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.org.backend.models.Customer;
+import com.org.backend.models.CustomerModel;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer, UUID> {
-
+public interface CustomerRepository extends JpaRepository<CustomerModel, UUID> {
+	boolean existsByCpf(String cpf);
+	boolean existsByRg(String rg);
+	boolean existsByPassword(String password);
+	boolean existsByEmail(String email); 
+	boolean existsByTelephone(String telephone); 
 }

@@ -1,11 +1,13 @@
 package com.org.backend.models;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -15,9 +17,11 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "account")
-public class Account {
+public class AccountModel implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
 	@Column(length = 20, nullable = false, unique = true)
 	private String agency;
@@ -29,7 +33,7 @@ public class Account {
 	private String password;
 	@ManyToOne
 	@JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = false)
-	private Customer customer;
+	private CustomerModel customerModel;
 
 	public void deposit(BigDecimal value) {
 		this.balance = this.balance.add(value);

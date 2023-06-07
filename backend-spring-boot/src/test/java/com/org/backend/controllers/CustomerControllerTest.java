@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.org.backend.models.Customer;
+import com.org.backend.models.CustomerModel;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -24,12 +24,12 @@ public class CustomerControllerTest {
 	@Test
 	//@Disabled
 	public void save() throws Exception {
-		Customer customer = new Customer();
+		var customerModel = new CustomerModel();
 		
-		final String URL = "/customers/save";
-		final String CONTENT_TYPE = "application/json";
-		final String ACCEPT = "application/json";
-		final String JSON = objectMapper.writeValueAsString(customer);	
+		final var URL = "/customers/save";
+		final var CONTENT_TYPE = "application/json";
+		final var ACCEPT = "application/json";
+		final var JSON = objectMapper.writeValueAsString(customerModel);	
 		
 		mockMvc.perform(post(URL).contentType(CONTENT_TYPE).accept(ACCEPT).content(JSON))
 		       .andDo(print())

@@ -1,7 +1,7 @@
 package com.org.backend.interfaces;
 
-import com.org.backend.models.Customer;
+import com.org.backend.models.CustomerModel;
 
 public interface CustomerMethods {
-	String save(Customer customer);
+	String save(CustomerModel customerModel);
 }

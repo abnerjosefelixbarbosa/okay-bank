@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.org.backend.dtos.CustomerDto;
 import com.org.backend.interfaces.CustomerMethods;
-import com.org.backend.models.Customer;
+import com.org.backend.models.CustomerModel;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/customers")
@@ -31,10 +32,10 @@ public class CustomerController {
 	})
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/save")
-	public ResponseEntity<String> save(@RequestBody CustomerDto customerDto) {	
-		Customer customer = new Customer();
-		BeanUtils.copyProperties(customerDto, customer);
-		String message = customerMethods.save(customer);
+	public ResponseEntity<String> save(@RequestBody @Valid CustomerDto customerDto) {	
+		var customerModel = new CustomerModel();
+		BeanUtils.copyProperties(customerDto, customerModel);
+		String message = customerMethods.save(customerModel);
 		return ResponseEntity.status(HttpStatus.CREATED).body(message);
 	}
 }
