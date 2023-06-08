@@ -3,20 +3,22 @@ package com.org.backend.dtos;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public record CustomerDto(
-		UUID id,
-		String name,
-        String cpf,
-        String rg,
-        String password,
-        String email,
-        String telephone,
-        LocalDate birthDate,
-        Integer addressNumber,
-        String addressZipCode,
-		String addressName,
-		String addressNeighborhood,
-		String addressCity,
-		String addressState
-) {
+import lombok.Data;
+
+@Data
+public class CustomerDto {
+	private UUID id;
+	private String name;
+    private String cpf;
+    private String rg;
+    private String password;
+    private String email;
+    private String telephone;
+    private LocalDate birthDate;
+    private Integer addressNumber;
+    private String addressZipCode;
+	private String addressName;
+	private String addressNeighborhood;
+	private String addressCity;
+	private String addressState;
 }
