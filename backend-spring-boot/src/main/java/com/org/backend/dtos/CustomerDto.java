@@ -1,7 +1,6 @@
 package com.org.backend.dtos;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 import com.org.backend.exceptions.EntityBadRequestException;
 
@@ -11,7 +10,6 @@ import lombok.Data;
 
 @Data
 public class CustomerDto {
-	private UUID id;
 	private String name;
     private String cpf;
     private String rg;

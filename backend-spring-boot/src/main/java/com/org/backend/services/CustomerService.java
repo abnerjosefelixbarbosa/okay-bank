@@ -1,5 +1,6 @@
 package com.org.backend.services;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,16 @@ import com.org.backend.repositories.CustomerRepository;
 public class CustomerService implements CustomerMethods {
 	@Autowired
 	private CustomerRepository customerRepository;
+	
+	public List<CustomerModel> findAll() {
+		return customerRepository.findByOrderByName();
+	}
+	
+	public CustomerModel findById(UUID id) {
+		return customerRepository.findById(id).orElseThrow(() -> {
+			return new EntityNotFoundException("id not found");
+		});
+	}
 
 	public String save(CustomerModel customerModel) {
 		validSaveUpdate(customerModel);
@@ -27,14 +38,8 @@ public class CustomerService implements CustomerMethods {
 		CustomerModel findById = findById(id);
 		customerModel.setId(findById.getId());
 		validSaveUpdate(customerModel);
-		customerRepository.save(customerModel);
+		//customerRepository.save(customerModel);
 		return "customer updated";
-	}
-	
-	private CustomerModel findById(UUID id) {
-		return customerRepository.findById(id).orElseThrow(() -> {
-			return new EntityNotFoundException("id not found");
-		});
 	}
 
 	private void validSaveUpdate(CustomerModel customerModel) {
