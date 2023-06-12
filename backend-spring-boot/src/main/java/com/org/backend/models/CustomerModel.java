@@ -3,7 +3,6 @@ package com.org.backend.models;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -19,17 +18,17 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Data
-@EqualsAndHashCode(exclude = {"accountModels"})
-@ToString(exclude = {"accountModels"})
+@EqualsAndHashCode(exclude = { "accountModels" })
+@ToString(exclude = { "accountModels" })
 @Entity
 @Table(name = "customer")
-@JsonIgnoreProperties({"accountModels"})
+@JsonIgnoreProperties({ "accountModels" })
 public class CustomerModel implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private String id;
 	@Column(nullable = false, length = 100)
 	private String name;
 	@Column(nullable = false, unique = true, length = 20)
@@ -41,9 +40,9 @@ public class CustomerModel implements Serializable {
 	@Column(nullable = false, unique = true, length = 50)
 	private String email;
 	@Column(nullable = false, unique = true, length = 20)
-	private String telephone;	
+	private String telephone;
 	@Column(nullable = false)
-	private LocalDate birthDate;	
+	private LocalDate birthDate;
 	@Column(nullable = false)
 	private Integer addressNumber;
 	@Column(nullable = false, length = 20)

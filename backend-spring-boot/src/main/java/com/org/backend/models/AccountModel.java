@@ -2,7 +2,6 @@ package com.org.backend.models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,8 +20,8 @@ public class AccountModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private String id;
 	@Column(length = 20, nullable = false, unique = true)
 	private String agency;
 	@Column(length = 20, nullable = false, unique = true)
