@@ -1,5 +1,6 @@
 package com.org.backend.repositories;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +14,55 @@ import jakarta.transaction.Transactional;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<CustomerModel, String> {
+	@Modifying
+	@Transactional
+	@Query("update CustomerModel cm"
+			+ " set cm.name = :name"
+			+ " where cm.id = :id")
+	Integer updateName(String name, String id);
+	
+	@Modifying
+	@Transactional
+	@Query("update CustomerModel cm"
+			+ " set cm.cpf = :cpf"
+			+ " where cm.id = :id")
+	Integer updateCpf(String cpf, String id);
+	
+	@Modifying
+	@Transactional
+	@Query("update CustomerModel cm"
+			+ " set cm.rg = :rg"
+			+ " where cm.id = :id")
+	Integer updateRg(String rg, String id);
+	
+	@Modifying
+	@Transactional
+	@Query("update CustomerModel cm"
+			+ " set cm.password = :password"
+			+ " where cm.id = :id")
+	Integer updatePassword(String password, String id);
+	
+	@Modifying
+	@Transactional
+	@Query("update CustomerModel cm"
+			+ " set cm.email = :email"
+			+ " where cm.id = :id")
+	Integer updateEmail(String email, String id);
+	
+	@Modifying
+	@Transactional
+	@Query("update CustomerModel cm"
+			+ " set cm.telephone = :telephone"
+			+ " where cm.id = :id")
+	Integer updateTelephone(String telephone, String id);
+	
+	@Modifying
+	@Transactional
+	@Query("update CustomerModel cm"
+			+ " set cm.birthDate = :birthDate"
+			+ " where cm.id = :id")
+	Integer updateBirthDate(LocalDate birthDate, String id);
+	
 	@Modifying
 	@Transactional
 	@Query("update CustomerModel cm"

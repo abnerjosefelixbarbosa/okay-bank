@@ -1,0 +1,5 @@
+insert into db_okaybank.customer (id, name, cpf, rg, password, email, telephone, birth_date, address_number, address_zip_code, address_name, address_neighborhood, address_city, address_state)
+values ('f756bdb0-008f-4bb3-838a-13fa22d023b8','Estefani Prucho Mattos', '676.497.994-41', '14.824.084', '127596', 'estefani.mattos@gmail.com', '(87) 97953-4972', '1996-05-14', 32, '53320-571', 'Rua Tempero', 'Guadalupe', 'Olinda', 'PE');
+
+insert into db_okaybank.customer (id, name, cpf, rg, password, email, telephone, birth_date, address_number, address_zip_code, address_name, address_neighborhood, address_city, address_state)
+values ('8c72019d-fa71-46c9-8c75-2c638c40d1d1','Luisa Paes Valladares', '623.388.714-30', '12.971.121', '489562', 'luisa.valladares@gmail.com', '(81) 99765-6483', '1987-06-29', 133, '52070-643', 'Rua Leovigildo Júnior', 'Casa Amarela', 'Recife', 'PE');

@@ -62,20 +62,6 @@ public class CustomerController {
 		return ResponseEntity.status(201).body(message);
 	}
 
-	@Operation(description = "update customer")
-	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Ok"),
-			@ApiResponse(responseCode = "400", description = "Bad request"),
-			@ApiResponse(responseCode = "404", description = "Not found") })
-	@ResponseStatus(HttpStatus.OK)
-	@PutMapping("/update/{id}")
-	public ResponseEntity<String> update(@PathVariable String id, @RequestBody CustomerDto customerDto) {
-		customerDto.validation();
-		var customerModel = new CustomerModel();
-		BeanUtils.copyProperties(customerDto, customerModel);
-		String message = customerMethods.update(id, customerModel);
-		return ResponseEntity.status(200).body(message);
-	}
-
 	@Operation(description = "update customer address")
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Ok"),
 			@ApiResponse(responseCode = "400", description = "Bad request"),

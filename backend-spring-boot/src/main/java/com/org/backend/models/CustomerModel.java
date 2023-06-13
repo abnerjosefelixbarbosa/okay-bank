@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -41,6 +42,7 @@ public class CustomerModel implements Serializable {
 	private String email;
 	@Column(nullable = false, unique = true, length = 20)
 	private String telephone;
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(nullable = false)
 	private LocalDate birthDate;
 	@Column(nullable = false)
