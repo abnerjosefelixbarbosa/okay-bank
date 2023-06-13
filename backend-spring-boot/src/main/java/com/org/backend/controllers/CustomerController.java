@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.org.backend.dtos.CustomerAddressDto;
 import com.org.backend.dtos.CustomerDto;
+import com.org.backend.dtos.CustomerNameDto;
 import com.org.backend.interfaces.CustomerMethods;
 import com.org.backend.models.CustomerModel;
 
@@ -60,6 +61,21 @@ public class CustomerController {
 		BeanUtils.copyProperties(customerDto, customerModel);
 		String message = customerMethods.save(customerModel);
 		return ResponseEntity.status(201).body(message);
+	}
+	
+	@Operation(description = "update customer name")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Ok"),
+			@ApiResponse(responseCode = "400", description = "Bad request"),
+			@ApiResponse(responseCode = "404", description = "Not found") })
+	@ResponseStatus(HttpStatus.OK)
+	@PutMapping("/update-name/{id}")
+	public ResponseEntity<String> updateName(@PathVariable String id,
+			@RequestBody CustomerNameDto customerNameDto) {
+		customerNameDto.validation();
+		var customerModel = new CustomerModel();
+		BeanUtils.copyProperties(customerNameDto, customerModel);
+		String message = customerMethods.updateName(id, customerModel);
+		return ResponseEntity.status(200).body(message);
 	}
 
 	@Operation(description = "update customer address")
