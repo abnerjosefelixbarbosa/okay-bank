@@ -29,7 +29,7 @@ public class CustomerService implements CustomerMethods {
 
 	public String save(CustomerModel customerModel) {
 		customerModel.setId(null);
-		customerValidation.validSave(customerModel);
+		customerValidation.validateSave(customerModel);
 		customerRepository.save(customerModel);
 		return "customer saved";
 	}
@@ -39,6 +39,14 @@ public class CustomerService implements CustomerMethods {
 		customerModel.setId(findById.getId());
 		customerRepository.updateName(customerModel.getName(), customerModel.getId());
 		return "customer name updated";
+	}
+	
+	public String updateTelephone(String id, CustomerModel customerModel) {
+		CustomerModel findById = findById(id);
+		customerModel.setId(findById.getId());
+		customerValidation.validateUpdateTelephone(customerModel);
+		customerRepository.updateTelephone(customerModel.getTelephone(), findById.getId());
+		return "customer telephone updated";
 	}
 
 	public String updateAddress(String id, CustomerModel customerModel) {

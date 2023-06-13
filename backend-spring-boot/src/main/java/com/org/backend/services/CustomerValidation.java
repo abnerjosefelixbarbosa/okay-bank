@@ -12,7 +12,7 @@ public class CustomerValidation {
 	@Autowired
 	private CustomerRepository customerRepository;
 	
-	public void validSave(CustomerModel customerModel) {
+	public void validateSave(CustomerModel customerModel) {
 		if (customerRepository.existsByCpf(customerModel.getCpf()))
 			throw new EntityBadRequestException("cpf exists");
 		if (customerRepository.existsByRg(customerModel.getRg()))
@@ -21,6 +21,11 @@ public class CustomerValidation {
 			throw new EntityBadRequestException("password exists");
 		if (customerRepository.existsByEmail(customerModel.getEmail()))
 			throw new EntityBadRequestException("email exists");
+		if (customerRepository.existsByTelephone(customerModel.getTelephone()))
+			throw new EntityBadRequestException("telephone exists");
+	}
+	
+	public void validateUpdateTelephone(CustomerModel customerModel) {
 		if (customerRepository.existsByTelephone(customerModel.getTelephone()))
 			throw new EntityBadRequestException("telephone exists");
 	}

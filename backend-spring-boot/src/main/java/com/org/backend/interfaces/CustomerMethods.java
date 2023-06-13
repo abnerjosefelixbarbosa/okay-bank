@@ -23,7 +23,7 @@ public interface CustomerMethods {
 	
 	//String updateEmail(String id, CustomerModel customerModel);
 	
-	//String updateTelephone(String id, CustomerModel customerModel);
+	String updateTelephone(String id, CustomerModel customerModel);
 	
 	//String updateBirthDate(String id, CustomerModel customerModel);
 

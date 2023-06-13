@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.org.backend.dtos.CustomerAddressDto;
 import com.org.backend.dtos.CustomerDto;
-import com.org.backend.dtos.CustomerNameDto;
 import com.org.backend.interfaces.CustomerMethods;
 import com.org.backend.models.CustomerModel;
 
@@ -56,7 +54,7 @@ public class CustomerController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/save")
 	public ResponseEntity<String> save(@RequestBody CustomerDto customerDto) {
-		customerDto.validation();
+		customerDto.validateSave();
 		var customerModel = new CustomerModel();
 		BeanUtils.copyProperties(customerDto, customerModel);
 		String message = customerMethods.save(customerModel);
@@ -70,11 +68,26 @@ public class CustomerController {
 	@ResponseStatus(HttpStatus.OK)
 	@PutMapping("/update-name/{id}")
 	public ResponseEntity<String> updateName(@PathVariable String id,
-			@RequestBody CustomerNameDto customerNameDto) {
-		customerNameDto.validation();
+			@RequestBody CustomerDto customerDto) {
+		customerDto.validateUpdateName();
 		var customerModel = new CustomerModel();
-		BeanUtils.copyProperties(customerNameDto, customerModel);
+		BeanUtils.copyProperties(customerDto, customerModel);
 		String message = customerMethods.updateName(id, customerModel);
+		return ResponseEntity.status(200).body(message);
+	}
+	
+	@Operation(description = "update customer telephone")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Ok"),
+			@ApiResponse(responseCode = "400", description = "Bad request"),
+			@ApiResponse(responseCode = "404", description = "Not found") })
+	@ResponseStatus(HttpStatus.OK)
+	@PutMapping("/update-telephone/{id}")
+	public ResponseEntity<String> updateTelephone(@PathVariable String id,
+			@RequestBody CustomerDto customerDto) {
+		customerDto.validateUpdateTelephone();
+		var customerModel = new CustomerModel();
+		BeanUtils.copyProperties(customerDto, customerModel);
+		String message = customerMethods.updateTelephone(id, customerModel);
 		return ResponseEntity.status(200).body(message);
 	}
 
@@ -85,10 +98,10 @@ public class CustomerController {
 	@ResponseStatus(HttpStatus.OK)
 	@PutMapping("/update-address/{id}")
 	public ResponseEntity<String> updateAddress(@PathVariable String id,
-			@RequestBody CustomerAddressDto customerAddressDto) {
-		customerAddressDto.validation();
+			@RequestBody CustomerDto customerDto) {
+		customerDto.validateUpdateAddress();
 		var customerModel = new CustomerModel();
-		BeanUtils.copyProperties(customerAddressDto, customerModel);
+		BeanUtils.copyProperties(customerDto, customerModel);
 		String message = customerMethods.updateAddress(id, customerModel);
 		return ResponseEntity.status(200).body(message);
 	}
