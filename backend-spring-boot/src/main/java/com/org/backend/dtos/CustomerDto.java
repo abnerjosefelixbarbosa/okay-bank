@@ -125,6 +125,13 @@ public class CustomerDto {
 		if (addressState.length() != 2)
 			throw new EntityBadRequestException("address state is diferent for 2 characters");
 	}
+	
+	public void validateUpdateEmail() {
+		if (!validEmail(email))
+			throw new EntityBadRequestException("email is invalid");
+		if (email.length() > 50)
+			throw new EntityBadRequestException("email is greater than 50 characters");
+	}
 
 	private boolean validCpf(String cpf) {
 		try {

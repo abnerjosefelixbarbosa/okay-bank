@@ -41,6 +41,14 @@ public class CustomerService implements CustomerMethods {
 		return "customer name updated";
 	}
 	
+	public String updateEmail(String id, CustomerModel customerModel) {
+		CustomerModel findById = findById(id);
+		customerModel.setId(findById.getId());
+		customerValidation.validateUpdateEmail(customerModel);
+		customerRepository.updateEmail(customerModel.getEmail(), customerModel.getId());
+		return "customer email updated";
+	}
+	
 	public String updateTelephone(String id, CustomerModel customerModel) {
 		CustomerModel findById = findById(id);
 		customerModel.setId(findById.getId());

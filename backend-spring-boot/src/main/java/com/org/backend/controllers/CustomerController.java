@@ -90,6 +90,21 @@ public class CustomerController {
 		String message = customerMethods.updateTelephone(id, customerModel);
 		return ResponseEntity.status(200).body(message);
 	}
+	
+	@Operation(description = "update customer email")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Ok"),
+			@ApiResponse(responseCode = "400", description = "Bad request"),
+			@ApiResponse(responseCode = "404", description = "Not found") })
+	@ResponseStatus(HttpStatus.OK)
+	@PutMapping("/update-email/{id}")
+	public ResponseEntity<String> updateEmail(@PathVariable String id,
+			@RequestBody CustomerDto customerDto) {
+		customerDto.validateUpdateEmail();
+		var customerModel = new CustomerModel();
+		BeanUtils.copyProperties(customerDto, customerModel);
+		String message = customerMethods.updateEmail(id, customerModel);
+		return ResponseEntity.status(200).body(message);
+	}
 
 	@Operation(description = "update customer address")
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Ok"),
