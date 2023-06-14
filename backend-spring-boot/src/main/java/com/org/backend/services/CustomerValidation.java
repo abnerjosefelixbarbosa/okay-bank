@@ -11,7 +11,7 @@ import com.org.backend.repositories.CustomerRepository;
 public class CustomerValidation {
 	@Autowired
 	private CustomerRepository customerRepository;
-	
+
 	public void validateSave(CustomerModel customerModel) {
 		if (customerRepository.existsByCpf(customerModel.getCpf()))
 			throw new EntityBadRequestException("cpf exists");
@@ -21,7 +21,7 @@ public class CustomerValidation {
 			throw new EntityBadRequestException("password exists");
 		if (customerRepository.existsByEmail(customerModel.getEmail()))
 			throw new EntityBadRequestException("email exists");
-		//if (customerRepository.existsByTelephone(customerModel.getTelephone()))
-			//throw new EntityBadRequestException("telephone exists");
+		if (customerRepository.existsByTelephoneModelTelephone(customerModel.getTelephoneModel().getTelephone()))
+			throw new EntityBadRequestException("telephone exists");
 	}
 }

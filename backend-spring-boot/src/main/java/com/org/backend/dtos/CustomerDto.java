@@ -3,6 +3,7 @@ package com.org.backend.dtos;
 import java.time.LocalDate;
 
 import com.org.backend.exceptions.EntityBadRequestException;
+import com.org.backend.models.TelephoneModel;
 
 import br.com.caelum.stella.validation.CPFValidator;
 import jakarta.mail.internet.InternetAddress;
@@ -15,7 +16,6 @@ public class CustomerDto {
 	private String rg;
 	private String password;
 	private String email;
-	private String telephone;
 	private LocalDate birthDate;
 	private Integer addressNumber;
 	private String addressZipCode;
@@ -23,6 +23,7 @@ public class CustomerDto {
 	private String addressNeighborhood;
 	private String addressCity;
 	private String addressState;
+	private TelephoneModel telephoneModel;
 
 	public void validateSave() {
 		if (name == null || name.isEmpty())
@@ -45,10 +46,6 @@ public class CustomerDto {
 			throw new EntityBadRequestException("email is invalid");
 		if (email.length() > 50)
 			throw new EntityBadRequestException("email is greater than 50 characters");
-		if (telephone == null || telephone.isEmpty())
-			throw new EntityBadRequestException("telephone is empty");
-		if (telephone.length() > 20)
-			throw new EntityBadRequestException("telephone is greater than 20 characters");
 		if (birthDate == null)
 			throw new EntityBadRequestException("birth date is null");
 		var localDate = LocalDate.now();
@@ -81,6 +78,8 @@ public class CustomerDto {
 			throw new EntityBadRequestException("address state contains white space");
 		if (addressState.length() != 2)
 			throw new EntityBadRequestException("address state is diferent for 2 characters");
+		if (telephoneModel == null)
+			throw new EntityBadRequestException("telephone is null");
 	}
 	
 	private boolean validCpf(String cpf) {
