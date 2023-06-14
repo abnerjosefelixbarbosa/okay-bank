@@ -23,15 +23,16 @@ public class AccountModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
 	@Column(length = 20, nullable = false, unique = true)
-	private String agency;
-	@Column(length = 20, nullable = false, unique = true)
 	private String account;
 	@Column(scale = 2, nullable = false)
 	private BigDecimal balance;
 	@Column(length = 4, nullable = false, unique = true)
 	private String password;
 	@ManyToOne
-	@JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = false)
+	@JoinColumn(name = "agency_id", nullable = false)
+	private AgencyModel agencyModel;
+	@ManyToOne
+	@JoinColumn(name = "customer_id", nullable = false)
 	private CustomerModel customerModel;
 
 	public void deposit(BigDecimal value) {

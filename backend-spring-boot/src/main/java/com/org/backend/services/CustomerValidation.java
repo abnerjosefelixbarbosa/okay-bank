@@ -21,17 +21,7 @@ public class CustomerValidation {
 			throw new EntityBadRequestException("password exists");
 		if (customerRepository.existsByEmail(customerModel.getEmail()))
 			throw new EntityBadRequestException("email exists");
-		if (customerRepository.existsByTelephone(customerModel.getTelephone()))
-			throw new EntityBadRequestException("telephone exists");
-	}
-	
-	public void validateUpdateTelephone(CustomerModel customerModel) {
-		if (customerRepository.existsByTelephone(customerModel.getTelephone()))
-			throw new EntityBadRequestException("telephone exists");
-	}
-	
-	public void validateUpdateEmail(CustomerModel customerModel) {
-		if (customerRepository.existsByEmail(customerModel.getEmail()))
-			throw new EntityBadRequestException("email exists");
+		//if (customerRepository.existsByTelephone(customerModel.getTelephone()))
+			//throw new EntityBadRequestException("telephone exists");
 	}
 }

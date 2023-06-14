@@ -83,56 +83,6 @@ public class CustomerDto {
 			throw new EntityBadRequestException("address state is diferent for 2 characters");
 	}
 	
-	public void validateUpdateName() {
-		if (name == null || name.isEmpty())
-			throw new EntityBadRequestException("name is empty");
-		if (name.length() > 100)
-			throw new EntityBadRequestException("name is greater than 100 characters");
-	}
-	
-	public void validateUpdateTelephone() {
-		if (telephone == null || telephone.isEmpty())
-			throw new EntityBadRequestException("telephone is empty");
-		if (telephone.length() > 20)
-			throw new EntityBadRequestException("telephone is greater than 20 characters");
-	}
-	
-	public void validateUpdateAddress() {
-		if (addressNumber == null || addressNumber == 0)
-			throw new EntityBadRequestException("address number is 0");
-		if (addressZipCode == null || addressZipCode.isEmpty())
-			throw new EntityBadRequestException("address zip code is empty");
-		if (addressZipCode.contains(" "))
-			throw new EntityBadRequestException("address zip code contains white space");
-		if (addressZipCode.length() > 20)
-			throw new EntityBadRequestException("address zip code is greater than 20 characters");
-		if (addressName == null || addressName.isEmpty())
-			throw new EntityBadRequestException("address name is empty");
-		if (addressName.length() > 50)
-			throw new EntityBadRequestException("address name is greater than 50 characters");
-		if (addressNeighborhood == null || addressNeighborhood.isEmpty())
-			throw new EntityBadRequestException("address neighborhood is empty");
-		if (addressNeighborhood.length() > 30)
-			throw new EntityBadRequestException("address neighborhood is greater than 30 characters");
-		if (addressCity == null || addressCity.isEmpty())
-			throw new EntityBadRequestException("address city is empty");
-		if (addressCity.length() > 30)
-			throw new EntityBadRequestException("address city is greater than 30 characters");
-		if (addressState == null || addressState.isEmpty())
-			throw new EntityBadRequestException("address state is empty");
-		if (addressState.contains(" "))
-			throw new EntityBadRequestException("address state contains white space");
-		if (addressState.length() != 2)
-			throw new EntityBadRequestException("address state is diferent for 2 characters");
-	}
-	
-	public void validateUpdateEmail() {
-		if (!validEmail(email))
-			throw new EntityBadRequestException("email is invalid");
-		if (email.length() > 50)
-			throw new EntityBadRequestException("email is greater than 50 characters");
-	}
-
 	private boolean validCpf(String cpf) {
 		try {
 			CPFValidator cpfValidator = new CPFValidator();

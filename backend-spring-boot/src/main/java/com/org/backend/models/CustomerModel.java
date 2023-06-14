@@ -12,7 +12,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -40,8 +42,6 @@ public class CustomerModel implements Serializable {
 	private String password;
 	@Column(nullable = false, unique = true, length = 50)
 	private String email;
-	@Column(nullable = false, unique = true, length = 20)
-	private String telephone;
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(nullable = false)
 	private LocalDate birthDate;
@@ -57,6 +57,9 @@ public class CustomerModel implements Serializable {
 	private String addressCity;
 	@Column(nullable = false, length = 2)
 	private String addressState;
+	@OneToOne
+	@JoinColumn(name = "telephone_id", nullable = false, unique = true)
+	private TelephoneModel telephoneModel;
 	@OneToMany(mappedBy = "customerModel")
 	private List<AccountModel> accountModels;
 }

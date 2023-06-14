@@ -10,12 +10,4 @@ public interface CustomerMethods {
 	CustomerModel findById(String id);
 
 	String save(CustomerModel customerModel);
-	
-	String updateName(String id, CustomerModel customerModel);
-	
-	String updateEmail(String id, CustomerModel customerModel);
-	
-	String updateTelephone(String id, CustomerModel customerModel);
-
-	String updateAddress(String id, CustomerModel customerModel);
 }

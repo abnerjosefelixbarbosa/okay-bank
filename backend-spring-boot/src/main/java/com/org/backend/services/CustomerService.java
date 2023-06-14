@@ -33,36 +33,4 @@ public class CustomerService implements CustomerMethods {
 		customerRepository.save(customerModel);
 		return "customer saved";
 	}
-	
-	public String updateName(String id, CustomerModel customerModel) {
-		CustomerModel findById = findById(id);
-		customerModel.setId(findById.getId());
-		customerRepository.updateName(customerModel.getName(), customerModel.getId());
-		return "customer name updated";
-	}
-	
-	public String updateEmail(String id, CustomerModel customerModel) {
-		CustomerModel findById = findById(id);
-		customerModel.setId(findById.getId());
-		customerValidation.validateUpdateEmail(customerModel);
-		customerRepository.updateEmail(customerModel.getEmail(), customerModel.getId());
-		return "customer email updated";
-	}
-	
-	public String updateTelephone(String id, CustomerModel customerModel) {
-		CustomerModel findById = findById(id);
-		customerModel.setId(findById.getId());
-		customerValidation.validateUpdateTelephone(customerModel);
-		customerRepository.updateTelephone(customerModel.getTelephone(), findById.getId());
-		return "customer telephone updated";
-	}
-
-	public String updateAddress(String id, CustomerModel customerModel) {
-		CustomerModel findById = findById(id);
-		customerModel.setId(findById.getId());
-		customerRepository.updateAddress(customerModel.getAddressNumber(), customerModel.getAddressZipCode(),
-				customerModel.getAddressName(), customerModel.getAddressNeighborhood(), customerModel.getAddressCity(),
-				customerModel.getAddressState(), customerModel.getId());
-		return "customer address updated";
-	}
 }
