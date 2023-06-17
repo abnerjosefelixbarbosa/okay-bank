@@ -27,7 +27,7 @@ public class Position implements Serializable {
 	private String id;
 	@Column(nullable = false, unique = true, length = 30)
 	private String position;
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private Double bonus;
 	@JsonIgnore
 	@ToString.Exclude
