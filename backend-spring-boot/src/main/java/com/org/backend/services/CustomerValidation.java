@@ -21,7 +21,5 @@ public class CustomerValidation {
 			throw new EntityBadRequestException("password exists");
 		if (customerRepository.existsByEmail(customerModel.getEmail()))
 			throw new EntityBadRequestException("email exists");
-		if (customerRepository.existsByTelephoneModelTelephone(customerModel.getTelephoneModel().getTelephone()))
-			throw new EntityBadRequestException("telephone exists");
 	}
 }

@@ -1,65 +1,52 @@
 package com.org.backend.models;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.List;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 @Data
-@EqualsAndHashCode(exclude = { "accountModels" })
-@ToString(exclude = { "accountModels" })
 @Entity
 @Table(name = "customer")
-@JsonIgnoreProperties({ "accountModels" })
-public class CustomerModel implements Serializable {
+public class Customer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
-	@Column(nullable = false, length = 100)
-	private String name;
 	@Column(nullable = false, unique = true, length = 20)
 	private String cpf;
 	@Column(nullable = false, unique = true, length = 20)
 	private String rg;
 	@Column(nullable = false, unique = true, length = 6)
 	private String password;
+	@Column(nullable = false, unique = true, length = 20)
+	private String telephone;
 	@Column(nullable = false, unique = true, length = 50)
 	private String email;
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(nullable = false)
-	private LocalDate birthDate;
+	private Date birthDate;
+	@Column(nullable = false, length = 100)
+	private String name;
 	@Column(nullable = false)
 	private Integer addressNumber;
 	@Column(nullable = false, length = 20)
 	private String addressZipCode;
 	@Column(nullable = false, length = 50)
-	private String addressName;
+	private String address;
 	@Column(nullable = false, length = 30)
-	private String addressNeighborhood;
+	private String addressDistrict;
 	@Column(nullable = false, length = 30)
 	private String addressCity;
 	@Column(nullable = false, length = 2)
 	private String addressState;
-	@OneToOne
-	@JoinColumn(name = "telephone_id", nullable = false, unique = true)
-	private TelephoneModel telephoneModel;
-	@OneToMany(mappedBy = "customerModel")
-	private List<AccountModel> accountModels;
 }
