@@ -13,3 +13,8 @@ Os dados do cliente são id, cpf, rg, e-mail, senha, telefone, data de nasciment
 
 ![imagem1](https://github.com/abnerjosefelixbarbosa/assents/blob/main/okay_bank/modelo_okay_bank.jpg)
 
+## Dados de teste de posição
+
+```json
+
+```
