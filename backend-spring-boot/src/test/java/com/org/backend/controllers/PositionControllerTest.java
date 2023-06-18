@@ -12,11 +12,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.org.backend.models.Customer;
+import com.org.backend.models.Position;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CustomerControllerTest {
+public class PositionControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 	@Autowired
@@ -25,12 +25,12 @@ public class CustomerControllerTest {
 	@Test
 	@Disabled
 	public void save() throws Exception {
-		var customer = new Customer();
+		var position = new Position();
 
-		final var URL = "/customers/save";
+		final var URL = "/positions/save";
 		final var CONTENT_TYPE = "application/json";
 		final var ACCEPT = "application/json";
-		final var JSON = objectMapper.writeValueAsString(customer);
+		final var JSON = objectMapper.writeValueAsString(position);
 
 		mockMvc.perform(post(URL).contentType(CONTENT_TYPE).accept(ACCEPT).content(JSON)).andDo(print())
 				.andExpect(status().is(201));
