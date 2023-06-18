@@ -13,8 +13,31 @@ Os dados do cliente são id, cpf, rg, e-mail, senha, telefone, data de nasciment
 
 ![imagem1](https://github.com/abnerjosefelixbarbosa/assents/blob/main/okay_bank/modelo_okay_bank.jpg)
 
-## Dados de teste de posição
+# Features
 
-```json
+- Save position
 
+## Back end
+- Java 17
+- Spring boot
+- JPA hibernate
+- Maven
+- MySQL
+- Validation
+- Lombok
+- Junit
+- Swagger
+
+# Execução do Projeto
+Pré-requisito: Java 17
+
+```bash
+# clonar repositório
+git clone https://github.com/abnerjosefelixbarbosa/okay-bank.git
 ```
+
+# Autor
+
+Abner José Felix Barbosa
+
+Linkedin: https://www.linkedin.com/in/abner-jose-feliz-barbosa/
