@@ -31,6 +31,19 @@ Os dados do cliente são id, cpf, rg, e-mail, senha, telefone, data de nasciment
 # Execução do Projeto
 Pré-requisito: Java 17
 
+```JSON
+# position data
+{
+  "position": "administrative manager",
+  "bonus": 0.20
+}
+
+{
+  "position": "administrative agent",
+  "bonus": null
+}
+```
+
 ```bash
 # clonar repositório
 git clone https://github.com/abnerjosefelixbarbosa/okay-bank.git
