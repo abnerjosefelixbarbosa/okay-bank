@@ -29,7 +29,7 @@ public class Employee implements Serializable {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
 	@Column(nullable = false, unique = true)
-	private Integer matriculation;
+	private Long matriculation;
 	@Column(nullable = false, length = 100)
 	private String name;
 	@Column(nullable = false, scale = 2)
