@@ -13,7 +13,7 @@ Okay bank Full Stack application for performing banking services.
 
 # Features
 
-- Save position
+- Login to the account by CPF and password
 
 ## Back end
 - Java 17
