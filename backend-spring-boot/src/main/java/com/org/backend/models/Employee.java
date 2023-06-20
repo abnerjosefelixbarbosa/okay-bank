@@ -28,8 +28,8 @@ public class Employee implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
-	@Column(nullable = false, unique = true)
-	private Long matriculation;
+	@Column(nullable = false, unique = true, precision = 10, scale = 0)
+	private BigDecimal matriculation;
 	@Column(nullable = false, length = 100)
 	private String name;
 	@Column(nullable = false, scale = 2)
