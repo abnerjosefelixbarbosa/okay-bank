@@ -1,7 +1,7 @@
 package com.org.backend.models;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -41,7 +41,7 @@ public class Customer implements Serializable {
 	private String email;
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(nullable = false)
-	private Date birthDate;
+	private LocalDate birthDate;
 	@Column(nullable = false, length = 100)
 	private String name;
 	@Column(nullable = false)
@@ -56,6 +56,7 @@ public class Customer implements Serializable {
 	private String addressCity;
 	@Column(nullable = false, length = 2)
 	private String addressState;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "employee_id", nullable = false)
 	private Employee employee;

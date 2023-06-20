@@ -29,6 +29,7 @@ public class Agency implements Serializable {
 	private String id;
 	@Column(nullable = false, unique = true, length = 10)
 	private String agency;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "employee_id")
 	private Employee employee;

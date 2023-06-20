@@ -3,6 +3,8 @@ package com.org.backend.models;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,6 +30,7 @@ public class Account implements Serializable {
 	private String password;
 	@Column(nullable = false, scale = 2)
 	private BigDecimal balance;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "employee_id", nullable = false)
 	private Employee employee;
