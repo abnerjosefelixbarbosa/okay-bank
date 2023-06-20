@@ -15,15 +15,24 @@ import org.springframework.web.bind.annotation.RestController;
 import com.org.backend.interfaces.AccountInterface;
 import com.org.backend.models.Account;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 @RestController
 @RequestMapping(path = "/accounts")
 public class AccountController {
 	@Autowired
 	private AccountInterface accountInterface;
 	
+	@Operation(description = "list all by id")
+	@ApiResponses({
+		@ApiResponse(responseCode = "200", description = "Ok"),
+		@ApiResponse(responseCode = "404", description = "Not found")
+	})
 	@ResponseStatus(HttpStatus.OK)
-	@GetMapping(path = "/find-all-by-id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Account>> findAllById(@PathVariable String id) {
+	@GetMapping(path = "/list-all-by-id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Account>> listAllById(@PathVariable String id) {
 		var accounts = accountInterface.findAllByAccount(id);
 		return ResponseEntity.status(HttpStatus.OK).body(accounts);
 	}
