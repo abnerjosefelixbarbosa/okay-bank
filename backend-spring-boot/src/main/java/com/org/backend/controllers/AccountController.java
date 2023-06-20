@@ -22,7 +22,7 @@ public class AccountController {
 	private AccountInterface accountInterface;
 	
 	@ResponseStatus(HttpStatus.OK)
-	@GetMapping(path = "/find-all-by-id/{id}", produces = MediaType.APPLICATION_GRAPHQL_RESPONSE_VALUE)
+	@GetMapping(path = "/find-all-by-id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Account>> findAllById(@PathVariable String id) {
 		var accounts = accountInterface.findAllByAccount(id);
 		return ResponseEntity.status(HttpStatus.OK).body(accounts);
