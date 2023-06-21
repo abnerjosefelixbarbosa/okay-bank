@@ -7,9 +7,9 @@
 
 Okay bank Full Stack application for performing banking services.
 
-## Modelagem
+## Modeling
 
-![imagem1](https://github.com/abnerjosefelixbarbosa/assents/blob/main/okay_bank/modelo_okay_bank.jpg)
+![imagem1](https://github.com/abnerjosefelixbarbosa/okay-bank/blob/main/assets/modelo_okay_bank.jpg)
 
 # Features
 
@@ -49,9 +49,8 @@ INSERT INTO `db_okaybank`.`agency` (`id`, `agency`, `employee_id`) VALUES ('73cf
 INSERT INTO `db_okaybank`.`account` (`id`, `account`, `balance`, `password`, `agency_id`, `customer_id`, `employee_id`) VALUES ('12883424-eace-4f0a-b8ef-b6aeb3cc0afe', '7280166801', '0.00', '2548', '73cf374f-0802-4238-8b08-2b0f62fee585', '87110d15-6340-4db1-8a14-63ea369a7df9', '47d16014-f806-42d1-ab1c-ce3220ff5365');
 INSERT INTO `db_okaybank`.`account` (`id`, `account`, `balance`, `password`, `agency_id`, `customer_id`, `employee_id`) VALUES ('d4c0efa9-ea0f-4955-a846-8d28b81d86d9', '6663559501', '0.00', '4756', 'af62786b-0a05-441a-a736-e65a06299d5d', 'bc7b232c-b70f-4d3c-829a-2c47f22de952', '47d16014-f806-42d1-ab1c-ce3220ff5365');
 ```
-
+## Clone repository
 ```bash
-# clonar repositório
 git clone https://github.com/abnerjosefelixbarbosa/okay-bank.git
 ```
 
