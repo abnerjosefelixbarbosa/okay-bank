@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,8 +21,11 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Data
+@ToString(exclude = {"accounts"})
+@EqualsAndHashCode(exclude = {"accounts"})
 @Entity
 @Table(name = "customer")
+@JsonIgnoreProperties({"accounts"})
 public class Customer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -56,13 +59,9 @@ public class Customer implements Serializable {
 	private String addressCity;
 	@Column(nullable = false, length = 2)
 	private String addressState;
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "employee_id", nullable = false)
 	private Employee employee;
-	@JsonIgnore
-	@ToString.Exclude
-	@EqualsAndHashCode.Exclude
 	@OneToMany(mappedBy = "customer")
 	private List<Account> accounts;
 }

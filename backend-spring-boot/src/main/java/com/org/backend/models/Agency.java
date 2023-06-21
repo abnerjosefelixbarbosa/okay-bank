@@ -3,7 +3,7 @@ package com.org.backend.models;
 import java.io.Serializable;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,8 +19,11 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Data
+@ToString(exclude = {"accounts"})
+@EqualsAndHashCode(exclude = {"accounts"})
 @Entity
 @Table(name = "agency")
+@JsonIgnoreProperties({"accounts"})
 public class Agency implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -29,13 +32,9 @@ public class Agency implements Serializable {
 	private String id;
 	@Column(nullable = false, unique = true, length = 10)
 	private String agency;
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "employee_id")
 	private Employee employee;
-	@JsonIgnore
-	@ToString.Exclude
-	@EqualsAndHashCode.Exclude
 	@OneToMany(mappedBy = "agency")
 	private List<Account> accounts;
 }
