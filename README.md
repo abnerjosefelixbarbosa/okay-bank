@@ -5,7 +5,7 @@
 
 # About
 
-Okay bank Full Stack application for performing banking services.
+Okay bank full stack app for performing banking services.
 
 ## Modeling
 
