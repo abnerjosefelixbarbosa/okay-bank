@@ -7,7 +7,7 @@ export default function Login() {
     <>
       <header></header>
       <section>
-        <h1>Login</h1>
+        <h1>Logins</h1>
       </section>
       <footer></footer>
     </>
