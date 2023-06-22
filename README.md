@@ -26,7 +26,7 @@ Okay bank full stack app for performing banking services.
 - Junit
 - Swagger
 
-# Execução do Projeto
+# Execution of project
 Pré-requisito: Java 17
 
 ## SQL
