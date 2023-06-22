@@ -1,8 +1,5 @@
-function App() {
-  return (
-    <>
-    </>
-  )
-}
+import Router from "./routes/Rounters";
 
-export default App
+export default function App() {
+  return <Router/>;
+}
