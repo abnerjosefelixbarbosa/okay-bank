@@ -1,15 +1,13 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./style.css";
+import FormLogin from "../../components/FormLogin";
 
 export default function Login() {
-
-
   return (
     <>
-      <header></header>
       <section>
-        <h1>Login</h1>
+        <FormLogin />
       </section>
-      <footer></footer>
     </>
   );
 }

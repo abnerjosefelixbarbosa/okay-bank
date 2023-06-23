@@ -1,0 +1,38 @@
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ajust {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.conteiner_login_form {
+    border: #000000 solid 1px;
+    width: 500px;
+    height: 300px;
+}
+
+.title_login_form {
+    color: #ffffff;
+    background-color: #00FF7F;
+}
+
+.title_login_form > h1 {
+    text-align: center;
+}
+
+.button_login_form {
+    text-align: center !important;
+    padding: 10px;
+}
+
+.button_login_form > button {
+    width: 50%;
+}
