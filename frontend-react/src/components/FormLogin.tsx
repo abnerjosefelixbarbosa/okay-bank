@@ -3,18 +3,38 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
-import { useState } from "react";
-import Customer from "../models/Customer";
+import { useEffect, useState } from "react";
+import { Customer } from "../models/Customer";
+import { requestLogin } from "../utils/RequestLogin";
 
 export default function FormLogin() {
-  const [customer, setCustomer] = useState<Customer>({});
-  const [count, setCount] = useState<number>(0);
+  const [customer, setCustomer] = useState<Customer>({
+    cpf: "",
+    password: "",
+  });
+  const [clickLogin, setClickLogin] = useState<number>(0);
+
+  useEffect(() => {
+    requestLogin(customer)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [clickLogin]);
 
   return (
     <>
       <div className="ajust">
         <Container className="conteiner_login_form">
-          <Form className="login_form" onSubmit={() => setCount(count + 1)}>
+          <Form
+            className="login_form"
+            onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+              e.preventDefault();
+              setClickLogin(clickLogin + 1);
+            }}
+          >
             <Row className="center title_login_form">
               <h1>Okay Bank</h1>
             </Row>
@@ -25,9 +45,8 @@ export default function FormLogin() {
                   type="text"
                   placeholder="Enter CPF"
                   onChange={(e) => {
-                    setCustomer({
-                      cpf: e.target.value
-                    });
+                    customer.cpf = e.target.value;
+                    setCustomer(customer);
                   }}
                 />
               </Form.Group>
@@ -37,9 +56,8 @@ export default function FormLogin() {
                   type="password"
                   placeholder="Enter Password"
                   onChange={(e) => {
-                    setCustomer({
-                      password: e.target.value,
-                    });
+                    customer.password = e.target.value;
+                    setCustomer(customer);
                   }}
                 />
               </Form.Group>
@@ -54,9 +72,4 @@ export default function FormLogin() {
       </div>
     </>
   );
-}
-
-
-function handLogin(customer: Customer) {
-  console.log(customer)
 }

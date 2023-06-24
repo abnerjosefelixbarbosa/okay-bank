@@ -15,13 +15,13 @@ public class CustomerService implements CustomerInterface {
 
 	public Customer findByid(String id) {
 		return custumerRepository.findById(id).orElseThrow(() -> {
-			return new EntityNotFoundException("id not find");
+			return new EntityNotFoundException("Id not find");
 		});
 	}
 
 	public Customer findByCpfAndPassword(String cpf, String password) {
 		return custumerRepository.findByCpfAndPassword(cpf, password).orElseThrow(() -> {
-			return new EntityNotFoundException("cpf and password not find");
+			return new EntityNotFoundException("CPF and password not find");
 		});
 	}
 }

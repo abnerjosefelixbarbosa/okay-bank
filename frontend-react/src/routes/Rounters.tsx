@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Login from "../pages/Login/Login";
 import NoPage from "../pages/NoPage/NoPage";
 
-export default function Router() {
+export function Router() {
     return (
         <BrowserRouter>
         <Routes>

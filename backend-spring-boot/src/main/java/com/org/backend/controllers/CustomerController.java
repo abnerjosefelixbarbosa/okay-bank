@@ -26,13 +26,11 @@ public class CustomerController {
 	private CustomerInterface customerInterface;
 
 	@Operation(description = "login by cpf and password")
-	@ApiResponses({
-		@ApiResponse(responseCode = "200", description = "Ok"),
-		@ApiResponse(responseCode = "400", description = "Bad request"),
-		@ApiResponse(responseCode = "404", description = "Not found")
-	})
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Ok"),
+			@ApiResponse(responseCode = "400", description = "Bad request"),
+			@ApiResponse(responseCode = "404", description = "Not found") })
 	@ResponseStatus(HttpStatus.OK)
-	@PostMapping(path = "login-by-cpf-and-password", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(path = "/login-by-cpf-and-password", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Customer> loginByCpfAndPassword(@RequestBody @Valid CustomerLoginByCpfAndPasswordDto dto) {
 		var customer = customerInterface.findByCpfAndPassword(dto.getCpf(), dto.getPassword());
 		return ResponseEntity.status(HttpStatus.OK).body(customer);

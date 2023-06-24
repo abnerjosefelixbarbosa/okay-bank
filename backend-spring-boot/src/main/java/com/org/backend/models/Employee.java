@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,11 +20,14 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Data
+@ToString(exclude = {"customers", "accounts", "agencies"})
+@EqualsAndHashCode(exclude = {"customers", "accounts", "agencies"})
 @Entity
 @Table(name = "employee")
+@JsonIgnoreProperties({ "customers", "accounts", "agencies" })
 public class Employee implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
@@ -37,19 +40,10 @@ public class Employee implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "position_id", nullable = false)
 	private Position position;
-	@JsonIgnore
-	@ToString.Exclude
-	@EqualsAndHashCode.Exclude
 	@OneToMany(mappedBy = "employee")
 	private List<Customer> customers;
-	@JsonIgnore
-	@ToString.Exclude
-	@EqualsAndHashCode.Exclude
 	@OneToMany(mappedBy = "employee")
 	private List<Account> accounts;
-	@JsonIgnore
-	@ToString.Exclude
-	@EqualsAndHashCode.Exclude
 	@OneToMany(mappedBy = "employee")
 	private List<Agency> agencies;
 }

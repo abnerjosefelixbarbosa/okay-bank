@@ -1,7 +1,7 @@
-import Employee from "./Employee";
+import { Employee } from "./Employee";
 
-export default interface Agency {
-    id?: string;
-    agency?: string;
-    employee?: Employee;
+export interface Agency {
+  id?: string;
+  agency?: string;
+  employee?: Employee;
 }
