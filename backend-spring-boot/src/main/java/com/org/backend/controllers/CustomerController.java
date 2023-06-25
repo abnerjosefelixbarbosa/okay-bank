@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.org.backend.dtos.CustomerDto;
 import com.org.backend.dtos.CustomerLoginByCpfAndPasswordDto;
 import com.org.backend.interfaces.CustomerInterface;
-import com.org.backend.models.Customer;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -26,13 +26,17 @@ public class CustomerController {
 	private CustomerInterface customerInterface;
 
 	@Operation(description = "login by cpf and password")
-	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Ok"),
+	@ApiResponses({ 
+		    @ApiResponse(responseCode = "200", description = "Ok"),
 			@ApiResponse(responseCode = "400", description = "Bad request"),
-			@ApiResponse(responseCode = "404", description = "Not found") })
+			@ApiResponse(responseCode = "404", description = "Not found") 
+    })
 	@ResponseStatus(HttpStatus.OK)
 	@PostMapping(path = "/login-by-cpf-and-password", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Customer> loginByCpfAndPassword(@RequestBody @Valid CustomerLoginByCpfAndPasswordDto dto) {
+	public ResponseEntity<CustomerDto> loginByCpfAndPassword(@RequestBody @Valid CustomerLoginByCpfAndPasswordDto dto) {
 		var customer = customerInterface.findByCpfAndPassword(dto.getCpf(), dto.getPassword());
-		return ResponseEntity.status(HttpStatus.OK).body(customer);
+		var customerDto = new CustomerDto();
+		customerDto.setLoginByCpfAndPassword(customer);
+		return ResponseEntity.status(HttpStatus.OK).body(customerDto);
 	}
 }

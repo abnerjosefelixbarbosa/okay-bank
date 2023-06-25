@@ -34,6 +34,11 @@ public class AccountController {
 	@GetMapping(path = "/list-all-by-id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Account>> listAllById(@PathVariable String id) {
 		var accounts = accountInterface.findAllByAccount(id);
+		accounts.stream().forEach((val) -> {
+			val.setEmployee(null);
+			val.getAgency().setEmployee(null);
+			val.getCustomer().setEmployee(null);
+		});		
 		return ResponseEntity.status(HttpStatus.OK).body(accounts);
 	}
 }
