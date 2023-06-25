@@ -1,5 +1,6 @@
 package com.org.backend.controllers;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.org.backend.dtos.AccountDto;
 import com.org.backend.interfaces.AccountInterface;
-import com.org.backend.models.Account;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -32,13 +33,14 @@ public class AccountController {
 	})
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping(path = "/list-all-by-id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Account>> listAllById(@PathVariable String id) {
+	public ResponseEntity<List<AccountDto>> listAllById(@PathVariable String id) {
 		var accounts = accountInterface.findAllByAccount(id);
+		var accountDtos = new LinkedList<AccountDto>();
+		var accountDto = new AccountDto();
 		accounts.stream().forEach((val) -> {
-			val.setEmployee(null);
-			val.getAgency().setEmployee(null);
-			val.getCustomer().setEmployee(null);
+			accountDto.setListAllById(val);
+			accountDtos.add(accountDto);
 		});		
-		return ResponseEntity.status(HttpStatus.OK).body(accounts);
+		return ResponseEntity.status(HttpStatus.OK).body(accountDtos);
 	}
 }
