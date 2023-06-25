@@ -18,8 +18,8 @@ export async function requestLogin(customer: Customer) {
   const json = await res.json();
 
   if (res.status !== 200) {
-    const err: string = json.message; 
-    return err;
+    const message: string = json.message; 
+    return message;
   }
   
   customer = { ...json }

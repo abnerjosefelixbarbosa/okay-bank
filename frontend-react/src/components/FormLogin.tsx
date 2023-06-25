@@ -12,17 +12,6 @@ export default function FormLogin() {
     cpf: "",
     password: "",
   });
-  const [clickLogin, setClickLogin] = useState<number>(0);
-
-  useEffect(() => {
-    requestLogin(customer)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [clickLogin]);
 
   return (
     <>
@@ -32,10 +21,16 @@ export default function FormLogin() {
             className="login_form"
             onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
               e.preventDefault();
-              setClickLogin(clickLogin + 1);
+              requestLogin(customer)
+                .then((response) => {
+                  console.log(response);
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
             }}
           >
-            <Row className="center title_login_form">
+            <Row className="title_login_form">
               <h1>Okay Bank</h1>
             </Row>
             <Row>

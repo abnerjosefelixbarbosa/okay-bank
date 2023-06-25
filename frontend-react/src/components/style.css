@@ -22,6 +22,7 @@
 .title_login_form {
     color: #ffffff;
     background-color: #00FF7F;
+    padding-top: 5px;
 }
 
 .title_login_form > h1 {
