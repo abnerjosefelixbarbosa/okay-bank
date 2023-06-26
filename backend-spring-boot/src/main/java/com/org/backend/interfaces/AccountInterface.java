@@ -5,5 +5,5 @@ import java.util.List;
 import com.org.backend.models.Account;
 
 public interface AccountInterface {
-	List<Account> findAllByAccount(String id);
+	List<Account> listAllByAccount(String id);
 }
