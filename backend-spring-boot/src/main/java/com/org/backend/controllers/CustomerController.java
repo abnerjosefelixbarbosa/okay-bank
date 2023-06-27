@@ -37,7 +37,6 @@ public class CustomerController {
 		var cpf = dto.getCpf();
 		var password = dto.getPassword();
 		var customer = customerInterface.loginByCpfAndPassword(cpf, password);
-		customer.setEmployee(null);
 		return ResponseEntity.status(HttpStatus.OK).body(customer);
 	}
 }

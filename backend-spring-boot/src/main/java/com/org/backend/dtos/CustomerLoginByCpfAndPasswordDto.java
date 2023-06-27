@@ -9,6 +9,6 @@ import lombok.Data;
 public class CustomerLoginByCpfAndPasswordDto {
 	@CPF(message = "CPF invalid")
 	private String cpf;
-	@Size(min = 6, max = 6, message = "Password is diferent of 6 characteres")
+	@Size(min = 6, max = 6, message = "Password is different than 6 characteres")
 	private String password;
 }
