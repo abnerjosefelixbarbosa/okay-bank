@@ -9,12 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.org.backend.dtos.AccountFindByAgencyAndAccountDto;
+import com.org.backend.dtos.AccountTransferBalanceDto;
 import com.org.backend.interfaces.AccountInterface;
 import com.org.backend.models.Account;
 
@@ -46,6 +48,14 @@ public class AccountController {
 		var agency = dto.getAgency();
 		var account = dto.getAccount();
 		var result = accountInterface.findByAgencyAndAccount(agency, account);
+		return ResponseEntity.status(HttpStatus.OK).body(result);
+	}
+	
+	@PutMapping(path = "/transfer-balance/{id1}/{id2}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> transferBalance(@PathVariable String id1, @PathVariable String id2, @RequestBody @Valid AccountTransferBalanceDto dto) {
+		var balance = dto.getBalance();
+		dto.validation();
+		var result = accountInterface.transferBalance(id1, id2, balance);
 		return ResponseEntity.status(HttpStatus.OK).body(result);
 	}
 }

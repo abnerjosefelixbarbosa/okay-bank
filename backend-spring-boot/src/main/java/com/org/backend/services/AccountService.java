@@ -1,5 +1,6 @@
 package com.org.backend.services;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +28,25 @@ public class AccountService implements AccountInterface {
 	
 	public Account findByAgencyAndAccount(String agency, String account) {
 		var result = accountRepository.findByAgencyAgencyAndAccount(agency, account).orElseThrow(() -> {
-			return new EntityNotFoundException("Agency and account not found");
+			throw new EntityNotFoundException("Agency and account not found");
 		});
 		result.setEmployee(null);
 		result.getAgency().setEmployee(null);
 		result.getCustomer().setEmployee(null);
 		return result;
+	}
+	
+	public String transferBalance(String id1, String id2, BigDecimal balance) {
+        var result1 = accountRepository.findById(id1).orElseThrow(() -> {
+        	throw new EntityNotFoundException("id1 not found");
+        });
+        var result2 = accountRepository.findById(id2).orElseThrow(() -> {
+        	throw new EntityNotFoundException("id2 not found");
+        });
+        result1.withdraw(balance);
+        result2.deposit(balance);
+        accountRepository.save(result1);
+        accountRepository.save(result2);
+		return "Balance transfed";
 	}
 }

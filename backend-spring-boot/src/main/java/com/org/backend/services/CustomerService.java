@@ -15,7 +15,7 @@ public class CustomerService implements CustomerInterface {
 
 	public Customer loginByCpfAndPassword(String cpf, String password) {
 	    var result = custumerRepository.findByCpfAndPassword(cpf, password).orElseThrow(() -> {
-			return new EntityNotFoundException("CPF and password not find");
+			throw new EntityNotFoundException("CPF and password not find");
 		});
 	    result.setEmployee(null);
         return result;
