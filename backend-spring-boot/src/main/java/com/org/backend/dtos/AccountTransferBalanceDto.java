@@ -17,7 +17,7 @@ public class AccountTransferBalanceDto {
 			throw new EntityBadRequestException("Balance is 0");
 		}
 		if (balance.scale() != 2) {
-			throw new EntityBadRequestException("Balance has different scale than 2");
+			throw new EntityBadRequestException("Balance scale is different than 2 digits");
 		}
 	}
 }

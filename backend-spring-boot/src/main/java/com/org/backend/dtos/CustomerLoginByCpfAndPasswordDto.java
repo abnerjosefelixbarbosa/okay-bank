@@ -13,6 +13,6 @@ public class CustomerLoginByCpfAndPasswordDto {
 	private String cpf;
 	@NotNull(message = "Password is null")
 	@NotEmpty(message = "Password is empty")
-	@Size(min = 6, max = 6, message = "Password is different than 6 characteres")
+	@Size(min = 6, max = 6, message = "Password is different than 6 digits")
 	private String password;
 }
