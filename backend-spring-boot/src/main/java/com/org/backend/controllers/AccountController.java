@@ -39,23 +39,23 @@ public class AccountController {
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping(path = "/list-all-by-id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Account>> listAllById(@PathVariable String id) {
-		var results = accountInterface.listAllByAccount(id);	
-		return ResponseEntity.status(HttpStatus.OK).body(results);
+		var accountModels = accountInterface.listAllByAccount(id);	
+		return ResponseEntity.status(HttpStatus.OK).body(accountModels);
 	}
 	
 	@PostMapping(path = "/find-by-agency-and-account", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Account> findByAgencyAndAccount(@RequestBody @Valid AccountFindByAgencyAndAccountDto dto) {
 		var agency = dto.getAgency();
 		var account = dto.getAccount();
-		var result = accountInterface.findByAgencyAndAccount(agency, account);
-		return ResponseEntity.status(HttpStatus.OK).body(result);
+		var accountModel = accountInterface.findByAgencyAndAccount(agency, account);
+		return ResponseEntity.status(HttpStatus.OK).body(accountModel);
 	}
 	
 	@PutMapping(path = "/transfer-balance/{id1}/{id2}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> transferBalance(@PathVariable String id1, @PathVariable String id2, @RequestBody @Valid AccountTransferBalanceDto dto) {
 		var balance = dto.getBalance();
 		dto.validation();
-		var result = accountInterface.transferBalance(id1, id2, balance);
-		return ResponseEntity.status(HttpStatus.OK).body(result);
+		var message = accountInterface.transferBalance(id1, id2, balance);
+		return ResponseEntity.status(HttpStatus.OK).body(message);
 	}
 }

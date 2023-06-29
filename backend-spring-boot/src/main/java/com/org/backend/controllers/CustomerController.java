@@ -36,7 +36,7 @@ public class CustomerController {
 	public ResponseEntity<Customer> loginByCpfAndPassword(@RequestBody @Valid CustomerLoginByCpfAndPasswordDto dto) {
 		var cpf = dto.getCpf();
 		var password = dto.getPassword();
-		var customer = customerInterface.loginByCpfAndPassword(cpf, password);
-		return ResponseEntity.status(HttpStatus.OK).body(customer);
+		var customerModel = customerInterface.loginByCpfAndPassword(cpf, password);
+		return ResponseEntity.status(HttpStatus.OK).body(customerModel);
 	}
 }

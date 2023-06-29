@@ -17,36 +17,36 @@ public class AccountService implements AccountInterface {
 	private AccountRepository accountRepository;
 	
 	public List<Account> listAllByAccount(String id) {	
-		var result = accountRepository.findByCustomerId(id);
-		result.stream().forEach((val) -> {
+		var accountModels = accountRepository.findByCustomerId(id);
+		accountModels.stream().forEach((val) -> {
 			val.getCustomer().setEmployee(null);
 			val.getAgency().setEmployee(null);
 			val.setEmployee(null);
 		});	
-		return result;
+		return accountModels;
 	}
 	
 	public Account findByAgencyAndAccount(String agency, String account) {
-		var result = accountRepository.findByAgencyAgencyAndAccount(agency, account).orElseThrow(() -> {
+		var accountModel = accountRepository.findByAgencyAgencyAndAccount(agency, account).orElseThrow(() -> {
 			throw new EntityNotFoundException("Agency and account not found");
 		});
-		result.setEmployee(null);
-		result.getAgency().setEmployee(null);
-		result.getCustomer().setEmployee(null);
-		return result;
+		accountModel.setEmployee(null);
+		accountModel.getAgency().setEmployee(null);
+		accountModel.getCustomer().setEmployee(null);
+		return accountModel;
 	}
 	
 	public String transferBalance(String id1, String id2, BigDecimal balance) {
-        var result1 = accountRepository.findById(id1).orElseThrow(() -> {
+        var accountModel1 = accountRepository.findById(id1).orElseThrow(() -> {
         	throw new EntityNotFoundException("id1 not found");
         });
-        var result2 = accountRepository.findById(id2).orElseThrow(() -> {
+        var accountModel2 = accountRepository.findById(id2).orElseThrow(() -> {
         	throw new EntityNotFoundException("id2 not found");
         });
-        result1.withdraw(balance);
-        result2.deposit(balance);
-        accountRepository.save(result1);
-        accountRepository.save(result2);
+        accountModel1.withdraw(balance);
+        accountModel2.deposit(balance);
+        accountRepository.save(accountModel1);
+        accountRepository.save(accountModel2);
 		return "Balance transfed";
 	}
 }

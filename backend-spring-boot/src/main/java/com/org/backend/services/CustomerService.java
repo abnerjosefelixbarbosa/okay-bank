@@ -14,10 +14,10 @@ public class CustomerService implements CustomerInterface {
 	private CustumerRepository custumerRepository;
 
 	public Customer loginByCpfAndPassword(String cpf, String password) {
-	    var result = custumerRepository.findByCpfAndPassword(cpf, password).orElseThrow(() -> {
+	    var customerModel = custumerRepository.findByCpfAndPassword(cpf, password).orElseThrow(() -> {
 			throw new EntityNotFoundException("CPF and password not find");
 		});
-	    result.setEmployee(null);
-        return result;
+	    customerModel.setEmployee(null);
+        return customerModel;
 	}
 }
