@@ -43,6 +43,13 @@ public class AccountController {
 		return ResponseEntity.status(HttpStatus.OK).body(accountModels);
 	}
 	
+	@Operation(description = "find by agency and account")
+	@ApiResponses({
+		@ApiResponse(responseCode = "200", description = "Ok"),
+		@ApiResponse(responseCode = "400", description = "Bad request"),
+		@ApiResponse(responseCode = "404", description = "Not found")
+	})
+	@ResponseStatus(HttpStatus.OK)
 	@PostMapping(path = "/find-by-agency-and-account", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Account> findByAgencyAndAccount(@RequestBody @Valid AccountFindByAgencyAndAccountDto dto) {
 		var agency = dto.getAgency();
@@ -51,6 +58,13 @@ public class AccountController {
 		return ResponseEntity.status(HttpStatus.OK).body(accountModel);
 	}
 	
+	@Operation(description = "transfer balance")
+	@ApiResponses({
+		@ApiResponse(responseCode = "200", description = "Ok"),
+		@ApiResponse(responseCode = "400", description = "Bad request"),
+		@ApiResponse(responseCode = "404", description = "Not found")
+	})
+	@ResponseStatus(HttpStatus.OK)
 	@PutMapping(path = "/transfer-balance/{id1}/{id2}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> transferBalance(@PathVariable String id1, @PathVariable String id2, @RequestBody @Valid AccountTransferBalanceDto dto) {
 		var balance = dto.getBalance();
