@@ -3,3 +3,51 @@ body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ajust {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.conteiner_login_form {
+    border: #000000 solid 1px;
+    width: 500px;
+    height: 300px;
+}
+
+.title_login_form {
+    color: #000000;
+    background-color: #00FF7F;
+    padding-top: 5px;
+}
+
+.title_login_form > h1 {
+    text-align: center;
+}
+
+.button_login_form {
+    text-align: center !important;
+    padding: 10px;
+}
+
+.button_login:hover {
+    background-color: #00FF7F;
+    border-color: #00FF7F;
+    color: #000000;
+}
+
+.button_login {
+    background-color: #00FF7F;
+    border-color: #00FF7F;
+    color: #000000;
+}

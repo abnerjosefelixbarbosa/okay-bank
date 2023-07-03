@@ -1,17 +1,29 @@
-import "./style.css";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import Button from "react-bootstrap/Button";
-import { useEffect, useState } from "react";
-import { Customer } from "../models/Customer";
-import { requestLogin } from "../utils/RequestLogin";
+import { useState } from "react";
+import { Customer } from "../../models/Customer";
+import { requestLogin } from "../../utils/requestLogin";
+import { ButtonLogin } from "../Button/ButtonLogin";
+import { IMaskInput } from 'react-imask';
 
-export default function FormLogin() {
+export function FormLogin() {
   const [customer, setCustomer] = useState<Customer>({
     cpf: "",
     password: "",
   });
+
+  function onLogin(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    console.log(customer);
+    requestLogin(customer)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(() => {
+        console.log("Failed request");
+      });
+  }
 
   return (
     <>
@@ -20,14 +32,7 @@ export default function FormLogin() {
           <Form
             className="login_form"
             onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-              e.preventDefault();
-              requestLogin(customer)
-                .then((response) => {
-                  console.log(response);
-                })
-                .catch((error) => {
-                  console.log(error);
-                });
+              onLogin(e);
             }}
           >
             <Row className="title_login_form">
@@ -38,7 +43,8 @@ export default function FormLogin() {
                 <Form.Label>CPF:</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Enter CPF"
+                  as={IMaskInput}
+                  mask="000.000.000-00"
                   onChange={(e) => {
                     customer.cpf = e.target.value;
                     setCustomer(customer);
@@ -48,8 +54,9 @@ export default function FormLogin() {
               <Form.Group className="mb-3" controlId="password">
                 <Form.Label>Password:</Form.Label>
                 <Form.Control
-                  type="password"
-                  placeholder="Enter Password"
+                  type="password" 
+                  as={IMaskInput}
+                  mask="000000"  
                   onChange={(e) => {
                     customer.password = e.target.value;
                     setCustomer(customer);
@@ -58,9 +65,9 @@ export default function FormLogin() {
               </Form.Group>
             </Row>
             <Row className="center button_login_form">
-              <Button type="submit" variant="primary">
-                Login
-              </Button>
+              <div className="d-grid gap-2">
+                <ButtonLogin />
+              </div>
             </Row>
           </Form>
         </Container>

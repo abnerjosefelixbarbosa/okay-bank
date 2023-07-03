@@ -1,5 +1,5 @@
 import { Customer } from "../models/Customer";
-import { BASE_URL } from "./Request";
+import { BASE_URL } from "./request";
 
 export async function requestLogin(customer: Customer) {
   const init: RequestInit = {
@@ -10,6 +10,7 @@ export async function requestLogin(customer: Customer) {
     },
     body: JSON.stringify(customer),
   };
+  let message = "";
 
   const res = await fetch(
     `${BASE_URL}/customers/login-by-cpf-and-password`,
@@ -17,11 +18,10 @@ export async function requestLogin(customer: Customer) {
   );
   const json = await res.json();
 
-  if (res.status !== 200) {
-    const message: string = json.message; 
+  if (!res.ok) {
+    message = json.message; 
     return message;
   }
-  
-  customer = { ...json }
-  return customer ;
+
+  return message;
 }
