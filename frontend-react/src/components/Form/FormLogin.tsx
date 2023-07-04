@@ -5,28 +5,47 @@ import { useState } from "react";
 import { Customer } from "../../models/Customer";
 import { requestLogin } from "../../utils/requestLogin";
 import { ButtonLogin } from "../Button/ButtonLogin";
-import { IMaskInput } from 'react-imask';
+import { IMaskInput } from "react-imask";
+import { AlertLoginError } from "../Alert/AlertLoginError";
 
 export function FormLogin() {
   const [customer, setCustomer] = useState<Customer>({
     cpf: "",
     password: "",
   });
+  const [showElement, setShowElement] = useState<boolean>(false);
+  const [mesage, setMesage] = useState<string>("");
 
   function onLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(customer);
     requestLogin(customer)
       .then((response) => {
-        console.log(response);
+        if (typeof response === "string") {
+          setMesage(response);
+          setShowElement(true);
+        } else {
+          setShowElement(false);
+        }
       })
-      .catch(() => {
-        console.log("Failed request");
+      .catch((err) => {        
+        if (err.message != "") {
+          setMesage("Failed request");
+          setShowElement(true);
+        } else {
+          setShowElement(false);
+        }
       });
   }
 
   return (
     <>
+      <div className="center">
+        {showElement ? (
+          <div>
+            <AlertLoginError message={mesage} />
+          </div>
+        ) : null}
+      </div>
       <div className="ajust">
         <Container className="conteiner_login_form">
           <Form
@@ -54,9 +73,9 @@ export function FormLogin() {
               <Form.Group className="mb-3" controlId="password">
                 <Form.Label>Password:</Form.Label>
                 <Form.Control
-                  type="password" 
+                  type="password"
                   as={IMaskInput}
-                  mask="000000"  
+                  mask="000000"
                   onChange={(e) => {
                     customer.password = e.target.value;
                     setCustomer(customer);
@@ -75,3 +94,5 @@ export function FormLogin() {
     </>
   );
 }
+
+

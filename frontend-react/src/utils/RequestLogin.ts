@@ -10,7 +10,7 @@ export async function requestLogin(customer: Customer) {
     },
     body: JSON.stringify(customer),
   };
-  let message = "";
+  
 
   const res = await fetch(
     `${BASE_URL}/customers/login-by-cpf-and-password`,
@@ -19,9 +19,10 @@ export async function requestLogin(customer: Customer) {
   const json = await res.json();
 
   if (!res.ok) {
-    message = json.message; 
+    const message: string = json.message;
     return message;
-  }
+  } 
 
-  return message;
+  customer = { ...json }
+  return customer;
 }
