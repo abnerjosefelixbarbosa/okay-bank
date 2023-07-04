@@ -22,7 +22,11 @@ body {
 .conteiner_login_form {
     border: #000000 solid 1px;
     width: 500px;
-    height: 300px;
+    height: auto;
+}
+
+.conteiner_login_haeder {
+    padding-top: 15px;
 }
 
 .title_login_form {
@@ -33,6 +37,10 @@ body {
 
 .title_login_form > h1 {
     text-align: center;
+}
+
+.body_login_form {
+    padding-top: 15px;
 }
 
 .button_login_form {
@@ -47,7 +55,7 @@ body {
 }
 
 .button_login {
-    background-color: #00FF7F;
-    border-color: #00FF7F;
-    color: #000000;
+    background-color: #00FF7F !important;
+    border-color: #00FF7F !important;
+    color: #000000 !important;
 }
