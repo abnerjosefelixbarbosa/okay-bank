@@ -10,9 +10,7 @@ export function ListApresentAccounts() {
 
   useEffect(() => {
     requestListAllById("87110d15-6340-4db1-8a14-63ea369a7df9")
-    .then((response) => {
-      setAccounts(response);
-    });
+    .then((response) => setAccounts(response));
   }, [setAccounts]);
 
   return (
