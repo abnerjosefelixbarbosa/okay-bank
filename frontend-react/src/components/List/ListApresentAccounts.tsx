@@ -3,13 +3,17 @@ import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Account } from "../../models/Account";
+import { requestListAllById } from "../../utils/requestListId";
 
 export function ListApresentAccounts() {
   const [accounts, setAccounts] = useState<Array<Account>>([]);
 
   useEffect(() => {
-    console.log("");
-  }, [accounts]);
+    requestListAllById("87110d15-6340-4db1-8a14-63ea369a7df9")
+    .then((response) => {
+      setAccounts(response);
+    });
+  }, [setAccounts]);
 
   return (
     <>

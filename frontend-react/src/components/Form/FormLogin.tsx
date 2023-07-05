@@ -8,6 +8,7 @@ import { ButtonLogin } from "../Button/ButtonLogin";
 import { IMaskInput } from "react-imask";
 import { AlertLoginError } from "../Alert/AlertLoginError";
 import Col from "react-bootstrap/esm/Col";
+import { BASE_URL } from "../../utils/request";
 
 export function FormLogin() {
   const [customer, setCustomer] = useState<Customer>({
@@ -24,14 +25,7 @@ export function FormLogin() {
         if (typeof response === "string") {
           showMessage(response);
         } else {
-          hiderMessage();
-        }
-      })
-      .catch((err) => {
-        if (err.message != "") {
-          showMessage("Failed request");
-        } else {
-          hiderMessage();
+          hiderMessage();  
         }
       });
   }
