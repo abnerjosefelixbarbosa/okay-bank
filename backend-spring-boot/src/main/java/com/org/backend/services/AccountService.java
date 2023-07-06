@@ -16,6 +16,16 @@ public class AccountService implements AccountInterface {
 	@Autowired
 	private AccountRepository accountRepository;
 	
+	public Account getById(String id) {
+		var accountModel = accountRepository.findById(id).orElseThrow(() -> {
+			throw new EntityNotFoundException("Id not found");
+		});
+		accountModel.getCustomer().setEmployee(null);
+		accountModel.getAgency().setEmployee(null);
+		accountModel.setEmployee(null);
+		return accountModel;
+	}
+	
 	public List<Account> listAllByAccount(String id) {	
 		var accountModels = accountRepository.findByCustomerId(id);
 		accountModels.stream().forEach((val) -> {

@@ -31,6 +31,18 @@ public class AccountController {
 	@Autowired
 	private AccountInterface accountInterface;
 	
+	@Operation(description = "get by id")
+	@ApiResponses({
+		@ApiResponse(responseCode = "200", description = "Ok"),
+		@ApiResponse(responseCode = "404", description = "Not found")
+	})
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping(path = "/get-by-id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Account> getById(@PathVariable String id) {
+		var accountModel = accountInterface.getById(id);
+		return ResponseEntity.status(HttpStatus.OK).body(accountModel);
+	}
+	
 	@Operation(description = "list all by id")
 	@ApiResponses({
 		@ApiResponse(responseCode = "200", description = "Ok"),

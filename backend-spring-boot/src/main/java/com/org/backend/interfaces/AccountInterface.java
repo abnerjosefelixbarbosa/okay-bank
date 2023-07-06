@@ -6,6 +6,7 @@ import java.util.List;
 import com.org.backend.models.Account;
 
 public interface AccountInterface {
+	Account getById(String id);
 	List<Account> listAllByAccount(String id);
 	Account findByAgencyAndAccount(String agency, String account);
 	String transferBalance(String id1, String id2, BigDecimal balance);
