@@ -3,12 +3,23 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import { useState } from "react";
 import { Customer } from "../../models/Customer";
-import { requestLogin } from "../../utils/requestLogin";
 import { ButtonLogin } from "../Button/ButtonLogin";
 import { IMaskInput } from "react-imask";
 import { AlertLoginError } from "../Alert/AlertLoginError";
 import Col from "react-bootstrap/esm/Col";
 import { BASE_URL } from "../../utils/request";
+
+async function request(customer: Customer) {
+  return await fetch(`${BASE_URL}/customers/login-by-cpf-and-password`, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(customer),
+  })
+    .then((response) => response.json())
+    .then((data) => data);
+}
 
 export function FormLogin() {
   const [customer, setCustomer] = useState<Customer>({
@@ -18,16 +29,18 @@ export function FormLogin() {
   const [showElement, setShowElement] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
 
-  function onLogin(e: React.FormEvent<HTMLFormElement>) {
+  function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    requestLogin(customer)
-      .then((response) => {
-        if (typeof response === "string") {
-          showMessage(response);
-        } else {
-          hiderMessage();  
+    request(customer)
+      .then((data) => {
+        if (data.message !== "") {
+          showMessage(data.message);
+        } 
+        if (data.message === undefined) {
+          hiderMessage();
         }
-      });
+      })
+      .catch(() => showMessage("Failure request"));
   }
 
   function showMessage(message: string) {
@@ -58,7 +71,7 @@ export function FormLogin() {
             <Form
               className="login_form"
               onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-                onLogin(e);
+                handleLogin(e);
               }}
             >
               <Row className="title_login_form">
