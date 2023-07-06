@@ -8,6 +8,7 @@ import { IMaskInput } from "react-imask";
 import { AlertLoginError } from "../Alert/AlertLoginError";
 import Col from "react-bootstrap/esm/Col";
 import { BASE_URL } from "../../utils/request";
+import { useNavigate } from "react-router-dom";
 
 async function request(customer: Customer) {
   return await fetch(`${BASE_URL}/customers/login-by-cpf-and-password`, {
@@ -17,8 +18,17 @@ async function request(customer: Customer) {
     },
     body: JSON.stringify(customer),
   })
-    .then((response) => response.json())
-    .then((data) => data);
+    .then(async (response) => {
+      const data = await response.json();
+      const message: string = data.message;
+      const customer: Customer = { ...data };
+      if (response.ok) {
+        return customer
+      }
+      return message;
+    })
+    .then((data) => data)
+    .catch(() => "Failure request");
 }
 
 export function FormLogin() {
@@ -28,19 +38,24 @@ export function FormLogin() {
   });
   const [showElement, setShowElement] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
+  const navigate = useNavigate();
 
   function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     request(customer)
       .then((data) => {
-        if (data.message !== "") {
-          showMessage(data.message);
-        } 
-        if (data.message === undefined) {
+        if (typeof data === "string") {
+          showMessage(data);
+        } else {
           hiderMessage();
-        }
-      })
-      .catch(() => showMessage("Failure request"));
+          navigate("/apresent-accounts", {
+            state: {
+              "id": data.id,
+            },
+            replace: true
+          })
+        }        
+      });
   }
 
   function showMessage(message: string) {
@@ -56,7 +71,6 @@ export function FormLogin() {
   return (
     <>
       <div className="ajust">
-        <div className="center"></div>
         <Container className="conteiner_login_form">
           <Row>
             <Col className="conteiner_login_haeder">

@@ -1,25 +1,69 @@
 import { useEffect, useState } from "react";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
-import ListGroup from "react-bootstrap/ListGroup";
+import Table from "react-bootstrap/Table";
 import { Account } from "../../models/Account";
-import { requestListAllById } from "../../utils/requestListId";
+import { useLocation } from "react-router-dom";
+import { BASE_URL } from "../../utils/request";
+import Button from "react-bootstrap/esm/Button";
+
+async function requestListAllById(id: string) {
+  return await fetch(`${BASE_URL}/accounts/list-all-by-id/${id}`, {
+    method: "GET",
+    headers: {
+      "content-type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      const accounts: Array<Account> = [];
+      accounts.push(...data);
+      return accounts;
+    })
+    .catch(() => "Failure request");
+}
 
 export function ListApresentAccounts() {
+  const location = useLocation();
   const [accounts, setAccounts] = useState<Array<Account>>([]);
 
   useEffect(() => {
-    requestListAllById("87110d15-6340-4db1-8a14-63ea369a7df9")
-    .then((response) => setAccounts(response));
+    requestListAllById(location.state.id).then((data) => {
+      if (typeof data === "object") {
+        setAccounts(data);
+      }
+    });
   }, [setAccounts]);
 
   return (
     <>
       <Container className="container_list">
         <Row className="container_list_body">
-          <ListGroup variant="flush">
-            <ListGroup.Item>Cras justo odio</ListGroup.Item>
-          </ListGroup>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Agency</th>
+                <th>Account</th>
+              </tr>
+            </thead>
+            <tbody>
+              {accounts.map((account) => {
+                return (
+                  <tr key={account.id}>
+                    <td align="center">
+                      <span>{account.agency?.agency}</span>
+                    </td>
+                    <td align="center">
+                      <span>{account.account}</span>
+                    </td>
+                    <td align="center">
+                      <Button>Choose</Button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
         </Row>
       </Container>
     </>
