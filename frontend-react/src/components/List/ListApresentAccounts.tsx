@@ -3,7 +3,7 @@ import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import Table from "react-bootstrap/Table";
 import { Account } from "../../models/Account";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../utils/request";
 import Button from "react-bootstrap/esm/Button";
 
@@ -25,6 +25,7 @@ async function requestListAllById(id: string) {
 
 export function ListApresentAccounts() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [accounts, setAccounts] = useState<Array<Account>>([]);
 
   useEffect(() => {
@@ -33,7 +34,16 @@ export function ListApresentAccounts() {
         setAccounts(data);
       }
     });
-  }, [setAccounts]);
+  });
+
+  function handleChoose(account: Account) {
+    navigate("/detail-account", {
+      state: {
+        id: account.id
+      },
+      replace: true
+    });
+  }
 
   return (
     <>
@@ -57,7 +67,11 @@ export function ListApresentAccounts() {
                       <span>{account.account}</span>
                     </td>
                     <td align="center">
-                      <Button>Choose</Button>
+                      <Button
+                        onClick={() => handleChoose(account)}
+                      >
+                        Choose
+                      </Button>
                     </td>
                   </tr>
                 );

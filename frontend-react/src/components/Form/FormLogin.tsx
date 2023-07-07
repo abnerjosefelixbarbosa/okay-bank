@@ -10,7 +10,7 @@ import Col from "react-bootstrap/esm/Col";
 import { BASE_URL } from "../../utils/request";
 import { useNavigate } from "react-router-dom";
 
-async function request(customer: Customer) {
+async function requestLoginCpfPassword(customer: Customer) {
   return await fetch(`${BASE_URL}/customers/login-by-cpf-and-password`, {
     method: "POST",
     headers: {
@@ -42,7 +42,7 @@ export function FormLogin() {
 
   function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    request(customer)
+    requestLoginCpfPassword(customer)
       .then((data) => {
         if (typeof data === "string") {
           showMessage(data);
