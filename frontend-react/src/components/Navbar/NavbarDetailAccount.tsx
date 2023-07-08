@@ -4,6 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { useEffect, useState } from "react";
 import { Account } from "../../models/Account";
+import { Link } from "react-router-dom";
 
 export function NavbarDetailAccount({ customer } : Account) {
     const [name, setName] = useState<string>("");
@@ -24,7 +25,9 @@ export function NavbarDetailAccount({ customer } : Account) {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link active href="/">Logout</Nav.Link>
+            <Nav.Link>
+              <Link className="link_navbar" to="/" replace={true}>Logout</Link>
+            </Nav.Link>
             <NavDropdown active title="Operations" id="basic-nav-dropdown">
               <NavDropdown.Item href="#">
                 Transfer 
