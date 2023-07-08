@@ -1,0 +1,26 @@
+import Card from "react-bootstrap/Card";
+import Container from "react-bootstrap/esm/Container";
+import Row from "react-bootstrap/esm/Row";
+import { Account } from "../../models/Account";
+import CardHeader from "react-bootstrap/esm/CardHeader";
+
+export function CardDetailAccounts({ account, agency, balance }: Account) {
+  return (
+    <>
+      <Container className="container_detail_accounts">
+        <Row>
+          <Card>
+            <CardHeader className="center">Account detail</CardHeader>
+            <Card.Body>
+                <label>Account:</label> {account}
+                <br />
+                <label>Agency:</label> {agency?.agency}
+                <br />
+                <label>Balance:</label> {balance}
+            </Card.Body>
+          </Card>
+        </Row>
+      </Container>
+    </>
+  );
+}

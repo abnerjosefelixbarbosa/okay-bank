@@ -3,12 +3,12 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import { useState } from "react";
 import { Customer } from "../../models/Customer";
-import { ButtonLogin } from "../Button/ButtonLogin";
 import { IMaskInput } from "react-imask";
 import { AlertLoginError } from "../Alert/AlertLoginError";
 import Col from "react-bootstrap/esm/Col";
 import { BASE_URL } from "../../utils/request";
 import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/esm/Button";
 
 async function requestLoginCpfPassword(customer: Customer) {
   return await fetch(`${BASE_URL}/customers/login-by-cpf-and-password`, {
@@ -23,7 +23,7 @@ async function requestLoginCpfPassword(customer: Customer) {
       const message: string = data.message;
       const customer: Customer = { ...data };
       if (response.ok) {
-        return customer
+        return customer;
       }
       return message;
     })
@@ -42,20 +42,19 @@ export function FormLogin() {
 
   function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    requestLoginCpfPassword(customer)
-      .then((data) => {
-        if (typeof data === "string") {
-          showMessage(data);
-        } else {
-          hiderMessage();
-          navigate("/apresent-accounts", {
-            state: {
-              "id": data.id,
-            },
-            replace: true
-          })
-        }        
-      });
+    requestLoginCpfPassword(customer).then((data) => {
+      if (typeof data === "string") {
+        showMessage(data);
+      } else {
+        hiderMessage();
+        navigate("/apresent-accounts", {
+          state: {
+            id: data.id,
+          },
+          replace: true,
+        });
+      }
+    });
   }
 
   function showMessage(message: string) {
@@ -119,7 +118,9 @@ export function FormLogin() {
               </Row>
               <Row className="center button_login_form">
                 <div className="d-grid gap-2">
-                  <ButtonLogin />
+                  <Button className="button_login" type="submit" size="lg">
+                    Login
+                  </Button>
                 </div>
               </Row>
             </Form>

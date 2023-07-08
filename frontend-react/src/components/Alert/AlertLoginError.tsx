@@ -1,5 +1,8 @@
 import Alert from "react-bootstrap/esm/Alert";
-import { PropsAlert } from "../../utils/propsAlert";
+
+interface PropsAlert {
+  message?: string;
+}
 
 export function AlertLoginError({ message }: PropsAlert) {
     return (
