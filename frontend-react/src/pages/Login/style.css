@@ -19,13 +19,15 @@ body {
     align-items: center;
 }
 
-.conteiner_login_form {
+.container_login_form {
     border: #000000 solid 1px;
+    border-radius: 10px;
     width: 500px;
     height: auto;
+    padding-bottom: 10px;
 }
 
-.conteiner_login_haeder {
+.container_login_haeder {
     padding-top: 15px;
 }
 

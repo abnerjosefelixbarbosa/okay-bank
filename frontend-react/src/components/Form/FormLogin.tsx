@@ -4,11 +4,11 @@ import Row from "react-bootstrap/Row";
 import { useState } from "react";
 import { Customer } from "../../models/Customer";
 import { IMaskInput } from "react-imask";
-import { AlertLoginError } from "../Alert/AlertLoginError";
 import Col from "react-bootstrap/esm/Col";
 import { BASE_URL } from "../../utils/request";
 import { useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/esm/Button";
+import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 
 async function requestLoginCpfPassword(customer: Customer) {
   return await fetch(`${BASE_URL}/customers/login-by-cpf-and-password`, {
@@ -70,12 +70,14 @@ export function FormLogin() {
   return (
     <>
       <div className="ajust">
-        <Container className="conteiner_login_form">
+        <Container className="container_login_form">
           <Row>
-            <Col className="conteiner_login_haeder">
+            <Col className="container_login_haeder">
               {showElement ? (
                 <div>
-                  <AlertLoginError message={message} />
+                  <Alert variant="danger">
+                    <span>{message}</span>
+                  </Alert>
                 </div>
               ) : null}
             </Col>
@@ -115,8 +117,6 @@ export function FormLogin() {
                     }}
                   />
                 </Form.Group>
-              </Row>
-              <Row className="center button_login_form">
                 <div className="d-grid gap-2">
                   <Button className="button_login" type="submit" size="lg">
                     Login

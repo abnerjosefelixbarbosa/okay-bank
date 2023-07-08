@@ -43,7 +43,7 @@ export function DetailAccount() {
 
   return (
     <>
-      <NavbarDetailAccount customer={account.customer} />
+      <NavbarDetailAccount customer={account.customer} id={account.id} />
       <CardDetailAccounts
         account={account.account}
         agency={account.agency}
