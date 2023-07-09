@@ -11,6 +11,16 @@ body {
 }
 
 .container_list {
-    margin-top: 300px;
     border: solid 1px #000;
+    width: 500px;
+    height: auto;
+}
+
+.ajust {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }

@@ -12,9 +12,9 @@ export function CardDetailAccounts({ account, agency, balance }: Account) {
           <Card>
             <CardHeader className="center">Account detail</CardHeader>
             <Card.Body>
-                <label>Account:</label> {account}
-                <br />
                 <label>Agency:</label> {agency?.agency}
+                <br />
+                <label>Account:</label> {account}
                 <br />
                 <label>Balance:</label> {balance}
             </Card.Body>

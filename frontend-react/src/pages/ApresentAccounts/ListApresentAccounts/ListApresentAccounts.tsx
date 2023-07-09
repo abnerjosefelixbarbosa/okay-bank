@@ -23,47 +23,46 @@ export function ListApresentAccounts() {
   function handleChoose(account: Account) {
     navigate("/detail-account", {
       state: {
-        id: account.id
+        id: account.id,
       },
-      replace: true
     });
   }
 
   return (
     <>
-      <Container className="container_list">
-        <Row className="container_list_body">
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Agency</th>
-                <th>Account</th>
-              </tr>
-            </thead>
-            <tbody>
-              {accounts.map((account) => {
-                return (
-                  <tr key={account.id}>
-                    <td align="center">
-                      <span>{account.agency?.agency}</span>
-                    </td>
-                    <td align="center">
-                      <span>{account.account}</span>
-                    </td>
-                    <td align="center">
-                      <Button
-                        onClick={() => handleChoose(account)}
-                      >
-                        Choose
-                      </Button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table>
-        </Row>
-      </Container>
+      <div className="ajust">
+        <Container className="container_list">
+          <Row className="container_list_body">
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Agency</th>
+                  <th>Account</th>
+                </tr>
+              </thead>
+              <tbody>
+                {accounts.map((account) => {
+                  return (
+                    <tr key={account.id}>
+                      <td align="center">
+                        <span>{account.agency?.agency}</span>
+                      </td>
+                      <td align="center">
+                        <span>{account.account}</span>
+                      </td>
+                      <td align="center">
+                        <Button onClick={() => handleChoose(account)}>
+                          Choose
+                        </Button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </Table>
+          </Row>
+        </Container>
+      </div>
     </>
   );
 }

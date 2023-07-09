@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Account } from "../../../models/Account";
 import { Link } from "react-router-dom";
 
-export function NavbarDetailAccount({ customer, id }: Account) {
+export function NavbarDetailAccount({ customer, id, account, agency }: Account) {
   const [name, setName] = useState<string>("");
 
   useEffect(() => {
@@ -34,9 +34,10 @@ export function NavbarDetailAccount({ customer, id }: Account) {
                   className="link_navbar"
                   to="/find-account-and-agency"
                   state={{
-                    "id": id
+                    "id": id,
+                    "agency": agency?.agency,
+                    "account": account,                    
                   }}
-                  replace={true}
                 >
                   Transfer balance
                 </Link>

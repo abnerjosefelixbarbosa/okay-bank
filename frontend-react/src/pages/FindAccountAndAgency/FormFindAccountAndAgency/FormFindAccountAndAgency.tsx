@@ -28,15 +28,20 @@ export function FormFindAccountAndAgency() {
     requestFindAccountAndAgency(account).then((data) => {
       if (typeof data === "string") {
         showMessage(data);
-      } else {
-        hiderMessage();
-        navigate("/confirme-balance", {
-          state: {
-            "id1": location.state.id,
-            "id2": data.id
-          }  
-        });
-      }
+      } 
+      if (typeof data === "object") {
+        if (data.account === location.state.account || data.agency?.agency === location.state.agency) {
+          showMessage("Account logged in");
+        } else {
+          hiderMessage();
+          navigate("/confirme-balance", {
+            state: {
+              "id1": location.state.id,
+              "id2": data.id
+            }  
+          });
+        }
+      } 
     });
   }
 
