@@ -1,4 +1,4 @@
-import { ListApresentAccounts } from "./../../components/List/ListApresentAccounts";
+import { ListApresentAccounts } from "./ListApresentAccounts/ListApresentAccounts";
 import "./style.css"
 
 export function ApresentAccounts() {

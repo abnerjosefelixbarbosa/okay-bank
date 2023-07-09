@@ -1,4 +1,4 @@
-import { FormFindAccountAndAgency } from "../../components/Form/FormFindAccountAndAgency";
+import { FormFindAccountAndAgency } from "./FormFindAccountAndAgency/FormFindAccountAndAgency";
 import "./style.css";
 
 export function FindAccountAndAgency() {

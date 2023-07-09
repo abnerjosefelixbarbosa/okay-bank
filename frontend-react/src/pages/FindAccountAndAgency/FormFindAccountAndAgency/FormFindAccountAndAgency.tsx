@@ -1,39 +1,15 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/esm/Container";
+import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import { IMaskInput } from "react-imask";
 import { useState } from "react";
-import { Account } from "../../models/Account";
-import { Agency } from "../../models/Agency";
-import { BASE_URL } from "../../utils/request";
+import { Account } from "../../../models/Account";
+import { Agency } from "../../../models/Agency";
 import Alert from "react-bootstrap/Alert";
 import Col from "react-bootstrap/Col";
-
-async function requestFindAccountAndAgency(account: Account) {
-  return await fetch(`${BASE_URL}/accounts/find-by-agency-and-account`, {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify({
-      agency: account.agency?.agency,
-      account: account.account,
-    }),
-  })
-    .then(async (response) => {
-      const data = await response.json();
-      const message: string = data.message;
-      account = { ...data };
-      if (response.ok) {
-        return account;
-      }
-      return message;
-    })
-    .then((data) => data)
-    .catch(() => "Failure request");
-}
+import { requestFindAccountAndAgency } from "../../../service/requestFindAccountAndAgency";
 
 export function FormFindAccountAndAgency() {
   const location = useLocation();

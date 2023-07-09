@@ -1,7 +1,7 @@
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
-import { Account } from "../../models/Account";
+import { Account } from "../../../models/Account";
 import CardHeader from "react-bootstrap/esm/CardHeader";
 
 export function CardDetailAccounts({ account, agency, balance }: Account) {

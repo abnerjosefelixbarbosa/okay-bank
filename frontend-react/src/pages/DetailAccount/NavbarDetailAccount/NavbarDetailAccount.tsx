@@ -3,7 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { useEffect, useState } from "react";
-import { Account } from "../../models/Account";
+import { Account } from "../../../models/Account";
 import { Link } from "react-router-dom";
 
 export function NavbarDetailAccount({ customer, id }: Account) {

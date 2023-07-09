@@ -1,5 +1,5 @@
 import "./style.css";
-import { FormLogin } from "../../components/Form/FormLogin";
+import { FormLogin } from "./FormLogin/FormLogin";
 
 export function Login() {
   return (

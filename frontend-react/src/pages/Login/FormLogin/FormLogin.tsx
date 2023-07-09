@@ -2,34 +2,13 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import { useState } from "react";
-import { Customer } from "../../models/Customer";
+import { Customer } from "../../../models/Customer";
 import { IMaskInput } from "react-imask";
 import Col from "react-bootstrap/esm/Col";
-import { BASE_URL } from "../../utils/request";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
-
-async function requestLoginCpfPassword(customer: Customer) {
-  return await fetch(`${BASE_URL}/customers/login-by-cpf-and-password`, {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(customer),
-  })
-    .then(async (response) => {
-      const data = await response.json();
-      const message: string = data.message;
-      const customer: Customer = { ...data };
-      if (response.ok) {
-        return customer;
-      }
-      return message;
-    })
-    .then((data) => data)
-    .catch(() => "Failure request");
-}
+import { requestLoginCpfPassword } from "../../../service/requestLoginCpfPassword";
 
 export function FormLogin() {
   const [customer, setCustomer] = useState<Customer>({

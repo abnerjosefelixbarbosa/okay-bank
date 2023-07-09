@@ -2,26 +2,10 @@ import { useEffect, useState } from "react";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import Table from "react-bootstrap/Table";
-import { Account } from "../../models/Account";
+import { Account } from "../../../models/Account";
 import { useLocation, useNavigate } from "react-router-dom";
-import { BASE_URL } from "../../utils/request";
-import Button from "react-bootstrap/esm/Button";
-
-async function requestListAllById(id: string) {
-  return await fetch(`${BASE_URL}/accounts/list-all-by-id/${id}`, {
-    method: "GET",
-    headers: {
-      "content-type": "application/json",
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      const accounts: Array<Account> = [];
-      accounts.push(...data);
-      return accounts;
-    })
-    .catch(() => "Failure request");
-}
+import Button from "react-bootstrap/Button";
+import { requestListAllById } from "../../../service/requestListAllById";
 
 export function ListApresentAccounts() {
   const location = useLocation();
