@@ -5,7 +5,7 @@ import Table from "react-bootstrap/Table";
 import { Account } from "../../../models/Account";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-import { requestListAllById } from "../../../service/requestListAllById";
+import { AccountService } from "../../../services/AccountService";
 
 export function ListApresentAccounts() {
   const location = useLocation();
@@ -13,7 +13,8 @@ export function ListApresentAccounts() {
   const [accounts, setAccounts] = useState<Array<Account>>([]);
 
   useEffect(() => {
-    requestListAllById(location.state.id).then((data) => {
+    const accountService = new AccountService();
+    accountService.listAllById(location.state.id).then((data) => {
       if (typeof data === "object") {
         setAccounts(data);
       }

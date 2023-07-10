@@ -1,0 +1,25 @@
+import { Customer } from '../models/Customer';
+import { BASE_URL } from '../utils/Request';
+
+export class CustomerService {
+    public async loginByCpfAndPassword(customer: Customer): Promise<string | Customer> {
+        return await fetch(`${BASE_URL}/customers/login-by-cpf-and-password`, {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(customer),
+          })
+            .then(async (response) => {
+              const data = await response.json();
+              const message: string = data.message;
+              const customer: Customer = { ...data };
+              if (response.ok) {
+                return customer;
+              }
+              return message;
+            })
+            .then((data) => data)
+            .catch(() => "Failure request");
+    }
+}

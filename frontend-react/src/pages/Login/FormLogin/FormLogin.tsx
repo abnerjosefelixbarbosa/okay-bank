@@ -8,7 +8,7 @@ import Col from "react-bootstrap/esm/Col";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
-import { requestLoginCpfPassword } from "../../../service/requestLoginCpfPassword";
+import { CustomerService } from "../../../services/CustomerService";
 
 export function FormLogin() {
   const [customer, setCustomer] = useState<Customer>({
@@ -21,7 +21,8 @@ export function FormLogin() {
 
   function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    requestLoginCpfPassword(customer).then((data) => {
+    const customerService = new CustomerService();
+    customerService.loginByCpfAndPassword(customer).then((data) => {
       if (typeof data === "string") {
         showMessage(data);
       } else {
@@ -62,12 +63,7 @@ export function FormLogin() {
             </Col>
           </Row>
           <Row>
-            <Form
-              className="login_form"
-              onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-                handleLogin(e);
-              }}
-            >
+            <Form className="login_form" onSubmit={handleLogin}>
               <Row className="title_login_form">
                 <h1>Okay Bank</h1>
               </Row>

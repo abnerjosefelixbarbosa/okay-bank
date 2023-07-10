@@ -5,14 +5,15 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { NavbarDetailAccount } from "./NavbarDetailAccount/NavbarDetailAccount";
 import { CardDetailAccounts } from "./CardDetailAccount/CardDetailAccount";
-import { requestGetById } from "../../service/requestGetById";
+import { AccountService } from './../../services/AccountService';
 
 export function DetailAccount() {
   const location = useLocation();
   const [account, setAccount] = useState<Account>({});
 
   useEffect(() => {
-    requestGetById(location.state.id).then((data) => {
+    const accountService = new AccountService();
+    accountService.getById(location.state.id).then((data) => {
       if (typeof data === "object") {
         setAccount(data);
         return data.customer?.name;
