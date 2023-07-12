@@ -2,7 +2,7 @@ import { Account } from "../models/Account";
 import { BASE_URL } from "../utils/Request";
 
 export class AccountService {
-    async listAllById(id: string): Promise<string | Account[]> {
+    async listAllById(id: string) {
         return await fetch(`${BASE_URL}/accounts/list-all-by-id/${id}`, {
             method: "GET",
             headers: {
@@ -18,7 +18,7 @@ export class AccountService {
             .catch(() => "Failure request");
     }
 
-    async findByAgencyAndAccount(account: Account): Promise<string | Account> {
+    async findByAgencyAndAccount(account: Account) {
       return await fetch(`${BASE_URL}/accounts/find-by-agency-and-account`, {
         method: "POST",
         headers: {

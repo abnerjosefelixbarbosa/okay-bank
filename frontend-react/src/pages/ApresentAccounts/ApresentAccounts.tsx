@@ -1,5 +1,5 @@
 import { ListApresentAccounts } from "./ListApresentAccounts/ListApresentAccounts";
-import "./style.css"
+import "./style.css";
 
 export function ApresentAccounts() {
   return (

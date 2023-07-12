@@ -2,7 +2,7 @@ import { Customer } from '../models/Customer';
 import { BASE_URL } from '../utils/Request';
 
 export class CustomerService {
-    public async loginByCpfAndPassword(customer: Customer): Promise<string | Customer> {
+    public async loginByCpfAndPassword(customer: Customer) {
         return await fetch(`${BASE_URL}/customers/login-by-cpf-and-password`, {
             method: "POST",
             headers: {
