@@ -13,7 +13,14 @@ Okay bank full stack app for performing banking services.
 
 # Features
 
-- Login to the account by CPF and password
+## Customer
+- Login by CPF and password
+
+## Account
+- Get by id
+- List all by account
+- Find by agency and account
+- Transfer balance
 
 ## Back end
 - Java 17
