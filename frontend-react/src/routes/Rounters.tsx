@@ -4,7 +4,7 @@ import { NoPage } from "../pages/NoPage/NoPage";
 import { ApresentAccounts } from "../pages/ApresentAccounts/ApresentAccounts";
 import { DetailAccount } from "../pages/DetailAccount/DetailAccount";
 import { FindAccountAndAgency } from "../pages/FindAccountAndAgency/FindAccountAndAgency";
-import { ConfirmeBalance } from "../pages/ConfirmeBalance/ConfirmeBalance";
+import { ConfirmeBalance } from "../pages/ConfirmeBalance/ConfirmBalance";
 
 export function Router() {
   return (
