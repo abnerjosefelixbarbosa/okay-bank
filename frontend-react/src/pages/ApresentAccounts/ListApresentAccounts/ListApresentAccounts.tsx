@@ -19,7 +19,7 @@ export function ListApresentAccounts() {
         setAccounts(data);
       }
     });
-  });
+  }, [setAccounts]);
 
   function handleChoose(account: Account) {
     navigate("/detail-account", {

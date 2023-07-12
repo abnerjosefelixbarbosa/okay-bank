@@ -12,3 +12,16 @@
     text-decoration: none;
     color: #000000;
 }
+
+.navbar {
+    background-color: #00FF7F !important;
+}
+
+.card {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.card_header {
+    background-color: #00FF7F !important;
+}

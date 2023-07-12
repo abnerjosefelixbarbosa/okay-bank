@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Account } from "../../../models/Account";
 import { Link } from "react-router-dom";
 
-export function NavbarDetailAccount({ customer, id, account, agency }: Account) {
+export function NavbarDetailAccount({ customer, id, account, agency, balance }: Account) {
   const [name, setName] = useState<string>("");
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export function NavbarDetailAccount({ customer, id, account, agency }: Account) 
   });
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" className="bg-body-tertiary navbar">
       <Container fluid>
         <Navbar.Brand>{`Hello ${name}`}</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -36,7 +36,8 @@ export function NavbarDetailAccount({ customer, id, account, agency }: Account) 
                   state={{
                     "id": id,
                     "agency": agency?.agency,
-                    "account": account,                    
+                    "account": account,  
+                    "balance": balance                  
                   }}
                 >
                   Transfer balance

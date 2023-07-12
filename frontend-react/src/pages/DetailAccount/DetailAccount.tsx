@@ -16,10 +16,9 @@ export function DetailAccount() {
     accountService.getById(location.state.id).then((data) => {
       if (typeof data === "object") {
         setAccount(data);
-        return data.customer?.name;
       }
     });
-  });
+  }, [setAccount]);
 
   return (
     <>
@@ -27,6 +26,7 @@ export function DetailAccount() {
         agency={account.agency}
         account={account.account}
         customer={account.customer}
+        balance={account.balance}
         id={account.id}
       />
       <CardDetailAccounts

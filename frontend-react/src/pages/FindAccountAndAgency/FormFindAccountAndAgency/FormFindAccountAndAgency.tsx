@@ -39,7 +39,8 @@ export function FormFindAccountAndAgency() {
           navigate("/confirme-balance", {
             state: {
               "id1": location.state.id,
-              "id2": data.id
+              "id2": data.id,
+              "balance": location.state.balance,
             }  
           });
         }

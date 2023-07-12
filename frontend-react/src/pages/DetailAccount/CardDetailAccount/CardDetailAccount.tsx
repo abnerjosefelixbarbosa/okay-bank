@@ -9,8 +9,8 @@ export function CardDetailAccounts({ account, agency, balance }: Account) {
     <>
       <Container className="container_detail_accounts">
         <Row>
-          <Card>
-            <CardHeader className="center">Account detail</CardHeader>
+          <Card className="card">
+            <CardHeader className="center card_header">Account detail</CardHeader>
             <Card.Body>
                 <label>Agency:</label> {agency?.agency}
                 <br />
