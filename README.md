@@ -13,7 +13,18 @@ Okay bank full stack app for performing banking services.
 
 # Features
 
-- Login to the account by CPF and password
+## Customer
+- Login by CPF and password
+
+## Account
+- Get by id
+- List all by account
+- Find by agency and account
+- Transfer balance
+
+## Front end
+- React js
+- Bootstrap
 
 ## Back end
 - Java 17
@@ -25,9 +36,10 @@ Okay bank full stack app for performing banking services.
 - Lombok
 - Junit
 - Swagger
+- Database MySQL 
 
-# Execution of project
-Pré-requisito: Java 17
+# Execution of the project
+pre-requisite: Java 17
 
 ## SQL
 ```SQL
