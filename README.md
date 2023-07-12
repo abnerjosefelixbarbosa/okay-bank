@@ -27,7 +27,7 @@ Okay bank full stack app for performing banking services.
 - Swagger
 
 # Execution of project
-Pré-requisito: Java 17
+pre-requisite: Java 17
 
 ## SQL
 ```SQL
