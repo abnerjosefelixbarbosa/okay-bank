@@ -22,6 +22,10 @@ Okay bank full stack app for performing banking services.
 - Find by agency and account
 - Transfer balance
 
+## Front end
+- React js
+- Bootstrap
+
 ## Back end
 - Java 17
 - Spring boot
@@ -32,8 +36,9 @@ Okay bank full stack app for performing banking services.
 - Lombok
 - Junit
 - Swagger
+- Database MySQL 
 
-# Execution of project
+# Execution of the project
 pre-requisite: Java 17
 
 ## SQL
