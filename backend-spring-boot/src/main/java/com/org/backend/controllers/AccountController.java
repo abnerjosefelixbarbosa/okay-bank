@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.org.backend.dtos.AccountFindByAgencyAndAccountDto;
 import com.org.backend.dtos.AccountTransferBalanceDto;
 import com.org.backend.interfaces.AccountInterface;
-import com.org.backend.models.Account;
+import com.org.backend.models.entities.Account;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

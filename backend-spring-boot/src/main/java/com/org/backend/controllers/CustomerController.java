@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.org.backend.dtos.CustomerLoginByCpfAndPasswordDto;
 import com.org.backend.interfaces.CustomerInterface;
-import com.org.backend.models.Customer;
+import com.org.backend.models.entities.Customer;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

@@ -1,4 +1,4 @@
-package com.org.backend.models;
+package com.org.backend.models.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;

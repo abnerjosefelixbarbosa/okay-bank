@@ -1,4 +1,4 @@
-package com.org.backend.services;
+package com.org.backend.models.services;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.org.backend.exceptions.EntityNotFoundException;
 import com.org.backend.interfaces.AccountInterface;
-import com.org.backend.models.Account;
+import com.org.backend.models.entities.Account;
 import com.org.backend.repositories.AccountRepository;
 
 @Service

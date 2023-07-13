@@ -3,7 +3,7 @@ package com.org.backend.interfaces;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.org.backend.models.Account;
+import com.org.backend.models.entities.Account;
 
 public interface AccountInterface {
 	Account getById(String id);
