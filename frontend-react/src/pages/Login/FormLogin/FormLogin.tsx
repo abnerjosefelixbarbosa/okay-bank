@@ -2,13 +2,13 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import { useState } from "react";
-import { Customer } from "../../../models/Customer";
+import { Customer } from "../../../models/entities/Customer";
 import { IMaskInput } from "react-imask";
 import Col from "react-bootstrap/esm/Col";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
-import { CustomerService } from "../../../services/CustomerService";
+import { loginByCpfAndPassword } from "../../../models/services/CustomerService";
 
 export function FormLogin() {
   const [customer, setCustomer] = useState<Customer>({
@@ -21,8 +21,7 @@ export function FormLogin() {
 
   function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const customerService = new CustomerService();
-    customerService.loginByCpfAndPassword(customer).then((data) => {
+    loginByCpfAndPassword(customer).then((data) => {
       if (typeof data === "string") {
         showMessage(data);
       } else {

@@ -5,11 +5,11 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import { IMaskInput } from "react-imask";
 import React, { useState } from "react";
-import { Account } from "../../../models/Account";
-import { Agency } from "../../../models/Agency";
+import { Account } from "../../../models/entities/Account";
+import { Agency } from "../../../models/entities/Agency";
 import Alert from "react-bootstrap/Alert";
 import Col from "react-bootstrap/Col";
-import { AccountService } from "../../../services/AccountService";
+import { findByAgencyAndAccount } from "../../../models/services/AccountService";
 
 export function FormFindAccountAndAgency() {
   const location = useLocation();
@@ -26,8 +26,7 @@ export function FormFindAccountAndAgency() {
 
   function handleFind(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const accountService = new AccountService();
-    accountService.findByAgencyAndAccount(account).then((data) => {
+    findByAgencyAndAccount(account).then((data) => {
       if (typeof data === "string") {
         showMessage(data);
       } 
