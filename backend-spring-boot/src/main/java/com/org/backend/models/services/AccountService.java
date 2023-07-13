@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.org.backend.exceptions.EntityNotFoundException;
 import com.org.backend.interfaces.AccountInterface;
 import com.org.backend.models.entities.Account;
-import com.org.backend.repositories.AccountRepository;
+import com.org.backend.models.repositories.AccountRepository;
 
 @Service
 public class AccountService implements AccountInterface {

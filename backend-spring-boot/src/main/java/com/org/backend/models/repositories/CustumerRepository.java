@@ -1,4 +1,4 @@
-package com.org.backend.repositories;
+package com.org.backend.models.repositories;
 
 import java.util.Optional;
 

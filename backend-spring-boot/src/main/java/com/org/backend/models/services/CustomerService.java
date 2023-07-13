@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.org.backend.exceptions.EntityNotFoundException;
 import com.org.backend.interfaces.CustomerInterface;
 import com.org.backend.models.entities.Customer;
-import com.org.backend.repositories.CustumerRepository;
+import com.org.backend.models.repositories.CustumerRepository;
 
 @Service
 public class CustomerService implements CustomerInterface {
