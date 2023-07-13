@@ -19,8 +19,6 @@ export function FormConfirmBalance() {
   function handleConfirm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (account.balance !== undefined) {
-      //const val = account.balance.toString();
-      //const list = val.split(".");
       if (account.balance > location.state.balance) {
         showMessage("Value greater than current balance");
       } else if (account.balance === 0) {
