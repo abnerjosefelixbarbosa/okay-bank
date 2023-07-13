@@ -4,11 +4,12 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import { useState } from "react";
 import { Account } from "../../../models/Account";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Alert from "react-bootstrap/esm/Alert";
 
 export function FormConfirmBalance() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [account, setAccount] = useState<Account>({
     balance: 0,
   });
@@ -18,10 +19,22 @@ export function FormConfirmBalance() {
   function handleConfirm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (account.balance !== undefined) {
+      //const val = account.balance.toString();
+      //const list = val.split(".");
       if (account.balance > location.state.balance) {
         showMessage("Value greater than current balance");
+      } else if (account.balance === 0) {
+        showMessage("Value is 0");
       } else {
         hiderMessage();
+        navigate("/confirm-transfer", {
+          state: {
+            id1: location.state.id1,
+            id2: location.state.id2,
+            password: location.state.password,
+            balance: account.balance,
+          },
+        });
       }
     }
   }

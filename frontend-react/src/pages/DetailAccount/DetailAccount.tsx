@@ -27,6 +27,7 @@ export function DetailAccount() {
         account={account.account}
         customer={account.customer}
         balance={account.balance}
+        password={account.password}
         id={account.id}
       />
       <CardDetailAccounts

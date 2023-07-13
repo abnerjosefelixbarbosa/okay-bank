@@ -36,10 +36,11 @@ export function FormFindAccountAndAgency() {
           showMessage("Account logged in");
         } else {
           hiderMessage();
-          navigate("/confirme-balance", {
+          navigate("/confirm-balance", {
             state: {
-              "id1": location.state.id,
+              "id1": location.state.id,              
               "id2": data.id,
+              "password": location.state.password,
               "balance": location.state.balance,
             }  
           });

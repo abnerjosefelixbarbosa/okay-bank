@@ -4,7 +4,8 @@ import { NoPage } from "../pages/NoPage/NoPage";
 import { ApresentAccounts } from "../pages/ApresentAccounts/ApresentAccounts";
 import { DetailAccount } from "../pages/DetailAccount/DetailAccount";
 import { FindAccountAndAgency } from "../pages/FindAccountAndAgency/FindAccountAndAgency";
-import { ConfirmeBalance } from "../pages/ConfirmeBalance/ConfirmBalance";
+import { ConfirmBalance } from "../pages/ConfirmBalance/ConfirmBalance";
+import { ConfirmTransfer } from "../pages/ConfirmTransfer/ConfirmTransfer";
 
 export function Router() {
   return (
@@ -14,7 +15,8 @@ export function Router() {
         <Route path="/apresent-accounts" element={<ApresentAccounts />}/>
         <Route path="/detail-account" element={<DetailAccount />}/>
         <Route path="/find-account-and-agency" element={<FindAccountAndAgency />} />
-        <Route path="/confirme-balance" element={<ConfirmeBalance />} />
+        <Route path="/confirm-balance" element={<ConfirmBalance />} />
+        <Route path="/confirm-transfer" element={<ConfirmTransfer />} />
         <Route path="*" element={<NoPage />} />
       </Routes>
     </BrowserRouter>

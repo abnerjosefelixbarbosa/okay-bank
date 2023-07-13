@@ -1,7 +1,7 @@
 import { FormConfirmBalance } from "./FormConfirmBalance/FormConfirmBalance";
 import "./style.css";
 
-export function ConfirmeBalance() {
+export function ConfirmBalance() {
   return (
     <>
       <FormConfirmBalance />
