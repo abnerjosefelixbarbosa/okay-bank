@@ -27,7 +27,7 @@ export function FormConfirmTransfer() {
                 <Form.Control
                   type="password"
                   as={IMaskInput}
-                  mask="0000"
+                  mask={"0000"}
                   onChange={(e) => {
                     account.password = e.target.value;
                     setAccount(account);

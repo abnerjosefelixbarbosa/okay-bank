@@ -65,10 +65,13 @@ export function FormConfirmBalance() {
               <Form.Group className="mb-3">
                 <Form.Label>Balance</Form.Label>
                 <Form.Control
-                  type="number"
-                  step=".01"
+                  type="text"
                   onChange={(e) => {
-                    account.balance = Number.parseFloat(e.target.value);
+                    let value = e.target.value;
+                    value = value.replace(/\D/g, "");
+                    value = value.replace(/(\d+)(\d{2})$/, "$1.$2");
+                    e.target.value = value;
+                    account.balance = Number(e.target.value);
                     setAccount(account);
                   }}
                 />
