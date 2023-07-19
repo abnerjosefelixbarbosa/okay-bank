@@ -2,38 +2,39 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import { useState } from "react";
-import { Customer } from "../../../models/entities/Customer";
-import { IMaskInput } from "react-imask";
-import Col from "react-bootstrap/esm/Col";
+import Col from "react-bootstrap/Col";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
-import { loginByCpfAndPassword } from "../../../models/services/CustomerService";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const schema = z.object({
+  cpf: z.string()
+  .regex((/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/), "cpf invalid"),
+  password: z.string()
+  .regex(/^\d{6}$/, "password invalid"),
+});
+
+type FormProps = z.infer<typeof schema>;
 
 export function FormLogin() {
-  const [customer, setCustomer] = useState<Customer>({
-    cpf: "",
-    password: "",
-  });
   const [showElement, setShowElement] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
   const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting, isValid },
+  } = useForm<FormProps>({
+    mode: "all",
+    reValidateMode: "onChange",
+    resolver: zodResolver(schema),
+  });
 
-  function handleLogin(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    loginByCpfAndPassword(customer).then((data) => {
-      if (typeof data === "string") {
-        showMessage(data);
-      } else {
-        hiderMessage();
-        navigate("/apresent-accounts", {
-          state: {
-            id: data.id,
-          },
-          replace: true,
-        });
-      }
-    });
+  function handleLogin(data: FormProps) {
+    console.log(data);
   }
 
   function showMessage(message: string) {
@@ -62,7 +63,7 @@ export function FormLogin() {
             </Col>
           </Row>
           <Row>
-            <Form className="login_form" onSubmit={handleLogin}>
+            <Form className="login_form" onSubmit={handleSubmit(handleLogin)}>
               <Row className="title_login_form">
                 <h1>Okay Bank</h1>
               </Row>
@@ -70,29 +71,42 @@ export function FormLogin() {
                 <Form.Group className="mb-3" controlId="cpf">
                   <Form.Label>CPF:</Form.Label>
                   <Form.Control
-                    type="text"
-                    as={IMaskInput}
-                    mask="000.000.000-00"
+                    type="text" { ...register("cpf") }
                     onChange={(e) => {
-                      customer.cpf = e.target.value;
-                      setCustomer(customer);
+                      let value = e.target.value;
+                      value = value.replace(/(\D)/g, "");
+                      value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "$1.$2.$3-$4");
+                      e.target.value = value;
                     }}
                   />
+                  <Form.Text className="text-muted">
+                    {errors.cpf?.message}
+                  </Form.Text>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="password">
                   <Form.Label>Password:</Form.Label>
                   <Form.Control
                     type="password"
-                    as={IMaskInput}
-                    mask="000000"
+                    {...register("password")}
                     onChange={(e) => {
-                      customer.password = e.target.value;
-                      setCustomer(customer);
+                      let value = e.target.value;
+                      value = value.replace(/(\D)/g, "");
+                      value = value.replace(/([0-9]).{6,}/g, "");
+                      e.target.value = value;
                     }}
                   />
+                  <Form.Text className="text-muted">
+                    {errors.password?.message}
+                  </Form.Text>
                 </Form.Group>
                 <div className="d-grid gap-2">
-                  <Button className="button_login" type="submit" size="lg">
+                  <Button
+                   className="button_login"
+                   type="submit"
+                   size="lg"
+                   disabled={!isValid}
+                   onLoad={() => isSubmitting}
+                  >
                     Login
                   </Button>
                 </div>

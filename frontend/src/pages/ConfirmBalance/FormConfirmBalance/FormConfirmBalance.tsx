@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import { useState } from "react";
-import { Account } from "../../../models/entities/Account";
+import { Account } from "../../../models/Account";
 import { useLocation, useNavigate } from "react-router-dom";
 import Alert from "react-bootstrap/esm/Alert";
 

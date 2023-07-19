@@ -1,5 +1,5 @@
-import { Account } from "../entities/Account";
-import { BASE_URL } from "../../utils/Request";
+import { Account } from "../models/Account";
+import { BASE_URL } from "../utils/Request";
 
 export async function listAllById(id: string) {
   return await fetch(`${BASE_URL}/accounts/list-all-by-id/${id}`, {

@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import Table from "react-bootstrap/Table";
-import { Account } from "../../../models/entities/Account";
+import { Account } from "../../../models/Account";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-import { listAllById } from "../../../models/services/AccountService";
+import { listAllById } from "../../../services/AccountService";
 
 export function ListApresentAccounts() {
   const location = useLocation();

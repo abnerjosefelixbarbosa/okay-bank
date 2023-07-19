@@ -1,11 +1,11 @@
 import { useLocation } from "react-router-dom";
-import { Account } from "../../models/entities/Account";
+import { Account } from "../../models/Account";
 import "./style.css";
 import { useState } from "react";
 import { useEffect } from "react";
 import { NavbarDetailAccount } from "./NavbarDetailAccount/NavbarDetailAccount";
 import { CardDetailAccounts } from "./CardDetailAccount/CardDetailAccount";
-import { getById } from '../../models/services/AccountService';
+import { getById } from '../../services/AccountService';
 
 export function DetailAccount() {
   const location = useLocation();

@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
-import { Account } from "../../../models/entities/Account";
+import { Account } from "../../../models/Account";
 import { IMaskInput } from "react-imask";
 
 export function FormConfirmTransfer() {
