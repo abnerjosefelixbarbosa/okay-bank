@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({
   cpf: z.string()
-  .regex((/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/), "cpf invalid"),
+  .regex((/^\d{3}\.\d{3}\.\d{3}-\d{2}$/), "cpf invalid"),
   password: z.string()
   .regex(/^\d{6}$/, "password invalid"),
 });
@@ -75,6 +75,9 @@ export function FormLogin() {
                     onChange={(e) => {
                       let value = e.target.value;
                       value = value.replace(/(\D)/g, "");
+                      if (value.length > 11) {
+                        value = value.substring(0, 11)
+                      }
                       value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "$1.$2.$3-$4");
                       e.target.value = value;
                     }}
@@ -90,8 +93,10 @@ export function FormLogin() {
                     {...register("password")}
                     onChange={(e) => {
                       let value = e.target.value;
-                      value = value.replace(/(\D)/g, "");
-                      value = value.replace(/([0-9]).{6,}/g, "");
+                      value = value.replace(/(\D)/g, ""); 
+                      if (value.length > 6) {
+                        value = value.substring(0, 6)
+                      }
                       e.target.value = value;
                     }}
                   />
