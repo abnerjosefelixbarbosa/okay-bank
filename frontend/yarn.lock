@@ -1647,6 +1647,11 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
+validation-br@^1.4.4:
+  version "1.4.4"
+  resolved "https://registry.npmjs.org/validation-br/-/validation-br-1.4.4.tgz"
+  integrity sha512-7CPzlwWQO3coCMciH4GbyMBK3h1tNG+ZrY6R97IyUZC1WS0GCYlH2j6pQCIdhZdZOpe/nwv7px1+F2k0RWvaWQ==
+
 vite@^4.2.0, vite@^4.3.9:
   version "4.3.9"
   resolved "https://registry.npmjs.org/vite/-/vite-4.3.9.tgz"

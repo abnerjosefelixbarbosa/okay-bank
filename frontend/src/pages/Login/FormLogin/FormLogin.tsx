@@ -9,12 +9,13 @@ import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CustomerValidation } from './../../../utils/CustomerValidation';
+import { CPFFormLoginError } from "../../../utils/Exception";
+import { CustomerService } from "../../../services/CustomerService";
 
 const schema = z.object({
-  cpf: z.string()
-  .regex((/^\d{3}\.\d{3}\.\d{3}-\d{2}$/), "cpf invalid"),
-  password: z.string()
-  .regex(/^\d{6}$/, "password invalid"),
+  cpf: z.string().regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, "CPF invalid"),
+  password: z.string().regex(/^\d{6}$/, "Password invalid"),
 });
 
 type FormProps = z.infer<typeof schema>;
@@ -24,8 +25,15 @@ export function FormLogin() {
   const [message, setMessage] = useState<string>("");
   const navigate = useNavigate();
   const {
+    loginByCpfAndPassword: validLoginByCpfAndPassword
+  } = CustomerValidation;
+  const {
+    loginByCpfAndPassword: serviceLoginByCpfAndPassword
+  } = CustomerService;
+  const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting, isValid },
   } = useForm<FormProps>({
     mode: "all",
@@ -34,10 +42,28 @@ export function FormLogin() {
   });
 
   function handleLogin(data: FormProps) {
-    console.log(data);
+    try {
+      validLoginByCpfAndPassword({ ...data });
+      serviceLoginByCpfAndPassword({ ...data })
+      .then((data) => {
+        if (data.message) {
+          showMessage(data.message);
+        } else {
+          hiderMessage();
+          console.log(data);
+        }
+      })
+      .catch((e) => {
+        showMessage(e.message);
+      });
+    } catch (e) {
+      if (e instanceof CPFFormLoginError) {
+        setError("cpf", { type: "invalid", message: e.message });
+      }
+    }
   }
 
-  function showMessage(message: string) {
+  function showMessage(message: any) {
     setMessage(message);
     setShowElement(true);
   }
@@ -53,13 +79,15 @@ export function FormLogin() {
         <Container className="container_login_form">
           <Row>
             <Col className="container_login_haeder">
-              {showElement ? (
+            { 
+              showElement ? (
                 <div>
                   <Alert variant="danger">
-                    <span>{message}</span>
+                    {message} 
                   </Alert>
                 </div>
-              ) : null}
+              ) : null
+            }
             </Col>
           </Row>
           <Row>
@@ -71,14 +99,18 @@ export function FormLogin() {
                 <Form.Group className="mb-3" controlId="cpf">
                   <Form.Label>CPF:</Form.Label>
                   <Form.Control
-                    type="text" { ...register("cpf") }
+                    type="text"
+                    {...register("cpf")}
                     onChange={(e) => {
                       let value = e.target.value;
                       value = value.replace(/(\D)/g, "");
                       if (value.length > 11) {
-                        value = value.substring(0, 11)
+                        value = value.substring(0, 11);
                       }
-                      value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "$1.$2.$3-$4");
+                      value = value.replace(
+                        /(\d{3})(\d{3})(\d{3})(\d{2})/g,
+                        "$1.$2.$3-$4"
+                      );
                       e.target.value = value;
                     }}
                   />
@@ -93,9 +125,9 @@ export function FormLogin() {
                     {...register("password")}
                     onChange={(e) => {
                       let value = e.target.value;
-                      value = value.replace(/(\D)/g, ""); 
+                      value = value.replace(/(\D)/g, "");
                       if (value.length > 6) {
-                        value = value.substring(0, 6)
+                        value = value.substring(0, 6);
                       }
                       e.target.value = value;
                     }}
@@ -106,11 +138,10 @@ export function FormLogin() {
                 </Form.Group>
                 <div className="d-grid gap-2">
                   <Button
-                   className="button_login"
-                   type="submit"
-                   size="lg"
-                   disabled={!isValid}
-                   onLoad={() => isSubmitting}
+                    className="button_login"
+                    type="submit"
+                    size="lg"
+                    onLoad={() => isSubmitting}
                   >
                     Login
                   </Button>
