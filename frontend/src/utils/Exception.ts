@@ -4,10 +4,3 @@ export class CPFFormLoginError extends Error {
         this.message = message
     }
 }
-
-export class FormLoginError extends Error {
-    constructor(message: string) {
-        super()
-        this.message = message
-    }
-}

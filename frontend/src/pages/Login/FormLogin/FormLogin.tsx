@@ -14,8 +14,12 @@ import { CPFFormLoginError } from "../../../utils/Exception";
 import { CustomerService } from "../../../services/CustomerService";
 
 const schema = z.object({
-  cpf: z.string().regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, "CPF invalid"),
-  password: z.string().regex(/^\d{6}$/, "Password invalid"),
+  cpf: z
+  .string()
+  .regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, "CPF invalid"),
+  password: z
+  .string()
+  .regex(/^\d{6}$/, "Password invalid"),
 });
 
 type FormProps = z.infer<typeof schema>;
@@ -42,16 +46,11 @@ export function FormLogin() {
   });
 
   function handleLogin(data: FormProps) {
-    try {
+    try { 
       validLoginByCpfAndPassword({ ...data });
       serviceLoginByCpfAndPassword({ ...data })
-      .then((data) => {
-        if (data.message) {
-          showMessage(data.message);
-        } else {
-          hiderMessage();
-          console.log(data);
-        }
+      .then(() => {
+        hiderMessage();
       })
       .catch((e) => {
         showMessage(e.message);
@@ -63,7 +62,7 @@ export function FormLogin() {
     }
   }
 
-  function showMessage(message: any) {
+  function showMessage(message: string) {
     setMessage(message);
     setShowElement(true);
   }
@@ -141,6 +140,7 @@ export function FormLogin() {
                     className="button_login"
                     type="submit"
                     size="lg"
+                    disabled={!isValid}
                     onLoad={() => isSubmitting}
                   >
                     Login

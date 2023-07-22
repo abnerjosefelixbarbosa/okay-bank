@@ -8,8 +8,8 @@ export async function listAllById(id: string) {
       "content-type": "application/json",
     },
   })
-    .then((response) => response.json())
-    .then((data) => {
+  .then((response) => response.json())
+  .then((data) => {
       const accounts: Array<Account> = [];
       accounts.push(...data);
       return accounts;

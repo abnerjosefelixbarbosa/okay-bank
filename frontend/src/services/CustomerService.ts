@@ -11,8 +11,11 @@ async function loginByCpfAndPassword(customer: Customer) {
     body: JSON.stringify(customer),
   })
   .then((response) => response.json())
-  .then((data) => data);
-
+  .then((data) => data)
+  .catch((e) => e);
+  if (request.message) {
+    throw new Error(request.message);
+  }
   return request;
 }
 
