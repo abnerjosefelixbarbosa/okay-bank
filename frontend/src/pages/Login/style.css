@@ -31,6 +31,10 @@ body {
     padding-top: 15px;
 }
 
+.login_form {
+    padding-top: 15px;
+}
+
 .title_login_form {
     color: #000000;
     background-color: #00FF7F;
@@ -60,4 +64,8 @@ body {
     background-color: #00FF7F !important;
     border-color: #00FF7F !important;
     color: #000000 !important;
+}
+
+.text_color {
+    color: #FF0000 !important;
 }

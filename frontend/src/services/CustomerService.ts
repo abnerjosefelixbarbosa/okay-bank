@@ -1,7 +1,9 @@
 import { Customer } from "../models/Customer";
 import { BASE_URL } from "../utils/Request";
+import { loginByCpfAndPassword as validationLoginByCpfAndPassword } from "../utils/CustomerValidation";
 
-async function loginByCpfAndPassword(customer: Customer) {
+export async function loginByCpfAndPassword(customer: Customer) {
+  validationLoginByCpfAndPassword(customer);
   const request = await fetch(`${BASE_URL}/customers/login-by-cpf-and-password`, {
     method: "POST",
     headers: {
@@ -18,7 +20,3 @@ async function loginByCpfAndPassword(customer: Customer) {
   }
   return request;
 }
-
-export const CustomerService = {
-  loginByCpfAndPassword,
-};

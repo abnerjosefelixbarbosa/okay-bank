@@ -9,36 +9,23 @@ import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CustomerValidation } from './../../../utils/CustomerValidation';
-import { CPFFormLoginError } from "../../../utils/Exception";
-import { CustomerService } from "../../../services/CustomerService";
+import { loginByCpfAndPassword as serviceloginByCpfAndPassword } from "../../../services/CustomerService";
 
 const schema = z.object({
-  cpf: z
-  .string()
-  .regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, "CPF invalid"),
-  password: z
-  .string()
-  .regex(/^\d{6}$/, "Password invalid"),
+  cpf: z.string().regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, "CPF invalid"),
+  password: z.string().regex(/^\d{6}$/, "Password invalid"),
 });
 
 type FormProps = z.infer<typeof schema>;
 
 export function FormLogin() {
   const [showElement, setShowElement] = useState<boolean>(false);
-  const [message, setMessage] = useState<string>("");
   const navigate = useNavigate();
-  const {
-    loginByCpfAndPassword: validLoginByCpfAndPassword
-  } = CustomerValidation;
-  const {
-    loginByCpfAndPassword: serviceLoginByCpfAndPassword
-  } = CustomerService;
   const {
     register,
     handleSubmit,
     setError,
-    formState: { errors, isSubmitting, isValid },
+    formState: { errors, isSubmitting },
   } = useForm<FormProps>({
     mode: "all",
     reValidateMode: "onChange",
@@ -46,30 +33,24 @@ export function FormLogin() {
   });
 
   function handleLogin(data: FormProps) {
-    try { 
-      validLoginByCpfAndPassword({ ...data });
-      serviceLoginByCpfAndPassword({ ...data })
-      .then(() => {
-        hiderMessage();
+    serviceloginByCpfAndPassword({ ...data })
+    .then((data) => {
+      setShowElement(false);
+      navigate('/apresent-accounts', {
+        state: {
+          id: data.id,
+        },
+        replace: true,
       })
-      .catch((e) => {
-        showMessage(e.message);
-      });
-    } catch (e) {
-      if (e instanceof CPFFormLoginError) {
+      })
+    .catch((e) => {
+      if (e.message === "CPF invalid") {
         setError("cpf", { type: "invalid", message: e.message });
+      } else {
+        setError("root.random", { type: "random", message: e.message });
+        setShowElement(true);
       }
-    }
-  }
-
-  function showMessage(message: string) {
-    setMessage(message);
-    setShowElement(true);
-  }
-
-  function hiderMessage() {
-    setMessage("");
-    setShowElement(false);
+    });
   }
 
   return (
@@ -77,20 +58,18 @@ export function FormLogin() {
       <div className="ajust">
         <Container className="container_login_form">
           <Row>
-            <Col className="container_login_haeder">
-            { 
-              showElement ? (
-                <div>
-                  <Alert variant="danger">
-                    {message} 
-                  </Alert>
-                </div>
-              ) : null
-            }
-            </Col>
-          </Row>
-          <Row>
             <Form className="login_form" onSubmit={handleSubmit(handleLogin)}>
+              <Row>
+                <Col>
+                  {showElement ? (
+                    <div>
+                      <Alert variant="danger">
+                        {errors.root?.random.message}
+                      </Alert>
+                    </div>
+                  ) : null}
+                </Col>
+              </Row>
               <Row className="title_login_form">
                 <h1>Okay Bank</h1>
               </Row>
@@ -113,7 +92,7 @@ export function FormLogin() {
                       e.target.value = value;
                     }}
                   />
-                  <Form.Text className="text-muted">
+                  <Form.Text className="text-muted text_color">
                     {errors.cpf?.message}
                   </Form.Text>
                 </Form.Group>
@@ -131,7 +110,7 @@ export function FormLogin() {
                       e.target.value = value;
                     }}
                   />
-                  <Form.Text className="text-muted">
+                  <Form.Text className="text-muted text_color">
                     {errors.password?.message}
                   </Form.Text>
                 </Form.Group>
@@ -140,7 +119,6 @@ export function FormLogin() {
                     className="button_login"
                     type="submit"
                     size="lg"
-                    disabled={!isValid}
                     onLoad={() => isSubmitting}
                   >
                     Login
