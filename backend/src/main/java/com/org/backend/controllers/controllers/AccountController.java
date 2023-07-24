@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.org.backend.models.dtos.AccountFindByAgencyAndAccountDto;
+import com.org.backend.models.dtos.AccountFindByAgencyAndAccountRequestDto;
+import com.org.backend.models.dtos.AccountFindByAgencyAndAccountResponseDto;
+import com.org.backend.models.dtos.AccountGetAllByIdResponseDto;
 import com.org.backend.models.dtos.AccountGetByIdResponseDto;
 import com.org.backend.models.dtos.AccountTransferBalanceDto;
-import com.org.backend.models.entities.Account;
 import com.org.backend.models.interfaces.AccountMethods;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -40,20 +41,20 @@ public class AccountController {
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping(path = "/get-by-id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<AccountGetByIdResponseDto> getById(@PathVariable(required = false) String id) {
-		var accountDto = accountMethods.getById(id);
-		return ResponseEntity.status(HttpStatus.OK).body(accountDto);
+		var responseDto = accountMethods.getById(id);
+		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 	}
 	
-	@Operation(description = "list all by id")
+	@Operation(description = "get all by customer id")
 	@ApiResponses({
 		@ApiResponse(responseCode = "200", description = "Ok"),
 		@ApiResponse(responseCode = "404", description = "Not found")
 	})
 	@ResponseStatus(HttpStatus.OK)
-	@GetMapping(path = "/list-all-by-id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Account>> listAllById(@PathVariable String id) {
-		var accountModels = accountMethods.listAllByAccount(id);	
-		return ResponseEntity.status(HttpStatus.OK).body(accountModels);
+	@GetMapping(path = "/list-all-by-customer-id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<AccountGetAllByIdResponseDto>> getAllByCustomerId(@PathVariable(required = false) String id) {
+		var accountDtos = accountMethods.getAllByCustomerId(id);	
+		return ResponseEntity.status(HttpStatus.OK).body(accountDtos);
 	}
 	
 	@Operation(description = "find by agency and account")
@@ -64,11 +65,9 @@ public class AccountController {
 	})
 	@ResponseStatus(HttpStatus.OK)
 	@PostMapping(path = "/find-by-agency-and-account", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Account> findByAgencyAndAccount(@RequestBody @Valid AccountFindByAgencyAndAccountDto dto) {
-		var agency = dto.getAgency();
-		var account = dto.getAccount();
-		var accountModel = accountMethods.findByAgencyAndAccount(agency, account);
-		return ResponseEntity.status(HttpStatus.OK).body(accountModel);
+	public ResponseEntity<AccountFindByAgencyAndAccountResponseDto> findByAgencyAndAccount(@RequestBody @Valid AccountFindByAgencyAndAccountRequestDto requestDto) {
+		var responseDto = accountMethods.findByAgencyAndAccount(requestDto);
+		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 	}
 	
 	@Operation(description = "transfer balance")

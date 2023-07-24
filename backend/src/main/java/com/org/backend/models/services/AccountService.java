@@ -1,14 +1,19 @@
 package com.org.backend.models.services;
 
 import java.math.BigDecimal;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.org.backend.controllers.exceptions.EntityNotFoundException;
+import com.org.backend.models.dtos.AccountFindByAgencyAndAccountRequestDto;
+import com.org.backend.models.dtos.AccountFindByAgencyAndAccountResponseDto;
+import com.org.backend.models.dtos.AccountGetAllByIdResponseDto;
 import com.org.backend.models.dtos.AccountGetByIdResponseDto;
-import com.org.backend.models.entities.Account;
 import com.org.backend.models.interfaces.AccountMethods;
 import com.org.backend.models.repositories.AccountRepository;
 
@@ -30,24 +35,27 @@ public class AccountService implements AccountMethods {
 		return responseDto;
 	}
 	
-	public List<Account> listAllByAccount(String id) {	
-		var accountModels = accountRepository.findByCustomerId(id);
-		accountModels.stream().forEach((val) -> {
-			val.getCustomer().setEmployee(null);
-			val.getAgency().setEmployee(null);
-			val.setEmployee(null);
+	public List<AccountGetAllByIdResponseDto> getAllByCustomerId(String id) {
+		var pageRequest = PageRequest.of(0, 20, Sort.by("id"));
+		var accounts = accountRepository.findByCustomerId(id, pageRequest);
+		var responseDto = new AccountGetAllByIdResponseDto();		 
+		var responseDtos = new LinkedList<AccountGetAllByIdResponseDto>();
+		accounts.stream().forEach((val) -> {
+			responseDto.setId(val.getId());
+			responseDto.setAgency(val.getAgency().getAgency());
+			responseDto.setAccount(val.getAccount());
+			responseDtos.add(responseDto);
 		});	
-		return accountModels;
+		return responseDtos;
 	}
 	
-	public Account findByAgencyAndAccount(String agency, String account) {
-		var accountModel = accountRepository.findByAgencyAgencyAndAccount(agency, account).orElseThrow(() -> {
+	public AccountFindByAgencyAndAccountResponseDto findByAgencyAndAccount(AccountFindByAgencyAndAccountRequestDto requestDto) {
+		var account = accountRepository.findByAgencyAgencyAndAccount(requestDto.getAgency(), requestDto.getAccount()).orElseThrow(() -> {
 			throw new EntityNotFoundException("Agency and account not found");
 		});
-		accountModel.setEmployee(null);
-		accountModel.getAgency().setEmployee(null);
-		accountModel.getCustomer().setEmployee(null);
-		return accountModel;
+		var responseDto = new AccountFindByAgencyAndAccountResponseDto();
+		responseDto.setId(account.getId());
+		return responseDto;
 	}
 	
 	public String transferBalance(String id1, String id2, BigDecimal balance) {
