@@ -1,4 +1,4 @@
-package com.org.backend.controllers;
+package com.org.backend.controllers.controllers;
 
 import java.util.List;
 
@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.org.backend.dtos.AccountFindByAgencyAndAccountDto;
-import com.org.backend.dtos.AccountTransferBalanceDto;
-import com.org.backend.interfaces.AccountInterface;
+import com.org.backend.models.dtos.AccountFindByAgencyAndAccountDto;
+import com.org.backend.models.dtos.AccountGetByIdResponseDto;
+import com.org.backend.models.dtos.AccountTransferBalanceDto;
 import com.org.backend.models.entities.Account;
+import com.org.backend.models.interfaces.AccountMethods;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -29,7 +30,7 @@ import jakarta.validation.Valid;
 @RequestMapping(path = "/accounts")
 public class AccountController {
 	@Autowired
-	private AccountInterface accountInterface;
+	private AccountMethods accountMethods;
 	
 	@Operation(description = "get by id")
 	@ApiResponses({
@@ -38,9 +39,9 @@ public class AccountController {
 	})
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping(path = "/get-by-id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Account> getById(@PathVariable String id) {
-		var accountModel = accountInterface.getById(id);
-		return ResponseEntity.status(HttpStatus.OK).body(accountModel);
+	public ResponseEntity<AccountGetByIdResponseDto> getById(@PathVariable(required = false) String id) {
+		var accountDto = accountMethods.getById(id);
+		return ResponseEntity.status(HttpStatus.OK).body(accountDto);
 	}
 	
 	@Operation(description = "list all by id")
@@ -51,7 +52,7 @@ public class AccountController {
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping(path = "/list-all-by-id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Account>> listAllById(@PathVariable String id) {
-		var accountModels = accountInterface.listAllByAccount(id);	
+		var accountModels = accountMethods.listAllByAccount(id);	
 		return ResponseEntity.status(HttpStatus.OK).body(accountModels);
 	}
 	
@@ -66,7 +67,7 @@ public class AccountController {
 	public ResponseEntity<Account> findByAgencyAndAccount(@RequestBody @Valid AccountFindByAgencyAndAccountDto dto) {
 		var agency = dto.getAgency();
 		var account = dto.getAccount();
-		var accountModel = accountInterface.findByAgencyAndAccount(agency, account);
+		var accountModel = accountMethods.findByAgencyAndAccount(agency, account);
 		return ResponseEntity.status(HttpStatus.OK).body(accountModel);
 	}
 	
@@ -81,7 +82,7 @@ public class AccountController {
 	public ResponseEntity<String> transferBalance(@PathVariable String id1, @PathVariable String id2, @RequestBody @Valid AccountTransferBalanceDto dto) {
 		var balance = dto.getBalance();
 		dto.validation();
-		var message = accountInterface.transferBalance(id1, id2, balance);
+		var message = accountMethods.transferBalance(id1, id2, balance);
 		return ResponseEntity.status(HttpStatus.OK).body(message);
 	}
 }

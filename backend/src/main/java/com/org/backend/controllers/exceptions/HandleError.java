@@ -1,4 +1,4 @@
-package com.org.backend.exceptions;
+package com.org.backend.controllers.exceptions;
 
 import java.io.Serializable;
 

@@ -1,8 +1,8 @@
-package com.org.backend.dtos;
+package com.org.backend.models.dtos;
 
 import java.math.BigDecimal;
 
-import com.org.backend.exceptions.EntityBadRequestException;
+import com.org.backend.controllers.exceptions.EntityBadRequestException;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

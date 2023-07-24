@@ -40,12 +40,13 @@ export function ListApresentAccounts() {
                       </td>
                       <td align="center">
                         <Link 
-                          to={"/detail-account"}
-                          state={{id: account.id}}>
+                          to={"/detail-account"} 
+                          state={ {id: account.id} }>
                           <Button>
                             Choose
                           </Button>
                         </Link>
+                        
                       </td>
                     </tr>
                   );

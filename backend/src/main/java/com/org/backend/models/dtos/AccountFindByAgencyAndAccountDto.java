@@ -1,4 +1,4 @@
-package com.org.backend.dtos;
+package com.org.backend.models.dtos;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

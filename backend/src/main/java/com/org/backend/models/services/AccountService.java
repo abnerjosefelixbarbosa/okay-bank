@@ -6,24 +6,28 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.org.backend.exceptions.EntityNotFoundException;
-import com.org.backend.interfaces.AccountInterface;
+import com.org.backend.controllers.exceptions.EntityNotFoundException;
+import com.org.backend.models.dtos.AccountGetByIdResponseDto;
 import com.org.backend.models.entities.Account;
+import com.org.backend.models.interfaces.AccountMethods;
 import com.org.backend.models.repositories.AccountRepository;
 
 @Service
-public class AccountService implements AccountInterface {
+public class AccountService implements AccountMethods {
 	@Autowired
 	private AccountRepository accountRepository;
 	
-	public Account getById(String id) {
-		var accountModel = accountRepository.findById(id).orElseThrow(() -> {
+	public AccountGetByIdResponseDto getById(String id) {
+		var account = accountRepository.findById(id).orElseThrow(() -> {
 			throw new EntityNotFoundException("Id not found");
 		});
-		accountModel.getCustomer().setEmployee(null);
-		accountModel.getAgency().setEmployee(null);
-		accountModel.setEmployee(null);
-		return accountModel;
+		var responseDto = new AccountGetByIdResponseDto();
+		responseDto.setIdAccount(account.getId());
+		responseDto.setAgency(account.getAgency().getAgency());
+		responseDto.setAccount(account.getAccount());
+		responseDto.setBalance(account.getBalance());
+		responseDto.setNameCustomer(account.getCustomer().getName());
+		return responseDto;
 	}
 	
 	public List<Account> listAllByAccount(String id) {	

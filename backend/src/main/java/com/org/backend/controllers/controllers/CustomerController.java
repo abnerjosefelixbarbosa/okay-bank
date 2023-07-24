@@ -1,4 +1,4 @@
-package com.org.backend.controllers;
+package com.org.backend.controllers.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.org.backend.dtos.CustomerLoginByCpfAndPasswordDto;
-import com.org.backend.interfaces.CustomerInterface;
-import com.org.backend.models.entities.Customer;
+import com.org.backend.models.dtos.CustomerLoginByCpfAndPasswordRequestDto;
+import com.org.backend.models.dtos.CustomerLoginByCpfAndPasswordResponseDto;
+import com.org.backend.models.interfaces.CustomerMethods;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 @RequestMapping(path = "/customers")
 public class CustomerController {
 	@Autowired
-	private CustomerInterface customerInterface;
+	private CustomerMethods customerMethods;
 
 	@Operation(description = "login by cpf and password")
 	@ApiResponses({ 
@@ -33,10 +33,8 @@ public class CustomerController {
     })
 	@ResponseStatus(HttpStatus.OK)
 	@PostMapping(path = "/login-by-cpf-and-password", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Customer> loginByCpfAndPassword(@RequestBody @Valid CustomerLoginByCpfAndPasswordDto dto) {
-		var cpf = dto.getCpf();
-		var password = dto.getPassword();
-		var customerModel = customerInterface.loginByCpfAndPassword(cpf, password);
-		return ResponseEntity.status(HttpStatus.OK).body(customerModel);
+	public ResponseEntity<CustomerLoginByCpfAndPasswordResponseDto> loginByCpfAndPassword(@RequestBody @Valid CustomerLoginByCpfAndPasswordRequestDto requestDto) {
+		var responseDto = customerMethods.loginByCpfAndPassword(requestDto);
+		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 	}
 }

@@ -1,4 +1,4 @@
-package com.org.backend.exceptions;
+package com.org.backend.controllers.exceptions;
 
 public class EntityBadRequestException extends RuntimeException {
 	private static final long serialVersionUID = 1L;

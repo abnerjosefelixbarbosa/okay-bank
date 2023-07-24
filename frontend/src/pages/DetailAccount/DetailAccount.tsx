@@ -6,6 +6,8 @@ import { useEffect } from "react";
 import { NavbarDetailAccount } from "./NavbarDetailAccount/NavbarDetailAccount";
 import { CardDetailAccounts } from "./CardDetailAccount/CardDetailAccount";
 import { getById as serviceGetById } from '../../services/AccountService';
+import { Customer } from "../../models/Customer";
+import { Agency } from "../../models/Agency";
 
 export function DetailAccount() {
   const location = useLocation();
@@ -14,9 +16,19 @@ export function DetailAccount() {
   useEffect(() => {
     serviceGetById(location.state.id)
     .then((data) => {
-      if (typeof data === "object") {
-        setAccount(data);
-      }
+      const customer: Customer = {
+        name: data.nameCustomer
+      };
+      const agency: Agency = {
+        agency: data.agency
+      };
+      setAccount({
+        id: data.idAccount,
+        account: data.account,
+        balance: data.balance,
+        customer: customer,
+        agency: agency
+      });
     });
   }, [setAccount]);
 
