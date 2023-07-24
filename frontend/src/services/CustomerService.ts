@@ -18,5 +18,8 @@ export async function loginByCpfAndPassword(customer: Customer) {
   if (request.message) {
     throw new Error(request.message);
   }
-  return request;
+  const newCustomer: Customer = {
+    id: request.id
+  }
+  return newCustomer;
 }

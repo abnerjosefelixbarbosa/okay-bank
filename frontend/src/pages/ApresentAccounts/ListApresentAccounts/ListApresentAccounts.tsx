@@ -5,14 +5,14 @@ import Table from "react-bootstrap/Table";
 import { Account } from "../../../models/Account";
 import { Link, useLocation } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-import { listAllById as serviceListAllById } from "../../../services/AccountService";
+import { getAllByCustomerId as serviceGetAllByCustomerId } from "../../../services/AccountService";
 
 export function ListApresentAccounts() {
   const location = useLocation();
   const [accounts, setAccounts] = useState<Array<Account>>([]);
 
   useEffect(() => {
-    serviceListAllById(location.state.id)
+    serviceGetAllByCustomerId(location.state.id)
     .then((data) => setAccounts(data));
   }, [setAccounts]);
 

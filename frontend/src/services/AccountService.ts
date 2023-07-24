@@ -1,8 +1,9 @@
 import { Account } from "../models/Account";
+import { Agency } from "../models/Agency";
 import { BASE_URL } from "../utils/Request";
 
-export async function listAllById(id: string) {
-  const request = await fetch(`${BASE_URL}/accounts/list-all-by-id/${id}`, {
+export async function getAllByCustomerId(id: string) {
+  const request = await fetch(`${BASE_URL}/accounts/get-all-by-customer-id/${id}`, {
     method: "GET",
     headers: {
       "content-type": "application/json",
@@ -15,7 +16,17 @@ export async function listAllById(id: string) {
   if (request.message) {
     throw new Error(request.message);
   }
-  return request
+  const newAgency: Agency = {};
+  const newAccount: Account = {};
+  const accounts: Array<Account> = new Array<Account>();
+  request.forEach((val: any) => {
+    newAccount.id = val.id
+    newAgency.agency = val.agency
+    newAccount.agency = newAgency
+    newAccount.account = val.account
+    accounts.push(newAccount);
+  });
+  return accounts
 }
 
 export async function findByAgencyAndAccount(account: Account) {
