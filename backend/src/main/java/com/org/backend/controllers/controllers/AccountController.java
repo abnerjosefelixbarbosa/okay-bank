@@ -52,7 +52,7 @@ public class AccountController {
 		@ApiResponse(responseCode = "404", description = "Not found")
 	})
 	@ResponseStatus(HttpStatus.OK)
-	@GetMapping(path = "/list-all-by-customer-id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/get-all-by-customer-id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<AccountGetAllByIdResponseDto>> getAllByCustomerId(@PathVariable(required = false) String id) {
 		var accountDtos = accountMethods.getAllByCustomerId(id);	
 		return ResponseEntity.status(HttpStatus.OK).body(accountDtos);
