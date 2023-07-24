@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class AccountTransferBalanceDto {
+public class AccountTransferBalanceRequestDto {
 	@NotNull(message = "Balance is null")
 	private BigDecimal balance;
 	

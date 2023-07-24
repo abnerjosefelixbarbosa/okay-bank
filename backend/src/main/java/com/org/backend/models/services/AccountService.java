@@ -1,6 +1,5 @@
 package com.org.backend.models.services;
 
-import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,6 +13,8 @@ import com.org.backend.models.dtos.AccountFindByAgencyAndAccountRequestDto;
 import com.org.backend.models.dtos.AccountFindByAgencyAndAccountResponseDto;
 import com.org.backend.models.dtos.AccountGetAllByIdResponseDto;
 import com.org.backend.models.dtos.AccountGetByIdResponseDto;
+import com.org.backend.models.dtos.AccountTransferBalanceRequestDto;
+import com.org.backend.models.dtos.AccountTransferBalanceResponseDto;
 import com.org.backend.models.interfaces.AccountMethods;
 import com.org.backend.models.repositories.AccountRepository;
 
@@ -58,17 +59,19 @@ public class AccountService implements AccountMethods {
 		return responseDto;
 	}
 	
-	public String transferBalance(String id1, String id2, BigDecimal balance) {
-        var accountModel1 = accountRepository.findById(id1).orElseThrow(() -> {
+	public AccountTransferBalanceResponseDto transferBalance(String id1, String id2, AccountTransferBalanceRequestDto requestDto) {
+        var account1 = accountRepository.findById(id1).orElseThrow(() -> {
         	throw new EntityNotFoundException("id1 not found");
         });
-        var accountModel2 = accountRepository.findById(id2).orElseThrow(() -> {
+        var account2 = accountRepository.findById(id2).orElseThrow(() -> {
         	throw new EntityNotFoundException("id2 not found");
         });
-        accountModel1.withdraw(balance);
-        accountModel2.deposit(balance);
-        accountRepository.save(accountModel1);
-        accountRepository.save(accountModel2);
-		return "Balance transfed";
+        var responseDto = new AccountTransferBalanceResponseDto();
+        account1.withdraw(requestDto.getBalance());
+        account2.deposit(requestDto.getBalance());
+        accountRepository.save(account1);
+        accountRepository.save(account2);
+        responseDto.setId(account1.getId());
+        return responseDto;
 	}
 }

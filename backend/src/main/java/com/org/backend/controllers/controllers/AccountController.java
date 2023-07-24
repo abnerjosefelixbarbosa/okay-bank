@@ -19,7 +19,8 @@ import com.org.backend.models.dtos.AccountFindByAgencyAndAccountRequestDto;
 import com.org.backend.models.dtos.AccountFindByAgencyAndAccountResponseDto;
 import com.org.backend.models.dtos.AccountGetAllByIdResponseDto;
 import com.org.backend.models.dtos.AccountGetByIdResponseDto;
-import com.org.backend.models.dtos.AccountTransferBalanceDto;
+import com.org.backend.models.dtos.AccountTransferBalanceRequestDto;
+import com.org.backend.models.dtos.AccountTransferBalanceResponseDto;
 import com.org.backend.models.interfaces.AccountMethods;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -78,10 +79,9 @@ public class AccountController {
 	})
 	@ResponseStatus(HttpStatus.OK)
 	@PutMapping(path = "/transfer-balance/{id1}/{id2}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> transferBalance(@PathVariable String id1, @PathVariable String id2, @RequestBody @Valid AccountTransferBalanceDto dto) {
-		var balance = dto.getBalance();
-		dto.validation();
-		var message = accountMethods.transferBalance(id1, id2, balance);
-		return ResponseEntity.status(HttpStatus.OK).body(message);
+	public ResponseEntity<AccountTransferBalanceResponseDto> transferBalance(@PathVariable(required = false) String id1, @PathVariable(required = false) String id2, @RequestBody @Valid AccountTransferBalanceRequestDto requestDto) {
+		requestDto.validation();
+		var responseDto = accountMethods.transferBalance(id1, id2, requestDto);
+		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 	}
 }
