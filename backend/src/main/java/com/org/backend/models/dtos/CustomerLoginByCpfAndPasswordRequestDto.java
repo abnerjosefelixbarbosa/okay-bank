@@ -14,5 +14,5 @@ public class CustomerLoginByCpfAndPasswordRequestDto {
 	@NotNull(message = "Password is null")
 	@NotEmpty(message = "Password is empty")
 	@Size(min = 6, max = 6, message = "Password is different than 6 digits")
-	private String password;
+	private String password; 
 }

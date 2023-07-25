@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.org.backend.models.dtos.CustomerLoginByCpfAndPasswordResponseDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -64,4 +65,10 @@ public class Customer implements Serializable {
 	private Employee employee;
 	@OneToMany(mappedBy = "customer")
 	private List<Account> accounts;
+	
+	public CustomerLoginByCpfAndPasswordResponseDto convertCustomerLoginByCpfAndPasswordResponseDto() {
+		CustomerLoginByCpfAndPasswordResponseDto responseDto = new CustomerLoginByCpfAndPasswordResponseDto();
+		responseDto.setId(id);
+		return responseDto;
+	}
 }

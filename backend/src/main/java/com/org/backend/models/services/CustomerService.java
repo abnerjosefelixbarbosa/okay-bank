@@ -18,8 +18,7 @@ public class CustomerService implements CustomerMethods {
 	    var customer = custumerRepository.findByCpfAndPassword(requestDto.getCpf(), requestDto.getPassword()).orElseThrow(() -> {
 			throw new EntityNotFoundException("CPF and password not find");
 		});
-	    var responseDto = new CustomerLoginByCpfAndPasswordResponseDto();
-	    responseDto.setId(customer.getId());
+	    var responseDto = customer.convertCustomerLoginByCpfAndPasswordResponseDto();
         return responseDto;
 	}
 }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.org.backend.models.dtos.AccountFindByAgencyAndAccountRequestDto;
 import com.org.backend.models.dtos.AccountFindByAgencyAndAccountResponseDto;
-import com.org.backend.models.dtos.AccountGetAllByIdResponseDto;
+import com.org.backend.models.dtos.AccountGetAllByCustomerIdResponseDto;
 import com.org.backend.models.dtos.AccountGetByIdResponseDto;
 import com.org.backend.models.dtos.AccountTransferBalanceRequestDto;
 import com.org.backend.models.dtos.AccountTransferBalanceResponseDto;
@@ -53,7 +53,7 @@ public class AccountController {
 	})
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping(path = "/get-all-by-customer-id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<AccountGetAllByIdResponseDto>> getAllByCustomerId(@PathVariable(required = false) String id) {
+	public ResponseEntity<List<AccountGetAllByCustomerIdResponseDto>> getAllByCustomerId(@PathVariable(required = false) String id) {
 		var accountDtos = accountMethods.getAllByCustomerId(id);	
 		return ResponseEntity.status(HttpStatus.OK).body(accountDtos);
 	}
