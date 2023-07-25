@@ -15,21 +15,7 @@ export function DetailAccount() {
 
   useEffect(() => {
     serviceGetById(location.state.id)
-    .then((data) => {
-      const customer: Customer = {
-        name: data.nameCustomer
-      };
-      const agency: Agency = {
-        agency: data.agency
-      };
-      setAccount({
-        id: data.idAccount,
-        account: data.account,
-        balance: data.balance,
-        customer: customer,
-        agency: agency
-      });
-    });
+    .then((data) => setAccount(data));
   }, [setAccount]);
 
   return (

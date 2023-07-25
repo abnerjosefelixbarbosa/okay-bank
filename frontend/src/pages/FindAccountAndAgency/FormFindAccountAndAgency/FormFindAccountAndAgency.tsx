@@ -3,59 +3,59 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import { IMaskInput } from "react-imask";
 import React, { useState } from "react";
-import { Account } from "../../../models/Account";
-import { Agency } from "../../../models/Agency";
 import Alert from "react-bootstrap/Alert";
 import Col from "react-bootstrap/Col";
-import { findByAgencyAndAccount } from "../../../services/AccountService";
+import { findByAgencyAndAccount as servicesFindByAgencyAndAccount } from "../../../services/AccountService";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const schema = z.object({
+  agency: z.string().regex(/^\d{10}/, "Agency invalid"),
+  account: z.string().regex(/^\d{10}/, "Account invalid"),
+})
+
+type FormProps = z.infer<typeof schema>;
 
 export function FormFindAccountAndAgency() {
   const location = useLocation();
   const navigate = useNavigate();
   const [showElement, setShowElement] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
-  const [agency, setAgency] = useState<Agency>({
-    agency: "",
-  });
-  const [account, setAccount] = useState<Account>({
-    account: "",
-    agency: agency,
-  });
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm<FormProps>({
+    mode: "all",
+    reValidateMode: "onChange",
+    resolver: zodResolver(schema),
+  })
 
-  function handleFind(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    findByAgencyAndAccount(account).then((data) => {
-      if (typeof data === "string") {
-        showMessage(data);
+  function handleFind(data: FormProps) {
+    servicesFindByAgencyAndAccount({ ...data })
+    .then((data) => {
+      console.log(data);
+      /*
+      if (data.account === location.state.account || data.agency?.agency === location.state.agency) {
       } 
-      if (typeof data === "object") {
-        if (data.account === location.state.account || data.agency?.agency === location.state.agency) {
-          showMessage("Account logged in");
-        } else {
-          hiderMessage();
-          navigate("/confirm-balance", {
-            state: {
-              "id1": location.state.id,              
-              "id2": data.id,
-              "password": location.state.password,
-              "balance": location.state.balance,
-            }  
-          });
-        }
-      } 
+      */
+      /*
+      navigate("/confirm-balance", {
+        state: {
+          "id1": location.state.id,              
+          "id2": data.id,
+          "password": location.state.password,
+          "balance": location.state.balance,
+        }  
+      });
+      */
+    })
+    .catch((e) => {
+      console.error(e)
     });
-  }
-
-  function showMessage(message: string) {
-    setMessage(message);
-    setShowElement(true);
-  }
-
-  function hiderMessage() {
-    setMessage("");
-    setShowElement(false);
   }
 
   return (
@@ -71,35 +71,49 @@ export function FormFindAccountAndAgency() {
           </Col>
         </Row>
         <Row>
-          <Form
-            onSubmit={(e) => handleFind(e)}
-          >
+          <Form onSubmit={handleSubmit(handleFind)}>
             <Form.Group className="mb-3">
               <Form.Label>Agency</Form.Label>
               <Form.Control
                 type="text"
-                as={IMaskInput}
-                mask="0000000000"
+                {...register("agency")}
                 onChange={(e) => {
-                  agency.agency = e.target.value;
-                  setAgency(agency);
+                  let value = e.target.value;
+                  value = value.replace(/(\D)/g, "");
+                  if (value.length > 10) {
+                    value = value.substring(0, 10);
+                  }
+                  e.target.value = value;
                 }}
               />
+              <Form.Text className="text-muted text_color">
+                {errors.agency?.message}
+              </Form.Text>
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Account</Form.Label>
               <Form.Control
                 type="text"
-                as={IMaskInput}
-                mask="0000000000"
+                {...register("account")}
                 onChange={(e) => {
-                  account.account = e.target.value;
-                  setAccount(account);
+                  let value = e.target.value;
+                  value = value.replace(/(\D)/g, "");
+                  if (value.length > 10) {
+                    value = value.substring(0, 10);
+                  }
+                  e.target.value = value;
                 }}
               />
+              <Form.Text className="text-muted text_color">
+                {errors.account?.message}
+              </Form.Text>
             </Form.Group>
             <div className="d-grid gap-2">
-              <Button className="button_find" type="submit" size="lg">
+              <Button
+                className="button_find"
+                type="submit"
+                size="lg"
+                onLoad={() => isSubmitting}>
                 Find
               </Button>
             </div>

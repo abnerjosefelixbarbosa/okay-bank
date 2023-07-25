@@ -1,6 +1,13 @@
 import { Account } from "../models/Account";
 import { Agency } from "../models/Agency";
+import { Customer } from "../models/Customer";
 import { BASE_URL } from "../utils/Request";
+
+interface DataGetAllByCustomerId {
+  id: string,
+  agency: string,
+  account: string
+}
 
 export async function getAllByCustomerId(id: string) {
   const request = await fetch(`${BASE_URL}/accounts/get-all-by-customer-id/${id}`, {
@@ -16,20 +23,25 @@ export async function getAllByCustomerId(id: string) {
   if (request.message) {
     throw new Error(request.message);
   }
-  const newAgency: Agency = {};
-  const newAccount: Account = {};
+  const agency: Agency = {};
+  const account: Account = {};
   const accounts: Array<Account> = new Array<Account>();
-  request.forEach((val: any) => {
-    newAccount.id = val.id
-    newAgency.agency = val.agency
-    newAccount.agency = newAgency
-    newAccount.account = val.account
-    accounts.push(newAccount);
+  request.forEach((data: DataGetAllByCustomerId) => {
+    account.id = data.id
+    agency.agency = data.agency
+    account.agency = agency
+    account.account = data.account
+    accounts.push(account);
   });
   return accounts
 }
 
-export async function findByAgencyAndAccount(account: Account) {
+interface DatafindByAgencyAndAccount {
+  agency?: string,
+  account?: string
+}
+
+export async function findByAgencyAndAccount(data: DatafindByAgencyAndAccount) {
   const request = await fetch(`${BASE_URL}/accounts/find-by-agency-and-account`, {
     method: "POST",
     headers: {
@@ -37,8 +49,8 @@ export async function findByAgencyAndAccount(account: Account) {
       "accept": "application/json",
     },
     body: JSON.stringify({
-      agency: account.agency?.agency,
-      account: account.account,
+      agency: data.agency,
+      account: data.account,
     }),
   })
   .then((response) => response.json())
@@ -47,7 +59,9 @@ export async function findByAgencyAndAccount(account: Account) {
   if (request.message) {
     throw new Error(request.message);
   }
-  return request;  
+  const account: Account = {}
+  account.id = request.id
+  return account;  
 }
 
 export async function getById(id: string) {
@@ -64,5 +78,15 @@ export async function getById(id: string) {
   if (request.message) {
     throw new Error(request.message);
   }
-  return request;
+  const customer: Customer = {};
+  const agency: Agency = {};
+  const account: Account = {};
+  customer.name = request.nameCustomer;
+  agency.agency = request.agency;
+  account.id = request.idAccount;
+  account.account = request.account;
+  account.balance = request.balance;
+  account.agency = agency;
+  account.customer = customer;
+  return account;
 }
