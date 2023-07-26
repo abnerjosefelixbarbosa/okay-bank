@@ -1,5 +1,6 @@
 package com.org.backend.models.services;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import com.org.backend.models.dtos.AccountGetAllByCustomerIdResponseDto;
 import com.org.backend.models.dtos.AccountGetByIdResponseDto;
 import com.org.backend.models.dtos.AccountTransferBalanceRequestDto;
 import com.org.backend.models.dtos.AccountTransferBalanceResponseDto;
-import com.org.backend.models.entities.Account;
 import com.org.backend.models.interfaces.AccountMethods;
 import com.org.backend.models.repositories.AccountRepository;
 
@@ -28,22 +28,26 @@ public class AccountService implements AccountMethods {
 		var account = accountRepository.findById(id).orElseThrow(() -> {
 			throw new EntityNotFoundException("Id not found");
 		});
-		var responseDto = account.convertAccountGetByIdResponseDto();
+		var responseDto = new AccountGetByIdResponseDto(account);
 		return responseDto;
 	}
 	
 	public List<AccountGetAllByCustomerIdResponseDto> getAllByCustomerId(String id) {
 		var pageRequest = PageRequest.of(0, 20, Sort.by("id"));
 		var accounts = accountRepository.findByCustomerId(id, pageRequest); 
-		var responseDtos = new Account().convertAccountGetAllByCustomerIdResponseDto(accounts);
+		var responseDtos = new LinkedList<AccountGetAllByCustomerIdResponseDto>();
+		accounts.stream().forEach((val) -> {
+			var responseDto = new AccountGetAllByCustomerIdResponseDto(val);
+			responseDtos.add(responseDto);
+		});	
 		return responseDtos;
 	}
 	
 	public AccountFindByAgencyAndAccountResponseDto findByAgencyAndAccount(AccountFindByAgencyAndAccountRequestDto requestDto) {
-		var account = accountRepository.findByAgencyAgencyAndAccount(requestDto.getAgency(), requestDto.getAccount()).orElseThrow(() -> {
+		var account = accountRepository.findByAgencyAgencyAndAccount(requestDto.getAgencyAgency(), requestDto.getAccount()).orElseThrow(() -> {
 			throw new EntityNotFoundException("Agency and account not found");
 		});
-		var responseDto = account.convertAccountFindByAgencyAndAccountResponseDto();
+		var responseDto = new AccountFindByAgencyAndAccountResponseDto(account);
 		return responseDto;
 	}
 	
@@ -61,7 +65,7 @@ public class AccountService implements AccountMethods {
         account2.deposit(requestDto.getBalance());
         accountRepository.save(account1);
         accountRepository.save(account2);
-        var responseDto = account1.convertAccountTransferBalanceResponseDto();
+        var responseDto = new AccountTransferBalanceResponseDto(account1);
         return responseDto;
 	}
 }
