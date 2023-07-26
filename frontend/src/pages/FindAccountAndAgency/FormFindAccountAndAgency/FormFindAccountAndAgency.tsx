@@ -39,10 +39,6 @@ export function FormFindAccountAndAgency() {
     .then((data) => {
       console.log(data);
       /*
-      if (data.account === location.state.account || data.agency?.agency === location.state.agency) {
-      } 
-      */
-      /*
       navigate("/confirm-balance", {
         state: {
           "id1": location.state.id,              

@@ -41,10 +41,12 @@ export function FormLogin() {
           id: data.id,
         },
         replace: true,
-      })
-      })
+      });
+    })
     .catch((e) => {
-      if (e.message === "CPF invalid") {
+      if (e.message === undefined) {
+        setShowElement(false);
+      } else if (e.message === "CPF invalid") {
         setError("cpf", { type: "invalid", message: e.message });
       } else {
         setError("root.random", { type: "random", message: e.message });
@@ -64,7 +66,9 @@ export function FormLogin() {
                   {showElement ? (
                     <div>
                       <Alert variant="danger">
-                        {errors.root?.random.message}
+                        {
+                          errors.root?.random.message
+                        }
                       </Alert>
                     </div>
                   ) : null}

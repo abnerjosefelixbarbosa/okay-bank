@@ -1,16 +1,22 @@
 import { Customer } from "../models/Customer";
 import { BASE_URL } from "../utils/Request";
 import { loginByCpfAndPassword as validationLoginByCpfAndPassword } from "../utils/CustomerValidation";
+import { Employee } from './../models/Employee';
 
-export async function loginByCpfAndPassword(customer: Customer) {
-  validationLoginByCpfAndPassword(customer);
+interface DataloginByCpfAndPassword {
+  cpf: string,
+  password: string
+}
+
+export async function loginByCpfAndPassword(data: DataloginByCpfAndPassword) {
+  validationLoginByCpfAndPassword(data);
   const request = await fetch(`${BASE_URL}/customers/login-by-cpf-and-password`, {
     method: "POST",
     headers: {
       "content-type": "application/json",
       "accept": "application/json",
     },
-    body: JSON.stringify(customer),
+    body: JSON.stringify(data),
   })
   .then((response) => response.json())
   .then((data) => data)
@@ -18,8 +24,8 @@ export async function loginByCpfAndPassword(customer: Customer) {
   if (request.message) {
     throw new Error(request.message);
   }
-  const newCustomer: Customer = {
-    id: request.id
+  const customer: Customer = {
+    id: request.id,
   }
-  return newCustomer;
+  return customer;
 }

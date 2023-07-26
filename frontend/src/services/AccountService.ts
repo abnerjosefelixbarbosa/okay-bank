@@ -5,8 +5,8 @@ import { BASE_URL } from "../utils/Request";
 
 interface DataGetAllByCustomerId {
   id: string,
-  agency: string,
-  account: string
+  account: string,
+  agencyAgency: string,
 }
 
 export async function getAllByCustomerId(id: string) {
@@ -23,22 +23,24 @@ export async function getAllByCustomerId(id: string) {
   if (request.message) {
     throw new Error(request.message);
   }
-  const agency: Agency = {};
-  const account: Account = {};
-  const accounts: Array<Account> = new Array<Account>();
+  const accounts: Account[] = [];
   request.forEach((data: DataGetAllByCustomerId) => {
-    account.id = data.id
-    agency.agency = data.agency
-    account.agency = agency
-    account.account = data.account
+    const agency: Agency = {
+      agency: data.agencyAgency
+    };
+    const account: Account = {
+      id: data.id,
+      account: data.account,
+      agency: agency
+    };
     accounts.push(account);
   });
   return accounts
 }
 
 interface DatafindByAgencyAndAccount {
-  agency?: string,
-  account?: string
+  agency: string,
+  account: string
 }
 
 export async function findByAgencyAndAccount(data: DatafindByAgencyAndAccount) {
@@ -78,15 +80,18 @@ export async function getById(id: string) {
   if (request.message) {
     throw new Error(request.message);
   }
-  const customer: Customer = {};
-  const agency: Agency = {};
-  const account: Account = {};
-  customer.name = request.nameCustomer;
-  agency.agency = request.agency;
-  account.id = request.idAccount;
-  account.account = request.account;
-  account.balance = request.balance;
-  account.agency = agency;
-  account.customer = customer;
+  const customer: Customer = {
+    name: request.customerName,
+  };
+  const agency: Agency = {
+    agency: request.agencyAgency
+  };
+  const account: Account = {
+    id: request.id,
+    account: request.account,
+    balance: request.balance,
+    agency: agency,
+    customer: customer,
+  };
   return account;
 }

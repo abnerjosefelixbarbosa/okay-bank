@@ -1,9 +1,12 @@
-import { Customer } from "../models/Customer";
 import * as cpf from 'validation-br/dist/cpf';
 
-export function loginByCpfAndPassword(customer: Customer) {
-    const customerCpf: any = customer.cpf;
-    if (!cpf.validate(customerCpf)) {
+interface DataLoginByCpfAndPassword {
+    cpf: string,
+    password: string
+}
+
+export function loginByCpfAndPassword(data: DataLoginByCpfAndPassword) {
+    if (!cpf.validate(data.cpf)) {
         throw new Error("CPF invalid");
     }
 } 
