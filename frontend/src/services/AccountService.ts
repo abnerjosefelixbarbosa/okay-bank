@@ -39,6 +39,7 @@ export async function getAllByCustomerId(id: string) {
 }
 
 interface DatafindByAgencyAndAccount {
+  id: string,
   agency: string,
   account: string
 }
@@ -51,8 +52,8 @@ export async function findByAgencyAndAccount(data: DatafindByAgencyAndAccount) {
       "accept": "application/json",
     },
     body: JSON.stringify({
-      agency: data.agency,
       account: data.account,
+      agencyAgency: data.agency,
     }),
   })
   .then((response) => response.json())
@@ -61,8 +62,12 @@ export async function findByAgencyAndAccount(data: DatafindByAgencyAndAccount) {
   if (request.message) {
     throw new Error(request.message);
   }
-  const account: Account = {}
-  account.id = request.id
+  if (data.id === request.id) {
+    throw new Error("id is equals");
+  }
+  const account: Account = {
+    id: request.id
+  }
   return account;  
 }
 
