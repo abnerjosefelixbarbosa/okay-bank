@@ -1,7 +1,6 @@
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import { useState } from "react";
 import Col from "react-bootstrap/Col";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -19,7 +18,6 @@ const schema = z.object({
 type FormProps = z.infer<typeof schema>;
 
 export function FormLogin() {
-  const [showElement, setShowElement] = useState<boolean>(false);
   const navigate = useNavigate();
   const {
     register,
@@ -27,32 +25,28 @@ export function FormLogin() {
     setError,
     formState: { errors, isSubmitting },
   } = useForm<FormProps>({
-    mode: "all",
-    reValidateMode: "onChange",
+    mode: "onSubmit",
+    reValidateMode: "onSubmit",
     resolver: zodResolver(schema),
   });
 
   function handleLogin(data: FormProps) {
     serviceloginByCpfAndPassword({ ...data })
-    .then((data) => {
-      setShowElement(false);
-      navigate('/apresent-accounts', {
-        state: {
-          id: data.id,
-        },
-        replace: true,
+      .then((data) => {
+        navigate("/apresent-accounts", {
+          state: {
+            id: data.id,
+          },
+          replace: true,
+        });
+      })
+      .catch((e) => {
+        if (e.message === "CPF invalid") {
+          setError("cpf", { type: "invalid", message: e.message });
+        } else {
+          setError("root.random", { type: "random", message: e.message });
+        }
       });
-    })
-    .catch((e) => {
-      if (e.message === undefined) {
-        setShowElement(false);
-      } else if (e.message === "CPF invalid") {
-        setError("cpf", { type: "invalid", message: e.message });
-      } else {
-        setError("root.random", { type: "random", message: e.message });
-        setShowElement(true);
-      }
-    });
   }
 
   return (
@@ -63,14 +57,10 @@ export function FormLogin() {
             <Form className="login_form" onSubmit={handleSubmit(handleLogin)}>
               <Row>
                 <Col>
-                  {showElement ? (
-                    <div>
-                      <Alert variant="danger">
-                        {
-                          errors.root?.random.message
-                        }
-                      </Alert>
-                    </div>
+                  {errors.root?.random.message ? (
+                    <Alert variant="danger">
+                      {errors.root?.random.message}
+                    </Alert>
                   ) : null}
                 </Col>
               </Row>

@@ -3,7 +3,6 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import { useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import Col from "react-bootstrap/Col";
 import { findByAgencyAndAccount as servicesFindByAgencyAndAccount } from "../../../services/AccountService";
@@ -14,14 +13,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const schema = z.object({
   agency: z.string().regex(/^\d{10}/, "Agency invalid"),
   account: z.string().regex(/^\d{10}/, "Account invalid"),
-})
+});
 
 type FormProps = z.infer<typeof schema>;
 
 export function FormFindAccountAndAgency() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [showElement, setShowElement] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
@@ -29,49 +27,27 @@ export function FormFindAccountAndAgency() {
     formState: { errors, isSubmitting },
   } = useForm<FormProps>({
     mode: "all",
-    reValidateMode: "onChange",
+    reValidateMode: "onSubmit",
     resolver: zodResolver(schema),
-  })
+  });
 
   function handleFind(data: FormProps) {
-    servicesFindByAgencyAndAccount({ ...data , id: location.state.id})
-    .then((data) => {
-      setShowElement(false);
-      navigate("/confirm-balance", {
-        state: {
-          "id1": location.state.id,              
-          "id2": data.id,
-          "password": location.state.password,
-          "balance": location.state.balance,
-        }  
+    servicesFindByAgencyAndAccount({ ...data, id: location.state.id })
+      .then((data) => {
+        navigate("/confirm-balance", {
+          state: {
+            id1: location.state.id,
+            id2: data.id,
+            password: location.state.password,
+            balance: location.state.balance,
+          },
+        });
+      })
+      .catch((e) => {
+        console.log(e.message);
+        setError("root.random", { type: "random", message: e.message });
       });
-    })
-    .catch((e) => {
-      console.log(e.message);
-      setShowElement(false);
-      if (e.message === undefined) {
-        setShowElement(false);
-      } else {
-        setError("root.random", {type : "random", message: e.message});
-        setShowElement(true);
-      }
-    });
   }
-
-  function hinder() {
-    setShowElement(false);
-    return null
-  }
-
-  /*
-  {showElement ? (
-    <div>
-      <Alert variant="danger">
-        { errors.root?.random.message }
-      </Alert>
-    </div>
-  ) : null}
-  */
 
   return (
     <div className="ajust">
@@ -80,9 +56,13 @@ export function FormFindAccountAndAgency() {
           <Form onSubmit={handleSubmit(handleFind)}>
             <Row>
               <Col>
-                <Form.Text className="text-muted text_color">
-                  { errors.root?.random.message }
-                </Form.Text>
+                {errors.root?.random.message ? (
+                  <div>
+                    <Alert variant="danger">
+                      {errors.root?.random.message}
+                    </Alert>
+                  </div>
+                ) : null}
               </Col>
             </Row>
             <Form.Group className="mb-3">
@@ -126,10 +106,8 @@ export function FormFindAccountAndAgency() {
                 className="button_find"
                 type="submit"
                 size="lg"
-                onLoad={() => {
-                  setShowElement(false);
-                  return isSubmitting
-                }}>
+                onLoad={() => isSubmitting}
+              >
                 Find
               </Button>
             </div>
