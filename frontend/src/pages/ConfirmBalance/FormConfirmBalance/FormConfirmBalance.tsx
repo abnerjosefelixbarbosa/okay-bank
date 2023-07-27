@@ -22,7 +22,6 @@ export function FormConfirmBalance() {
     register,
     handleSubmit,
     setError,
-    setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormProps>({
     mode: "all",
@@ -31,17 +30,29 @@ export function FormConfirmBalance() {
   });
 
   function handleConfirm(data: FormProps) {
-    console.log(data);
-    /*
-        navigate("/confirm-transfer", {
-          state: {
-            id1: location.state.id1,
-            id2: location.state.id2,
-            password: location.state.password,
-            balance: account.balance,
-          },
-        });
-        */
+    try {
+      if (data.balance === 0) {
+        throw new Error("Balance is 0");
+      }
+      if (data.balance.toFixed(2) > location.state.balance) {
+        throw new Error("Balance is greater than current balance");
+      }
+      navigate("/confirm-transfer", {
+        state: {
+          id1: location.state.id1,
+          id2: location.state.id2,
+          password: location.state.password,
+          balance: data.balance.toFixed(2),
+        },
+      });
+    } catch (e) {
+      const ex: any = e;
+      if (ex.message.includes("Balance")) {
+        setError("balance", { type: "invalid", message: ex.message });
+      } else {
+        setError("root.random", { type: "random", message: ex.message });
+      }
+    }
   }
 
   return (
