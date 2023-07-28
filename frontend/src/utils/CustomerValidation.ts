@@ -1,12 +1,8 @@
 import * as cpf from "validation-br/dist/cpf";
-
-interface DataLoginByCpfAndPassword {
-  cpf: string;
-  password: string;
-}
+import { DataLoginByCpfAndPassword } from "../types/DataLoginByCpfAndPassword";
 
 export function loginByCpfAndPassword(data: DataLoginByCpfAndPassword) {
-  if (cpf.validate(data.cpf)) {
+  if (!cpf.validate(data.cpf)) {
     throw new Error("CPF invalid");
   }
 }

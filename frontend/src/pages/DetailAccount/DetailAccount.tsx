@@ -6,8 +6,6 @@ import { useEffect } from "react";
 import { NavbarDetailAccount } from "./NavbarDetailAccount/NavbarDetailAccount";
 import { CardDetailAccounts } from "./CardDetailAccount/CardDetailAccount";
 import { getById as serviceGetById } from '../../services/AccountService';
-import { Customer } from "../../types/Customer";
-import { Agency } from "../../types/Agency";
 
 export function DetailAccount() {
   const location = useLocation();

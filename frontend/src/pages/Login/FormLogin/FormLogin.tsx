@@ -41,6 +41,7 @@ export function FormLogin() {
         });
       })
       .catch((e) => {
+        console.log(e.message)
         if (e.message === "CPF invalid") {
           setError("cpf", { type: "invalid", message: e.message });
         } else {

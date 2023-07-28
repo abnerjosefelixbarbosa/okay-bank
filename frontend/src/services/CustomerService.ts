@@ -1,13 +1,9 @@
 import { Customer } from "../types/Customer";
 import { BASE_URL } from "../utils/Request";
 import { loginByCpfAndPassword as validationLoginByCpfAndPassword } from "../utils/CustomerValidation";
+import { DataLoginByCpfAndPassword } from "../types/DataLoginByCpfAndPassword";
 
-interface DataloginByCpfAndPassword {
-  cpf: string,
-  password: string
-}
-
-export async function loginByCpfAndPassword(data: DataloginByCpfAndPassword) {
+export async function loginByCpfAndPassword(data: DataLoginByCpfAndPassword) {
   validationLoginByCpfAndPassword(data);
   const request = await fetch(`${BASE_URL}/customers/login-by-cpf-and-password`, {
     method: "POST",
