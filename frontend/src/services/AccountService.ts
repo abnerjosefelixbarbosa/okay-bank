@@ -1,4 +1,5 @@
 import { Account } from "../types/Account";
+import { DatafindByAgencyAndAccount } from "../types/DatafindByAgencyAndAccount";
 import { BASE_URL } from "../utils/Request";
 
 export async function getAllByCustomerId(id: string) {
@@ -22,12 +23,6 @@ export async function getAllByCustomerId(id: string) {
   return accounts
 }
 
-interface DatafindByAgencyAndAccount {
-  id: string,
-  agency: string,
-  account: string
-}
-
 export async function findByAgencyAndAccount(data: DatafindByAgencyAndAccount) {
   const request = await fetch(`${BASE_URL}/accounts/find-by-agency-and-account`, {
     method: "POST",
@@ -35,10 +30,7 @@ export async function findByAgencyAndAccount(data: DatafindByAgencyAndAccount) {
       "content-type": "application/json",
       "accept": "application/json",
     },
-    body: JSON.stringify({
-      account: data.account,
-      agencyAgency: data.agency,
-    }),
+    body: JSON.stringify({ ...data }),
   })
   .then((response) => response.json())
   .then((data) => data)
@@ -47,7 +39,7 @@ export async function findByAgencyAndAccount(data: DatafindByAgencyAndAccount) {
     throw new Error(request.message);
   }
   if (data.id === request.id) {
-    throw new Error("id is equals");
+    throw new Error("account is logged");
   }
   const account: Account = { ...request }
   return account;  

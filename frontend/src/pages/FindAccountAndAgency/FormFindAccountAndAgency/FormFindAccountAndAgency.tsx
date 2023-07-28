@@ -44,7 +44,6 @@ export function FormFindAccountAndAgency() {
         });
       })
       .catch((e) => {
-        console.log(e.message);
         setError("root.random", { type: "random", message: e.message });
       });
   }
@@ -57,18 +56,16 @@ export function FormFindAccountAndAgency() {
             <Row>
               <Col>
                 {errors.root?.random.message ? (
-                  <div>
-                    <Alert variant="danger">
-                      {errors.root?.random.message}
-                    </Alert>
-                  </div>
+                  <Alert variant="danger">
+                    {errors.root?.random.message}
+                  </Alert>
                 ) : null}
               </Col>
             </Row>
             <Form.Group className="mb-3">
               <Form.Label>Agency</Form.Label>
               <Form.Control
-                type="text"
+                type="password"
                 {...register("agency")}
                 onChange={(e) => {
                   let value = e.target.value;
@@ -86,7 +83,7 @@ export function FormFindAccountAndAgency() {
             <Form.Group className="mb-3">
               <Form.Label>Account</Form.Label>
               <Form.Control
-                type="text"
+                type="password"
                 {...register("account")}
                 onChange={(e) => {
                   let value = e.target.value;

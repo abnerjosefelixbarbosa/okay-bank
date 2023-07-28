@@ -8,6 +8,7 @@ import Col from "react-bootstrap/Col";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { validBalance } from "../../../utils/AccountValidation";
 
 const schema = z.object({
   balance: z.number(),
@@ -30,29 +31,24 @@ export function FormConfirmBalance() {
   });
 
   function handleConfirm(data: FormProps) {
-    try {
-      if (data.balance === 0) {
-        throw new Error("Balance is 0");
-      }
-      if (data.balance.toFixed(2) > location.state.balance) {
-        throw new Error("Balance is greater than current balance");
-      }
+    validBalance({ ...data, currentBalance: location.state.balance })
+    .then(() => {
       navigate("/confirm-transfer", {
         state: {
           id1: location.state.id1,
           id2: location.state.id2,
           password: location.state.password,
-          balance: data.balance.toFixed(2),
+          balance: data.balance,
         },
       });
-    } catch (e) {
-      const ex: any = e;
-      if (ex.message.includes("Balance")) {
-        setError("balance", { type: "invalid", message: ex.message });
+    })
+    .catch((e) => {
+      if (e.message.includes("Balance")) {
+        setError("balance", { type: "invalid", message: e.message });
       } else {
-        setError("root.random", { type: "random", message: ex.message });
+        setError("root.random", { type: "random", message: e.message });
       }
-    }
+    })
   }
 
   return (

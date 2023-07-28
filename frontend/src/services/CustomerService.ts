@@ -1,17 +1,15 @@
 import { Customer } from "../types/Customer";
 import { BASE_URL } from "../utils/Request";
-import { loginByCpfAndPassword as validationLoginByCpfAndPassword } from "../utils/CustomerValidation";
 import { DataLoginByCpfAndPassword } from "../types/DataLoginByCpfAndPassword";
 
 export async function loginByCpfAndPassword(data: DataLoginByCpfAndPassword) {
-  validationLoginByCpfAndPassword(data);
   const request = await fetch(`${BASE_URL}/customers/login-by-cpf-and-password`, {
     method: "POST",
     headers: {
       "content-type": "application/json",
       "accept": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify({ ...data }),
   })
   .then((response) => response.json())
   .then((data) => data)
