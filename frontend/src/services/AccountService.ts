@@ -1,13 +1,5 @@
-import { Account } from "../models/Account";
-import { Agency } from "../models/Agency";
-import { Customer } from "../models/Customer";
+import { Account } from "../types/Account";
 import { BASE_URL } from "../utils/Request";
-
-interface DataGetAllByCustomerId {
-  id: string,
-  account: string,
-  agencyAgency: string,
-}
 
 export async function getAllByCustomerId(id: string) {
   const request = await fetch(`${BASE_URL}/accounts/get-all-by-customer-id/${id}`, {
@@ -24,16 +16,8 @@ export async function getAllByCustomerId(id: string) {
     throw new Error(request.message);
   }
   const accounts: Account[] = [];
-  request.forEach((data: DataGetAllByCustomerId) => {
-    const agency: Agency = {
-      agency: data.agencyAgency
-    };
-    const account: Account = {
-      id: data.id,
-      account: data.account,
-      agency: agency
-    };
-    accounts.push(account);
+  request.forEach((data: Account) => {
+    accounts.push(data);
   });
   return accounts
 }
@@ -65,9 +49,7 @@ export async function findByAgencyAndAccount(data: DatafindByAgencyAndAccount) {
   if (data.id === request.id) {
     throw new Error("id is equals");
   }
-  const account: Account = {
-    id: request.id
-  }
+  const account: Account = { ...request }
   return account;  
 }
 
@@ -85,18 +67,6 @@ export async function getById(id: string) {
   if (request.message) {
     throw new Error(request.message);
   }
-  const customer: Customer = {
-    name: request.customerName,
-  };
-  const agency: Agency = {
-    agency: request.agencyAgency
-  };
-  const account: Account = {
-    id: request.id,
-    account: request.account,
-    balance: request.balance,
-    agency: agency,
-    customer: customer,
-  };
+  const account: Account = { ...request };
   return account;
 }

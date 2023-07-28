@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import Table from "react-bootstrap/Table";
-import { Account } from "../../../models/Account";
+import { Account } from "../../../types/Account";
 import { Link, useLocation } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { getAllByCustomerId as serviceGetAllByCustomerId } from "../../../services/AccountService";

@@ -15,7 +15,7 @@ const schema = z.object({
   password: z.string().regex(/^\d{6}$/, "Password invalid"),
 });
 
-type FormProps = z.infer<typeof schema>;
+type FormLogin = z.infer<typeof schema>;
 
 export function FormLogin() {
   const navigate = useNavigate();
@@ -24,13 +24,13 @@ export function FormLogin() {
     handleSubmit,
     setError,
     formState: { errors, isSubmitting },
-  } = useForm<FormProps>({
+  } = useForm<FormLogin>({
     mode: "onSubmit",
     reValidateMode: "onSubmit",
     resolver: zodResolver(schema),
   });
 
-  function handleLogin(data: FormProps) {
+  function handleLogin(data: FormLogin) {
     serviceloginByCpfAndPassword({ ...data })
       .then((data) => {
         navigate("/apresent-accounts", {

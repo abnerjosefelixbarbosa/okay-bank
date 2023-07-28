@@ -1,7 +1,6 @@
-import { Customer } from "../models/Customer";
+import { Customer } from "../types/Customer";
 import { BASE_URL } from "../utils/Request";
 import { loginByCpfAndPassword as validationLoginByCpfAndPassword } from "../utils/CustomerValidation";
-import { Employee } from './../models/Employee';
 
 interface DataloginByCpfAndPassword {
   cpf: string,
@@ -24,8 +23,6 @@ export async function loginByCpfAndPassword(data: DataloginByCpfAndPassword) {
   if (request.message) {
     throw new Error(request.message);
   }
-  const customer: Customer = {
-    id: request.id,
-  }
+  const customer: Customer = { ...request }
   return customer;
 }

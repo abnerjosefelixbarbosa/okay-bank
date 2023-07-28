@@ -1,13 +1,13 @@
 import { useLocation } from "react-router-dom";
-import { Account } from "../../models/Account";
+import { Account } from "../../types/Account";
 import "./style.css";
 import { useState } from "react";
 import { useEffect } from "react";
 import { NavbarDetailAccount } from "./NavbarDetailAccount/NavbarDetailAccount";
 import { CardDetailAccounts } from "./CardDetailAccount/CardDetailAccount";
 import { getById as serviceGetById } from '../../services/AccountService';
-import { Customer } from "../../models/Customer";
-import { Agency } from "../../models/Agency";
+import { Customer } from "../../types/Customer";
+import { Agency } from "../../types/Agency";
 
 export function DetailAccount() {
   const location = useLocation();
