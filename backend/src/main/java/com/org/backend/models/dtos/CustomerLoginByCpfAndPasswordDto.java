@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class CustomerLoginByCpfAndPasswordRequestDto {
+public class CustomerLoginByCpfAndPasswordDto {
 	@CPF(message = "CPF invalid")
     private String cpf;
 	@NotNull(message = "Password is null")

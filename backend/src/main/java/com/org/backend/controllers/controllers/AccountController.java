@@ -15,12 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.org.backend.models.dtos.AccountFindByAgencyAndAccountRequestDto;
-import com.org.backend.models.dtos.AccountFindByAgencyAndAccountResponseDto;
-import com.org.backend.models.dtos.AccountGetAllByCustomerIdResponseDto;
-import com.org.backend.models.dtos.AccountGetByIdResponseDto;
-import com.org.backend.models.dtos.AccountTransferBalanceRequestDto;
-import com.org.backend.models.dtos.AccountTransferBalanceResponseDto;
+import com.org.backend.models.dtos.AccountDto;
+import com.org.backend.models.dtos.AccountFindByAgencyAndAccountDto;
+import com.org.backend.models.dtos.AccountTransferBalanceDto;
 import com.org.backend.models.interfaces.AccountMethods;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,7 +38,7 @@ public class AccountController {
 	})
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping(path = "/get-by-id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<AccountGetByIdResponseDto> getById(@PathVariable(required = false) String id) {
+	public ResponseEntity<AccountDto> getById(@PathVariable(required = false) String id) {
 		var responseDto = accountMethods.getById(id);
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 	}
@@ -53,7 +50,7 @@ public class AccountController {
 	})
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping(path = "/get-all-by-customer-id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<AccountGetAllByCustomerIdResponseDto>> getAllByCustomerId(@PathVariable(required = false) String id) {
+	public ResponseEntity<List<AccountDto>> getAllByCustomerId(@PathVariable(required = false) String id) {
 		var accountDtos = accountMethods.getAllByCustomerId(id);	
 		return ResponseEntity.status(HttpStatus.OK).body(accountDtos);
 	}
@@ -66,7 +63,7 @@ public class AccountController {
 	})
 	@ResponseStatus(HttpStatus.OK)
 	@PostMapping(path = "/find-by-agency-and-account", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<AccountFindByAgencyAndAccountResponseDto> findByAgencyAndAccount(@RequestBody @Valid AccountFindByAgencyAndAccountRequestDto requestDto) {
+	public ResponseEntity<AccountDto> findByAgencyAndAccount(@RequestBody @Valid AccountFindByAgencyAndAccountDto requestDto) {
 		var responseDto = accountMethods.findByAgencyAndAccount(requestDto);
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 	}
@@ -79,7 +76,7 @@ public class AccountController {
 	})
 	@ResponseStatus(HttpStatus.OK)
 	@PutMapping(path = "/transfer-balance/{id1}/{id2}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<AccountTransferBalanceResponseDto> transferBalance(@PathVariable(required = false) String id1, @PathVariable(required = false) String id2, @RequestBody @Valid AccountTransferBalanceRequestDto requestDto) {
+	public ResponseEntity<AccountDto> transferBalance(@PathVariable(required = false) String id1, @PathVariable(required = false) String id2, @RequestBody @Valid AccountTransferBalanceDto requestDto) {
 		requestDto.validation();
 		var responseDto = accountMethods.transferBalance(id1, id2, requestDto);
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);

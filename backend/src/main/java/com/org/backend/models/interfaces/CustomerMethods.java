@@ -1,8 +1,8 @@
 package com.org.backend.models.interfaces;
 
-import com.org.backend.models.dtos.CustomerLoginByCpfAndPasswordRequestDto;
-import com.org.backend.models.dtos.CustomerLoginByCpfAndPasswordResponseDto;
+import com.org.backend.models.dtos.CustomerDto;
+import com.org.backend.models.dtos.CustomerLoginByCpfAndPasswordDto;
 
 public interface CustomerMethods {
-	CustomerLoginByCpfAndPasswordResponseDto loginByCpfAndPassword(CustomerLoginByCpfAndPasswordRequestDto requestDto);
+	CustomerDto loginByCpfAndPassword(CustomerLoginByCpfAndPasswordDto requestDto);
 }

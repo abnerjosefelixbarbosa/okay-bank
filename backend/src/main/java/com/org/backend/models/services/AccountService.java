@@ -10,12 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.org.backend.controllers.exceptions.EntityBadRequestException;
 import com.org.backend.controllers.exceptions.EntityNotFoundException;
-import com.org.backend.models.dtos.AccountFindByAgencyAndAccountRequestDto;
-import com.org.backend.models.dtos.AccountFindByAgencyAndAccountResponseDto;
-import com.org.backend.models.dtos.AccountGetAllByCustomerIdResponseDto;
-import com.org.backend.models.dtos.AccountGetByIdResponseDto;
-import com.org.backend.models.dtos.AccountTransferBalanceRequestDto;
-import com.org.backend.models.dtos.AccountTransferBalanceResponseDto;
+import com.org.backend.models.dtos.AccountDto;
+import com.org.backend.models.dtos.AccountFindByAgencyAndAccountDto;
+import com.org.backend.models.dtos.AccountTransferBalanceDto;
 import com.org.backend.models.interfaces.AccountMethods;
 import com.org.backend.models.repositories.AccountRepository;
 
@@ -24,34 +21,37 @@ public class AccountService implements AccountMethods {
 	@Autowired
 	private AccountRepository accountRepository;
 	
-	public AccountGetByIdResponseDto getById(String id) {
+	public AccountDto getById(String id) {
 		var account = accountRepository.findById(id).orElseThrow(() -> {
 			throw new EntityNotFoundException("Id not found");
 		});
-		var responseDto = new AccountGetByIdResponseDto(account);
+		var responseDto = new AccountDto();
+		responseDto.getById(account);
 		return responseDto;
 	}
 	
-	public List<AccountGetAllByCustomerIdResponseDto> getAllByCustomerId(String id) {
+	public List<AccountDto> getAllByCustomerId(String id) {
 		var pageRequest = PageRequest.of(0, 20, Sort.by("id"));
 		var accounts = accountRepository.findByCustomerId(id, pageRequest); 
-		var responseDtos = new LinkedList<AccountGetAllByCustomerIdResponseDto>();
-		accounts.stream().forEach((val) -> {
-			var responseDto = new AccountGetAllByCustomerIdResponseDto(val);
+		var responseDtos = new LinkedList<AccountDto>();
+		var responseDto = new AccountDto();
+		accounts.stream().forEach((val) -> {			
+			responseDto.getAllByCustomerId(val);
 			responseDtos.add(responseDto);
 		});	
 		return responseDtos;
 	}
 	
-	public AccountFindByAgencyAndAccountResponseDto findByAgencyAndAccount(AccountFindByAgencyAndAccountRequestDto requestDto) {
-		var account = accountRepository.findByAgencyAgencyAndAccount(requestDto.getAgencyAgency(), requestDto.getAccount()).orElseThrow(() -> {
+	public AccountDto findByAgencyAndAccount(AccountFindByAgencyAndAccountDto requestDto) {
+		var account = accountRepository.findByAgencyAgencyAndAccount(requestDto.getAgency(), requestDto.getAccount()).orElseThrow(() -> {
 			throw new EntityNotFoundException("Agency and account not found");
 		});
-		var responseDto = new AccountFindByAgencyAndAccountResponseDto(account);
+		var responseDto = new AccountDto();
+		responseDto.findByAgencyAndAccount(account);
 		return responseDto;
 	}
 	
-	public AccountTransferBalanceResponseDto transferBalance(String id1, String id2, AccountTransferBalanceRequestDto requestDto) {
+	public AccountDto transferBalance(String id1, String id2, AccountTransferBalanceDto requestDto) {
 		if (id1.equals(id2)) {
         	throw new EntityBadRequestException("id1 is equal to id2");
         }
@@ -65,7 +65,8 @@ public class AccountService implements AccountMethods {
         account2.deposit(requestDto.getBalance());
         accountRepository.save(account1);
         accountRepository.save(account2);
-        var responseDto = new AccountTransferBalanceResponseDto(account1);
+        var responseDto = new AccountDto();
+        responseDto.transferBalance(account1);
         return responseDto;
 	}
 }

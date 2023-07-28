@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.org.backend.models.dtos.CustomerLoginByCpfAndPasswordRequestDto;
-import com.org.backend.models.dtos.CustomerLoginByCpfAndPasswordResponseDto;
+import com.org.backend.models.dtos.CustomerDto;
+import com.org.backend.models.dtos.CustomerLoginByCpfAndPasswordDto;
 import com.org.backend.models.interfaces.CustomerMethods;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,7 +33,7 @@ public class CustomerController {
     })
 	@ResponseStatus(HttpStatus.OK)
 	@PostMapping(path = "/login-by-cpf-and-password", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<CustomerLoginByCpfAndPasswordResponseDto> loginByCpfAndPassword(@RequestBody @Valid CustomerLoginByCpfAndPasswordRequestDto requestDto) {
+	public ResponseEntity<CustomerDto> loginByCpfAndPassword(@RequestBody @Valid CustomerLoginByCpfAndPasswordDto requestDto) {
 		var responseDto = customerMethods.loginByCpfAndPassword(requestDto);
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 	}

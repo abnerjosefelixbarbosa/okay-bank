@@ -2,16 +2,13 @@ package com.org.backend.models.interfaces;
 
 import java.util.List;
 
-import com.org.backend.models.dtos.AccountFindByAgencyAndAccountRequestDto;
-import com.org.backend.models.dtos.AccountFindByAgencyAndAccountResponseDto;
-import com.org.backend.models.dtos.AccountGetAllByCustomerIdResponseDto;
-import com.org.backend.models.dtos.AccountGetByIdResponseDto;
-import com.org.backend.models.dtos.AccountTransferBalanceRequestDto;
-import com.org.backend.models.dtos.AccountTransferBalanceResponseDto;
+import com.org.backend.models.dtos.AccountDto;
+import com.org.backend.models.dtos.AccountFindByAgencyAndAccountDto;
+import com.org.backend.models.dtos.AccountTransferBalanceDto;
 
 public interface AccountMethods {
-	AccountGetByIdResponseDto getById(String id);
-	List<AccountGetAllByCustomerIdResponseDto> getAllByCustomerId(String id);
-	AccountFindByAgencyAndAccountResponseDto findByAgencyAndAccount(AccountFindByAgencyAndAccountRequestDto requestDto);
-	AccountTransferBalanceResponseDto transferBalance(String id1, String id2, AccountTransferBalanceRequestDto requestDto);
+	AccountDto getById(String id);
+	List<AccountDto> getAllByCustomerId(String id);
+	AccountDto findByAgencyAndAccount(AccountFindByAgencyAndAccountDto requestDto);
+	AccountDto transferBalance(String id1, String id2, AccountTransferBalanceDto requestDto);
 }
