@@ -8,7 +8,7 @@ import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginByCpfAndPassword as serviceLoginByCpfAndPassword } from "../../../utils/CustomerValidation";
+import { loginByCpfAndPassword as validLoginByCpfAndPassword } from "../../../utils/CustomerValidation";
 
 const schema = z.object({
   cpf: z.string().regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, "CPF invalid"),
@@ -31,7 +31,7 @@ export function FormLogin() {
   });
 
   function handleLogin(data: FormLogin) {
-    serviceLoginByCpfAndPassword({ ...data })
+    validLoginByCpfAndPassword({ ...data })
       .then((data) => {
         navigate("/apresent-accounts", {
           state: {
@@ -57,11 +57,11 @@ export function FormLogin() {
             <Form className="login_form" onSubmit={handleSubmit(handleLogin)}>
               <Row>
                 <Col>
-                  {errors.root?.random.message ? (
+                  {errors.root?.random.message && (
                     <Alert variant="danger">
                       {errors.root?.random.message}
                     </Alert>
-                  ) : null}
+                  )}
                 </Col>
               </Row>
               <Row className="title_login_form">
