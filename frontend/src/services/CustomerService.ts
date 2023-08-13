@@ -1,8 +1,11 @@
-import { Customer } from "../types/Customer";
 import { BASE_URL } from "../utils/Request";
-import { DataLoginByCpfAndPassword } from "../types/DataLoginByCpfAndPassword";
 
-export async function loginByCpfAndPassword(data: DataLoginByCpfAndPassword) {
+interface DataLogin {
+  cpf: string,
+  password: string
+}
+
+export async function loginByCpfAndPassword(data: DataLogin) {
   const request = await fetch(`${BASE_URL}/customers/login-by-cpf-and-password`, {
     method: "POST",
     headers: {
@@ -14,9 +17,10 @@ export async function loginByCpfAndPassword(data: DataLoginByCpfAndPassword) {
   .then((response) => response.json())
   .then((data) => data)
   .catch((e) => e);
+
   if (request.message) {
     throw new Error(request.message);
   }
-  const customer: Customer = { ...request }
-  return customer;
+
+  return request;
 }

@@ -1,14 +1,16 @@
-import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import {
+  Form,
+  Container,
+  Row,
+  Button,
+} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import Button from "react-bootstrap/Button";
-import Alert from "react-bootstrap/Alert";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginByCpfAndPassword as validLoginByCpfAndPassword } from "../../../utils/CustomerValidation";
+import { loginByCpfAndPassword } from "../../../utils/CustomerValidation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/ReactToastify.css";
 
 const schema = z.object({
   cpf: z.string().regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, "CPF invalid"),
@@ -31,7 +33,7 @@ export function FormLogin() {
   });
 
   function handleLogin(data: FormLogin) {
-    validLoginByCpfAndPassword({ ...data })
+    loginByCpfAndPassword({ ...data })
       .then((data) => {
         navigate("/apresent-accounts", {
           state: {
@@ -41,29 +43,26 @@ export function FormLogin() {
         });
       })
       .catch((e) => {
-        if (e.message === "CPF invalid") {
+        const message: string = e.message;
+
+        if (message.includes("CPF invalid")) {
           setError("cpf", { type: "invalid", message: e.message });
         } else {
-          setError("root.random", { type: "random", message: e.message });
+          toast.error(e.message, {
+            autoClose: 3000,
+            position: "top-center"
+          });
         }
       });
   }
 
   return (
     <>
+      <ToastContainer />
       <div className="ajust">
         <Container className="container_login_form">
           <Row>
             <Form className="login_form" onSubmit={handleSubmit(handleLogin)}>
-              <Row>
-                <Col>
-                  {errors.root?.random.message && (
-                    <Alert variant="danger">
-                      {errors.root?.random.message}
-                    </Alert>
-                  )}
-                </Col>
-              </Row>
               <Row className="title_login_form">
                 <h1>Okay Bank</h1>
               </Row>

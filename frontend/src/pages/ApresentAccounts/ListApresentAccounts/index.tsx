@@ -14,7 +14,7 @@ export function ListApresentAccounts() {
   useEffect(() => {
     serviceGetAllByCustomerId(location.state.id)
     .then((data) => setAccounts(data));
-  }, [setAccounts]);
+  }, []);
 
   return (
     <>
@@ -24,8 +24,8 @@ export function ListApresentAccounts() {
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th>Agency</th>
-                  <th>Account</th>
+                  <th className="text-center">Agency</th>
+                  <th className="text-center">Account</th>
                 </tr>
               </thead>
               <tbody>
