@@ -1,18 +1,24 @@
 import * as cpf from "validation-br/dist/cpf";
-import { loginByCpfAndPassword as serviceLoginByCpfAndPassword } from "../services/CustomerService"
-import { sleep } from "./SetTime";
+import { CustomerService } from "../services/CustomerService"
+import { Customer } from "../types/Customer";
 
-interface DataLogin {
-  cpf: string,
-  password: string
+interface ICustomer {
+  loginByCpfAndPassword(data: Customer): Promise<any>;
 }
 
-export async function loginByCpfAndPassword(data: DataLogin) {
-  if (!cpf.validate(data.cpf)) {
-    throw new Error("CPF invalid");
+export class CustomerValidation implements ICustomer {
+  private iCustomer!: ICustomer;
+
+  setCustomerValidation(iCustomer: ICustomer) {
+    this.iCustomer = iCustomer;
   }
 
-  const request = await serviceLoginByCpfAndPassword(data);
-  await sleep(3000);
-  return request;
-}
+  async loginByCpfAndPassword(data: Customer): Promise<any> {
+    if (!cpf.validate(data.cpf!)) {
+      throw new Error("CPF invalid");
+    }
+    this.setCustomerValidation(new CustomerService());
+    const request = await this.iCustomer.loginByCpfAndPassword(data);
+    return request;
+  }
+} 

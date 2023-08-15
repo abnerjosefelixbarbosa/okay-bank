@@ -1,16 +1,12 @@
-import {
-  Form,
-  Container,
-  Row,
-  Button,
-} from "react-bootstrap";
+import { Form, Container, Row, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginByCpfAndPassword } from "../../../utils/CustomerValidation";
+import { CustomerValidation } from "../../../utils/CustomerValidation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
+import { Customer } from "../../../types/Customer";
 
 const schema = z.object({
   cpf: z.string().regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, "CPF invalid"),
@@ -33,7 +29,10 @@ export function FormLogin() {
   });
 
   function handleLogin(data: FormLogin) {
-    loginByCpfAndPassword({ ...data })
+    const cv = new CustomerValidation();
+    const c: Customer = { ...data };
+
+    cv.loginByCpfAndPassword(c)
       .then((data) => {
         navigate("/apresent-accounts", {
           state: {
@@ -50,7 +49,7 @@ export function FormLogin() {
         } else {
           toast.error(e.message, {
             autoClose: 3000,
-            position: "top-center"
+            position: "top-center",
           });
         }
       });
