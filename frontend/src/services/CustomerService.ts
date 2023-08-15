@@ -1,12 +1,7 @@
-import { Customer } from "../types/Customer";
+import { Customer, CustomerInterface, createCustomer } from "../types/Customer";
 import { BASE_URL } from "../utils/Request";
 
-interface ICustomer {
-  loginByCpfAndPassword(data: Customer): Promise<any>;
-}
-
-export class CustomerService implements ICustomer {
-
+export class CustomerService implements CustomerInterface {
   async loginByCpfAndPassword(data: Customer) {
     const request = await fetch(`${BASE_URL}/customers/login-by-cpf-and-password`, {
       method: "POST",
@@ -20,7 +15,7 @@ export class CustomerService implements ICustomer {
       }),
     })
     .then((response) => response.json())
-    .then((data) => data)
+    .then((data) => createCustomer(data))
     .catch((e) => e);
   
     if (request.message) {

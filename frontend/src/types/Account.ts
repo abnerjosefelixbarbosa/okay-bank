@@ -10,3 +10,14 @@ export interface Account {
   agency: Agency;
   customer: Customer;
 }
+
+export interface AccountInterface {
+  getAllByCustomerId(id: string): Promise<Account[]>;
+  findByAgencyAndAccount(data: Account): Promise<Account>; 
+  getById(id: string): Promise<Account>
+}
+
+export function createAccount(data: any) {
+  const newAccount: Account = { ...data }
+  return newAccount
+}

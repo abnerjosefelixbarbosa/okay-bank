@@ -1,24 +1,21 @@
 import * as cpf from "validation-br/dist/cpf";
 import { CustomerService } from "../services/CustomerService"
-import { Customer } from "../types/Customer";
+import { Customer, CustomerInterface } from "../types/Customer";
 
-interface ICustomer {
-  loginByCpfAndPassword(data: Customer): Promise<any>;
-}
+export class CustomerValidation implements CustomerInterface {
+  private customerInterface!: CustomerInterface;
 
-export class CustomerValidation implements ICustomer {
-  private iCustomer!: ICustomer;
-
-  setCustomerValidation(iCustomer: ICustomer) {
-    this.iCustomer = iCustomer;
+  setCustomerValidation(customerInterface: CustomerInterface) {
+    this.customerInterface = customerInterface;
   }
 
-  async loginByCpfAndPassword(data: Customer): Promise<any> {
-    if (!cpf.validate(data.cpf!)) {
+  async loginByCpfAndPassword(data: Customer) {
+    if (!cpf.validate(data.cpf)) {
       throw new Error("CPF invalid");
     }
+
     this.setCustomerValidation(new CustomerService());
-    const request = await this.iCustomer.loginByCpfAndPassword(data);
+    const request = await this.customerInterface.loginByCpfAndPassword(data);
     return request;
   }
 } 

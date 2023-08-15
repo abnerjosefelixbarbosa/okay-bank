@@ -8,7 +8,7 @@ import Col from "react-bootstrap/Col";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { validBalance } from "../../../utils/AccountValidation";
+//import { validBalance } from "../../../utils/AccountValidation";
 
 const schema = z.object({
   balance: z.number(),
@@ -17,6 +17,7 @@ const schema = z.object({
 type FormProps = z.infer<typeof schema>;
 
 export function FormConfirmBalance() {
+  /*
   const location = useLocation();
   const navigate = useNavigate();
   const {
@@ -98,4 +99,5 @@ export function FormConfirmBalance() {
       </div>
     </>
   );
+  */
 }

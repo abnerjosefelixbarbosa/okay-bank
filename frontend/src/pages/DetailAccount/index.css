@@ -2,12 +2,6 @@
     margin-top: 50px;
 }
 
-.center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .link_navbar {
     text-decoration: none;
     color: #000000;
@@ -15,11 +9,6 @@
 
 .navbar {
     background-color: #00FF7F !important;
-}
-
-.card {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
 }
 
 .card_header {

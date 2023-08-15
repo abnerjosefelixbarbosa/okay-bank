@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CustomerValidation } from "../../../utils/CustomerValidation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
-import { Customer } from "../../../types/Customer";
+import { Customer, createCustomer } from "../../../types/Customer";
 
 const schema = z.object({
   cpf: z.string().regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, "CPF invalid"),
@@ -29,10 +29,10 @@ export function FormLogin() {
   });
 
   function handleLogin(data: FormLogin) {
-    const cv = new CustomerValidation();
-    const c: Customer = { ...data };
+    const customerValidation = new CustomerValidation();
+    const newCustomer = createCustomer(data);
 
-    cv.loginByCpfAndPassword(c)
+    customerValidation.loginByCpfAndPassword(newCustomer)
       .then((data) => {
         navigate("/apresent-accounts", {
           state: {
@@ -43,7 +43,6 @@ export function FormLogin() {
       })
       .catch((e) => {
         const message: string = e.message;
-
         if (message.includes("CPF invalid")) {
           setError("cpf", { type: "invalid", message: e.message });
         } else {

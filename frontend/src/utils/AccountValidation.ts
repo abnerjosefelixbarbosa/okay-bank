@@ -1,10 +1,37 @@
-import { DataValidBalance } from "../types/DataValidBalance";
+import { AccountService } from "../services/AccountService";
+import { Account, AccountInterface } from "../types/Account";
 
-export async function validBalance(data: DataValidBalance) {
-    if (data.balance === 0) {
-        throw new Error("Balance is 0");
+export class AccountValidation implements AccountInterface {
+    private accountInterface!: AccountInterface;
+
+    setAccountInterface(accountInterface: AccountInterface) {
+        this.accountInterface = accountInterface;
     }
-    if (data.balance > data.currentBalance) {
-        throw new Error("Balance is greater than current balance");
+
+    async validBalance(balance: number, currentBalance: number) {
+        if (balance === 0) {
+            throw new Error("Balance is 0");
+        }
+        if (balance > currentBalance) {
+            throw new Error("Balance is greater than current balance");
+        }
+    }
+
+    async getAllByCustomerId(id: string) {
+        this.setAccountInterface(new AccountService());
+        const request = await this.accountInterface?.getAllByCustomerId(id);
+        return request
+    }
+
+    async findByAgencyAndAccount(data: Account) {
+        this.setAccountInterface(new AccountService());
+        const request = await this.accountInterface.findByAgencyAndAccount(data);
+        return request
+    }
+
+    async getById(id: string) {
+        this.setAccountInterface(new AccountService());
+        const request = await this.accountInterface.getById(id);
+        return request
     }
 }

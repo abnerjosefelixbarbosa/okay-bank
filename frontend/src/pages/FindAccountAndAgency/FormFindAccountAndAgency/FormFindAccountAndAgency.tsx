@@ -1,11 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Alert from "react-bootstrap/Alert";
-import Col from "react-bootstrap/Col";
-import { findByAgencyAndAccount as servicesFindByAgencyAndAccount } from "../../../services/AccountService";
+import { Button, Form, Container, Alert, Row, Col } from "react-bootstrap";
+import { AccountValidation } from "../../../utils/AccountValidation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,6 +13,7 @@ const schema = z.object({
 type FormProps = z.infer<typeof schema>;
 
 export function FormFindAccountAndAgency() {
+  /*
   const location = useLocation();
   const navigate = useNavigate();
   const {
@@ -56,9 +52,7 @@ export function FormFindAccountAndAgency() {
             <Row>
               <Col>
                 {errors.root?.random.message ? (
-                  <Alert variant="danger">
-                    {errors.root?.random.message}
-                  </Alert>
+                  <Alert variant="danger">{errors.root?.random.message}</Alert>
                 ) : null}
               </Col>
             </Row>
@@ -113,4 +107,5 @@ export function FormFindAccountAndAgency() {
       </Container>
     </div>
   );
+  */
 }

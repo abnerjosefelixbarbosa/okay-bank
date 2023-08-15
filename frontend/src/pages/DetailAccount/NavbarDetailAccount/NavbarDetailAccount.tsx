@@ -3,18 +3,24 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { useEffect, useState } from "react";
-import { Account } from "../../../types/Account";
 import { Link } from "react-router-dom";
 
-export function NavbarDetailAccount({ customer, id, account, agency, balance, password }: Account) {
+interface Props {
+  id: string,
+  customerName: string,
+  account: string,
+  agency: string,
+  balance: number,
+  password: string,
+}
+
+export function NavbarDetailAccount({ customerName, id, account, agency, balance, password }: Props) {
   const [name, setName] = useState<string>("");
 
   useEffect(() => {
-    if (customer?.name !== undefined) {
-      const list: Array<string> = customer.name.split(" ");
-      setName(list[0]);
-    }
-  });
+    const list: Array<string> = customerName.split(" ");
+    setName(list[0]);
+  }, [setName]);
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary navbar">
@@ -35,7 +41,7 @@ export function NavbarDetailAccount({ customer, id, account, agency, balance, pa
                   to="/find-account-and-agency"
                   state={{
                     "id": id,
-                    "agency": agency?.agency,
+                    "agency": agency,
                     "account": account,  
                     "balance": balance,
                     "password": password                  
