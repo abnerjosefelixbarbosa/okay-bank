@@ -6,7 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CustomerValidation } from "../../../utils/CustomerValidation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
-import { Customer, createCustomer } from "../../../types/Customer";
+import { createCustomer } from "../../../types/Customer";
+import { useState } from "react";
 
 const schema = z.object({
   cpf: z.string().regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, "CPF invalid"),
@@ -17,6 +18,7 @@ type FormLogin = z.infer<typeof schema>;
 
 export function FormLogin() {
   const navigate = useNavigate();
+  const [customerValidation] = useState(new CustomerValidation())
   const {
     register,
     handleSubmit,
@@ -29,7 +31,6 @@ export function FormLogin() {
   });
 
   function handleLogin(data: FormLogin) {
-    const customerValidation = new CustomerValidation();
     const newCustomer = createCustomer(data);
 
     customerValidation.loginByCpfAndPassword(newCustomer)

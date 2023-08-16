@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import Container from "react-bootstrap/esm/Container";
-import { Table, Button, Card } from "react-bootstrap";
+import { Table, Button, Card, Container } from "react-bootstrap";
 import { Account } from "../../../types/Account";
 import { Link, useLocation } from "react-router-dom";
 import { AccountValidation } from "../../../utils/AccountValidation";
@@ -8,9 +7,9 @@ import { AccountValidation } from "../../../utils/AccountValidation";
 export function ListApresentAccounts() {
   const location = useLocation();
   const [accounts, setAccounts] = useState<Array<Account>>([]);
+  const [accountValidation] = useState(new AccountValidation());
 
   useEffect(() => {
-    const accountValidation = new AccountValidation();
     accountValidation.getAllByCustomerId(location.state.id).then((data) => {
       setAccounts(data);
     });

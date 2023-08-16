@@ -10,29 +10,24 @@ import { AccountValidation } from "../../utils/AccountValidation";
 export function DetailAccount() {
   const location = useLocation();
   const [account, setAccount] = useState<Account>();
-  const [ accountValidation ] = useState<AccountValidation>(new AccountValidation())
+  const accountValidation = new AccountValidation();
 
   useEffect(() => {
     accountValidation.getById(location.state.id)
     .then((data) => {
-      setAccount(data);
+      setAccount({...data});
     })
   }, []);
 
   return (
     <>
       <NavbarDetailAccount
-        agency={account!.agency.agency}
-        account={account!.account}
-        customerName={account!.customer.name}
-        balance={account!.balance}
-        password={account!.password}
-        id={account!.id}
+        account={account!}
+        agency={account!.agency}
       />
       <CardDetailAccounts
-        account={account!.account}
-        agency={account!.agency.agency}
-        balance={account!.balance}
+        account={account!}
+        agency={account!.agency}
       />
     </>
   );
