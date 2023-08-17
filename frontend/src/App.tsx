@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Login } from "./pages/Login";
 import { ApresentAccounts } from "./pages/ApresentAccounts";
 import { DetailAccount } from "./pages/DetailAccount";
-import { FindAccountAndAgency } from "./pages/FindAccountAndAgency/FindAccountAndAgency";
+import { FindAccountAndAgency } from "./pages/FindAccountAndAgency";
 import { ConfirmBalance } from "./pages/ConfirmBalance/ConfirmBalance";
 import { ConfirmTransfer } from "./pages/ConfirmTransfer/ConfirmTransfer";
 

@@ -1,9 +1,12 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { Button, Form, Container, Alert, Row, Col } from "react-bootstrap";
+import { Button, Form, Container, Row } from "react-bootstrap";
 import { AccountValidation } from "../../../utils/AccountValidation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { createAccount } from "../../../types/Account";
+import { ToastContainer, toast } from "react-toastify";
 
 const schema = z.object({
   agency: z.string().regex(/^\d{10}/, "Agency invalid"),
@@ -13,9 +16,9 @@ const schema = z.object({
 type FormProps = z.infer<typeof schema>;
 
 export function FormFindAccountAndAgency() {
-  /*
   const location = useLocation();
   const navigate = useNavigate();
+  const [accountValidation] = useState(new AccountValidation());
   const {
     register,
     handleSubmit,
@@ -28,6 +31,7 @@ export function FormFindAccountAndAgency() {
   });
 
   function handleFind(data: FormProps) {
+    /*
     servicesFindByAgencyAndAccount({ ...data, id: location.state.id })
       .then((data) => {
         navigate("/confirm-balance", {
@@ -42,20 +46,27 @@ export function FormFindAccountAndAgency() {
       .catch((e) => {
         setError("root.random", { type: "random", message: e.message });
       });
+    */  
+    const newAccount = createAccount(data)
+    accountValidation.findByAgencyAndAccount(newAccount)
+    .then((data) => {
+      console.log(data)
+    })
+    .catch((e) => {
+      toast.error(e.message, {
+        autoClose: 3000,
+        position: "top-center",
+      });
+    });
   }
 
   return (
+    <>
+    <ToastContainer />
     <div className="ajust">
       <Container className="container_find_form">
         <Row>
           <Form onSubmit={handleSubmit(handleFind)}>
-            <Row>
-              <Col>
-                {errors.root?.random.message ? (
-                  <Alert variant="danger">{errors.root?.random.message}</Alert>
-                ) : null}
-              </Col>
-            </Row>
             <Form.Group className="mb-3">
               <Form.Label>Agency</Form.Label>
               <Form.Control
@@ -106,6 +117,6 @@ export function FormFindAccountAndAgency() {
         </Row>
       </Container>
     </div>
+    </>
   );
-  */
 }
