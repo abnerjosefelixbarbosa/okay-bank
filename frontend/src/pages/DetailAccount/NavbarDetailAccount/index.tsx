@@ -11,10 +11,11 @@ export function NavbarDetailAccount({ account }: Props) {
   const [name, setName] = useState<string>("");
 
   useEffect(() => {
-    //const list: Array<string> = ;
-    console.log(account?.customer.name.split(" "))
-    //setName(list[0]);
-  }, []);
+    if (account) {
+      const list: Array<string> = account.customer.name.split(" ");
+      setName(list[0]);
+    }
+  });
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary navbar">
@@ -23,10 +24,7 @@ export function NavbarDetailAccount({ account }: Props) {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/" replace={true}>
-              Logout
-            </Nav.Link>
-            <NavDropdown active title="Operations" id="basic-nav-dropdown">
+            <NavDropdown  title="Operations" id="basic-nav-dropdown">
               <NavDropdown.Item
                 as={Link}
                 to="/find-account-and-agency"
@@ -41,6 +39,11 @@ export function NavbarDetailAccount({ account }: Props) {
                 Transfer balance
               </NavDropdown.Item>
             </NavDropdown>
+          </Nav>
+          <Nav>
+            <Nav.Link as={Link} to="/" replace={true}>
+              Logout
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
