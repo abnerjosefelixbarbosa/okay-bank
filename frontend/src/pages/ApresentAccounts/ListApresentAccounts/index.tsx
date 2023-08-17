@@ -1,20 +1,12 @@
-import { useEffect, useState } from "react";
 import { Table, Button, Card, Container } from "react-bootstrap";
 import { Account } from "../../../types/Account";
-import { Link, useLocation } from "react-router-dom";
-import { AccountValidation } from "../../../utils/AccountValidation";
+import { Link } from "react-router-dom";
 
-export function ListApresentAccounts() {
-  const location = useLocation();
-  const [accounts, setAccounts] = useState<Array<Account>>([]);
-  const [accountValidation] = useState(new AccountValidation());
+interface Props {
+  accounts: Account[];
+}
 
-  useEffect(() => {
-    accountValidation.getAllByCustomerId(location.state.id).then((data) => {
-      setAccounts(data);
-    });
-  }, []);
-
+export function ListApresentAccounts({ accounts } : Props) {
   return (
     <>
       <div className="ajust">

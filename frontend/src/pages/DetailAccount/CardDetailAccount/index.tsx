@@ -1,13 +1,14 @@
 import {Card, Container, Row} from "react-bootstrap";
 import { Account } from "../../../types/Account";
-import { Agency } from "../../../types/Agency";
 
 interface Props {
-  account: Account,
-  agency: Agency,
-} 
+  account: Account
+}
 
-export function CardDetailAccounts({ account, agency }: Props) {
+export function CardDetailAccounts({ account } : Props) {
+  //const [account, setAccount] = useState<Account>(props.account);
+  //console.log(account)
+
   return (
     <>
       <Container className="container_detail_accounts">
@@ -17,11 +18,11 @@ export function CardDetailAccounts({ account, agency }: Props) {
               Account detail
             </Card.Header>
             <Card.Body>
-                <label>Agency:</label> {agency.agency}
+                <label>Agency: { account?.agency.agency }</label>
                 <br />
-                <label>Account:</label> {account.account}
+                <label>Account: { account?.account }</label>
                 <br />
-                <label>Balance:</label> {account.balance.toFixed(2)}
+                <label>Balance: { account?.balance.toFixed(2) }</label>
             </Card.Body>
           </Card>
         </Row>
