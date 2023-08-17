@@ -38,10 +38,6 @@ export class AccountService implements AccountInterface  {
       throw new Error(request.message);
     }
 
-    if (data.id === request.id) {
-      throw new Error("account is logged");
-    }
-
     return request;  
   }
   

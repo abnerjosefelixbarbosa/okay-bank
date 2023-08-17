@@ -26,9 +26,6 @@ export class AccountValidation implements AccountInterface {
     async findByAgencyAndAccount(data: Account) {
         this.setAccountInterface(new AccountService());
         const request = await this.accountInterface.findByAgencyAndAccount(data);
-        if (request.agency === data.agency || request.agency.agency === data.agency.agency) {
-           throw new Error("This agency or account is already logged in")
-        }
         return request
     }
 

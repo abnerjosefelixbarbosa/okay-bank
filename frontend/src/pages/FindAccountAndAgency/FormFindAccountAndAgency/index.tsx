@@ -47,7 +47,7 @@ export function FormFindAccountAndAgency() {
         setError("root.random", { type: "random", message: e.message });
       });
     */  
-    const newAccount = createAccount(data)
+    const newAccount = createAccount({...data, id: location.state.id})
     accountValidation.findByAgencyAndAccount(newAccount)
     .then((data) => {
       console.log(data)
