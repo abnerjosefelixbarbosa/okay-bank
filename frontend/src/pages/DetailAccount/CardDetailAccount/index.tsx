@@ -2,13 +2,10 @@ import {Card, Container, Row} from "react-bootstrap";
 import { Account } from "../../../types/Account";
 
 interface Props {
-  account: Account
+  account?: Account
 }
 
 export function CardDetailAccounts({ account } : Props) {
-  //const [account, setAccount] = useState<Account>(props.account);
-  //console.log(account)
-
   return (
     <>
       <Container className="container_detail_accounts">

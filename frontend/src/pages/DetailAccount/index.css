@@ -1,5 +1,7 @@
 .container_detail_accounts {
     margin-top: 50px;
+    border-radius: 0 !important;
+    border: none !important;
 }
 
 .link_navbar {

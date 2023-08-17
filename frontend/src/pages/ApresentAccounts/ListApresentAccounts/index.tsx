@@ -1,12 +1,10 @@
 import { Table, Button, Card, Container } from "react-bootstrap";
-import { Account } from "../../../types/Account";
 import { Link } from "react-router-dom";
+import { useAccounts } from "../../../hooks/useAccounts";
 
-interface Props {
-  accounts: Account[];
-}
+export function ListApresentAccounts() {
+  const { accounts } = useAccounts();
 
-export function ListApresentAccounts({ accounts } : Props) {
   return (
     <>
       <div className="ajust">

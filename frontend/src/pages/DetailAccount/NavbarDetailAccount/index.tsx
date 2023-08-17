@@ -1,25 +1,18 @@
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Account } from "../../../types/Account";
+import { useCustomerName } from "../../../hooks/useCustomerName";
 
 interface Props {
-  account: Account;
+  account?: Account;
 }
 
 export function NavbarDetailAccount({ account }: Props) {
-  const [name, setName] = useState<string>("");
-
-  useEffect(() => {
-    if (account) {
-      const list: Array<string> = account.customer.name.split(" ");
-      setName(list[0]);
-    }
-  });
+  const { name } = useCustomerName(account!)
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary navbar">
-      <Container fluid>
+      <Container>
         <Navbar.Brand>{`Hello ${name}`}</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
