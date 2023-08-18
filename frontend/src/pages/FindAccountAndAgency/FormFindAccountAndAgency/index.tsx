@@ -5,8 +5,9 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { createAccount } from "../../../types/Account";
+import { Account } from "../../../types/Account";
 import { ToastContainer, toast } from "react-toastify";
+import { Agency } from "../../../types/Agency";
 
 const schema = z.object({
   agency: z.string().regex(/^\d{10}/, "Agency invalid"),
@@ -31,23 +32,14 @@ export function FormFindAccountAndAgency() {
   });
 
   function handleFind(data: FormProps) {
-    /*
-    servicesFindByAgencyAndAccount({ ...data, id: location.state.id })
-      .then((data) => {
-        navigate("/confirm-balance", {
-          state: {
-            id1: location.state.id,
-            id2: data.id,
-            password: location.state.password,
-            balance: location.state.balance,
-          },
-        });
-      })
-      .catch((e) => {
-        setError("root.random", { type: "random", message: e.message });
-      });
-    */  
-    const newAccount = createAccount({...data, id: location.state.id})
+    const newAgency: Agency  = {
+      agency: data.agency,
+    } 
+    const newAccount: Account = { 
+      account: data.account,
+      agency: newAgency
+    }
+
     accountValidation.findByAgencyAndAccount(newAccount)
     .then((data) => {
       console.log(data)

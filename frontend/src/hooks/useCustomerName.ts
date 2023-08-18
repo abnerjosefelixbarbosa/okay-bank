@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { Account } from "../types/Account";
+import { Customer } from "../types/Customer";
 
-export function useCustomerName(account: Account) {
+export function useCustomerName(customer: Customer) {
     const [name, setName] = useState<string>("");
 
     useEffect(() => {
-      if (account) {
-        const names: Array<string> = account.customer.name.split(" ");
+      if (customer) {
+        const names: Array<string> = customer.name!.split(" ");
         setName(names[0]);
       }
     });

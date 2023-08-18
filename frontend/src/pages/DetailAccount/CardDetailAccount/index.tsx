@@ -1,11 +1,13 @@
 import {Card, Container, Row} from "react-bootstrap";
 import { Account } from "../../../types/Account";
+import { Agency } from "../../../types/Agency";
 
 interface Props {
-  account?: Account
+  account?: Account;
+  agency?: Agency;
 }
 
-export function CardDetailAccounts({ account } : Props) {
+export function CardDetailAccounts(props : Props) {
   return (
     <>
       <Container className="container_detail_accounts">
@@ -15,11 +17,11 @@ export function CardDetailAccounts({ account } : Props) {
               Account detail
             </Card.Header>
             <Card.Body>
-                <label>Agency: { account?.agency.agency }</label>
+                <label>Agency: { props.agency?.agency }</label>
                 <br />
-                <label>Account: { account?.account }</label>
+                <label>Account: { props.account?.account }</label>
                 <br />
-                <label>Balance: { account?.balance.toFixed(2) }</label>
+                <label>Balance: { props.account?.balance?.toFixed(2) }</label>
             </Card.Body>
           </Card>
         </Row>

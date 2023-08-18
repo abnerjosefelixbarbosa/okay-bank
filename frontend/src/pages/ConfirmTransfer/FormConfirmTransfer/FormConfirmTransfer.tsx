@@ -7,9 +7,7 @@ import { Account } from "../../../types/Account";
 import { IMaskInput } from "react-imask";
 
 export function FormConfirmTransfer() {
-  const [account, setAccount] = useState<Account>({
-    password: "",
-  });
+  const [account, setAccount] = useState<Account>({});
 
   function handleConfirm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

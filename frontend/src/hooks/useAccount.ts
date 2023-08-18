@@ -6,7 +6,7 @@ import { Account } from "../types/Account";
 export function useAccount() {
   const location = useLocation();
   const [accountValidation] = useState(new AccountValidation());
-  const [account, setAccount] = useState<Account>();
+  const [account, setAccount] = useState<Account>({});
 
   useEffect(() => {
     accountValidation.getById(location.state.id).then((data) => {

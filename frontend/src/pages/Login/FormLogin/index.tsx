@@ -18,7 +18,7 @@ type FormLogin = z.infer<typeof schema>;
 
 export function FormLogin() {
   const navigate = useNavigate();
-  const [customerValidation] = useState(new CustomerValidation())
+  const [customerValidation] = useState(new CustomerValidation());
   const {
     register,
     handleSubmit,
@@ -31,7 +31,10 @@ export function FormLogin() {
   });
 
   function handleLogin(data: FormLogin) {
-    const newCustomer: Customer = data;
+    const newCustomer: Customer = {
+      cpf: data.cpf,
+      password: data.password,
+    };
 
     customerValidation.loginByCpfAndPassword(newCustomer)
       .then((data) => {

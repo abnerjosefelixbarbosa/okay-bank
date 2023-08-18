@@ -4,12 +4,18 @@ import { CardDetailAccounts } from "./CardDetailAccount";
 import { useAccount } from "../../hooks/useAccount";
 
 export function DetailAccount() {
-  const { account } = useAccount()
+  const { account } = useAccount();
 
   return (
     <>
-      <NavbarDetailAccount account={account} />
-      <CardDetailAccounts account={account} />
+      <NavbarDetailAccount 
+        account={account}
+        customer={account.customer}
+      />
+      <CardDetailAccounts  
+       account={account}
+       agency={account.agency}
+      />
     </>
   );
 }
