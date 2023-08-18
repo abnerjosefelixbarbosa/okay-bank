@@ -23,7 +23,6 @@ export function FormFindAccountAndAgency() {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors, isSubmitting },
   } = useForm<FormProps>({
     mode: "all",
@@ -32,17 +31,26 @@ export function FormFindAccountAndAgency() {
   });
 
   function handleFind(data: FormProps) {
+    console.log(location.state.id)
     const newAgency: Agency  = {
       agency: data.agency,
     } 
     const newAccount: Account = { 
+      id: location.state.id,
       account: data.account,
       agency: newAgency
     }
 
     accountValidation.findByAgencyAndAccount(newAccount)
     .then((data) => {
-      console.log(data)
+      navigate("/confirm-balance", {
+        state: {
+          id1: location.state.id,
+          id2: data.id,
+          balance: location.state.balance,
+          password: location.state.password,
+        }        
+      })
     })
     .catch((e) => {
       toast.error(e.message, {

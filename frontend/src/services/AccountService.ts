@@ -28,7 +28,10 @@ export class AccountService implements AccountInterface  {
         "content-type": "application/json",
         "accept": "application/json",
       },
-      body: JSON.stringify({ ...data }),
+      body: JSON.stringify({ 
+        "agency": data.agency?.agency,
+        "account": data.account,
+      }),
     })
     .then((response) => response.json())
     .then((data) => data)

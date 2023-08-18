@@ -25,8 +25,6 @@ export function NavbarDetailAccount(props: Props) {
                 to="/find-account-and-agency"
                 state={{
                   id: props.account?.id,
-                  agency: props.account?.agency?.agency,
-                  account: props.account?.account,
                   balance: props.account?.balance,
                   password: props.account?.password,
                 }}

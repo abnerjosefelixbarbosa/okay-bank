@@ -26,6 +26,11 @@ export class AccountValidation implements AccountInterface {
     async findByAgencyAndAccount(data: Account) {
         this.setAccountInterface(new AccountService());
         const request = await this.accountInterface.findByAgencyAndAccount(data);
+        
+        if (request.id === data.id) {
+            throw new Error("Account logged in")
+        }
+
         return request
     }
 
