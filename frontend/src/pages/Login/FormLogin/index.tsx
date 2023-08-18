@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CustomerValidation } from "../../../utils/CustomerValidation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
-import { createCustomer } from "../../../types/Customer";
+import { Customer } from "../../../types/Customer";
 import { useState } from "react";
 
 const schema = z.object({
@@ -31,7 +31,7 @@ export function FormLogin() {
   });
 
   function handleLogin(data: FormLogin) {
-    const newCustomer = createCustomer(data);
+    const newCustomer: Customer = data;
 
     customerValidation.loginByCpfAndPassword(newCustomer)
       .then((data) => {

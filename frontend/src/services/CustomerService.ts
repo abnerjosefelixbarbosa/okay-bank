@@ -1,4 +1,4 @@
-import { Customer, CustomerInterface, createCustomer } from "../types/Customer";
+import { Customer, CustomerInterface } from "../types/Customer";
 import { BASE_URL } from "../utils/Request";
 
 export class CustomerService implements CustomerInterface {
@@ -9,13 +9,10 @@ export class CustomerService implements CustomerInterface {
         "content-type": "application/json",
         "accept": "application/json",
       },
-      body: JSON.stringify({ 
-        cpf: data.cpf,
-        password: data.password
-      }),
+      body: JSON.stringify({...data}),
     })
     .then((response) => response.json())
-    .then((data) => createCustomer(data))
+    .then((data) => data)
     .catch((e) => e);
   
     if (request.message) {

@@ -10,7 +10,7 @@ export class CustomerValidation implements CustomerInterface {
   }
 
   async loginByCpfAndPassword(data: Customer) {
-    if (!cpf.validate(data.cpf)) {
+    if (!cpf.validate(data.cpf!)) {
       throw new Error("CPF invalid");
     }
 
