@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -20,8 +21,9 @@ import lombok.ToString;
 
 @Data
 @NoArgsConstructor
-@ToString(exclude = {"employees"})
-@EqualsAndHashCode(exclude = {"employees"})
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString(exclude = {"position", "employees"})
 @Entity
 @Table(name = "position")
 @JsonIgnoreProperties({ "employees" })
@@ -30,8 +32,10 @@ public class Position implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
+	@EqualsAndHashCode.Include
 	private String id;
 	@Column(nullable = false, unique = true, length = 30)
+	@EqualsAndHashCode.Include
 	private String position;
 	@Column(nullable = true)
 	private Double bonus;

@@ -4,9 +4,13 @@ import java.time.LocalDate;
 
 import com.org.backend.models.entities.Customer;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class CustomerDto {
 	private String id;
 	private String cpf;

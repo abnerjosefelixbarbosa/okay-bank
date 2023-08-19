@@ -3,9 +3,13 @@ package com.org.backend.models.dtos;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AccountFindByAgencyAndAccountDto {
 	@NotNull(message = "Agency is null")
 	@NotEmpty(message = "Agency is empty")

@@ -4,9 +4,13 @@ import java.math.BigDecimal;
 
 import com.org.backend.models.entities.Employee;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class EmployeeDto {
 	private String id;
 	private BigDecimal matriculation;

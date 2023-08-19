@@ -13,9 +13,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString(exclude = {"employee", "agency", "customer"})
 @Entity
 @Table(name = "account")
 public class Account implements Serializable {
@@ -23,10 +31,13 @@ public class Account implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
+	@EqualsAndHashCode.Include
 	private String id;
 	@Column(nullable = false, unique = true, length = 10)
+	@EqualsAndHashCode.Include
 	private String account;
 	@Column(nullable = false, unique = true, length = 4)
+	@EqualsAndHashCode.Include
 	private String password;
 	@Column(nullable = false, scale = 2)
 	private BigDecimal balance;

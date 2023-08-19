@@ -17,6 +17,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -24,8 +25,9 @@ import lombok.ToString;
 
 @Data
 @NoArgsConstructor
-@ToString(exclude = {"accounts"})
-@EqualsAndHashCode(exclude = {"accounts"})
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString(exclude = {"employee", "accounts"})
 @Entity
 @Table(name = "customer")
 @JsonIgnoreProperties({"accounts"})
@@ -34,16 +36,22 @@ public class Customer implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
+	@EqualsAndHashCode.Include
 	private String id;
 	@Column(nullable = false, unique = true, length = 20)
+	@EqualsAndHashCode.Include
 	private String cpf;
 	@Column(nullable = false, unique = true, length = 20)
+	@EqualsAndHashCode.Include
 	private String rg;
 	@Column(nullable = false, unique = true, length = 6)
+	@EqualsAndHashCode.Include
 	private String password;
 	@Column(nullable = false, unique = true, length = 20)
+	@EqualsAndHashCode.Include
 	private String telephone;
 	@Column(nullable = false, unique = true, length = 50)
+	@EqualsAndHashCode.Include
 	private String email;
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(nullable = false)

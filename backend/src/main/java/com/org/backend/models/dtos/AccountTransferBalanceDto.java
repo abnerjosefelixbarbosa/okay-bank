@@ -5,9 +5,13 @@ import java.math.BigDecimal;
 import com.org.backend.controllers.exceptions.EntityBadRequestException;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AccountTransferBalanceDto {
 	@NotNull(message = "Balance is null")
 	private BigDecimal balance;

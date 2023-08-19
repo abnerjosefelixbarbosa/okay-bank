@@ -4,9 +4,13 @@ import java.math.BigDecimal;
 
 import com.org.backend.models.entities.Account;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AccountDto {
 	private String id;
 	private String account;

@@ -15,13 +15,17 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-@ToString(exclude = {"accounts"})
-@EqualsAndHashCode(exclude = {"accounts"})
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString(exclude = {"employee", "accounts"})
 @Entity
 @Table(name = "agency")
 @JsonIgnoreProperties({"accounts"})
@@ -30,6 +34,7 @@ public class Agency implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
+	@EqualsAndHashCode.Include
 	private String id;
 	@Column(nullable = false, unique = true, length = 10)
 	private String agency;
