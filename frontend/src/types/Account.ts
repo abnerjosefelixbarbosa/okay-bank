@@ -19,7 +19,5 @@ export interface AccountInterface {
     id1: string,
     id2: string,
     balance: number,
-    password: string,
-    currentPassword: string
   ): Promise<Account>;
 }

@@ -64,7 +64,7 @@ export class AccountService implements AccountInterface  {
     return request;
   }
 
-  async transferBalance(id1: string, id2: string, balance: number, password: string, currentPassword: string) {
+  async transferBalance(id1: string, id2: string, balance: number) {
     const request = await fetch(`${BASE_URL}/accounts/transfer-balance/{id1}/{id2}`, {
 
     })

@@ -8,6 +8,9 @@ import { useLocation } from "react-router-dom";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { AccountValidation } from "../../../utils/AccountValidation";
+import { ToastContainer, toast } from "react-toastify";
 
 const schema = z.object({
   password: z
@@ -20,6 +23,7 @@ type FormProps = z.infer<typeof schema>;
 
 export function FormConfirmTransfer() {
   const location = useLocation();
+  const [accountValidation] = useState(new AccountValidation())
   const {
     register,
     handleSubmit,
@@ -32,13 +36,16 @@ export function FormConfirmTransfer() {
   });
 
   function handleConfirm(data: FormProps) {
-    //
+    if (data.password !== location.state.password) {
+      setError("password", { message: "Password invalid" })
+    } else {
+      //
+    }
   }
-
-  //console.log(location.state)
 
   return (
     <>
+      <ToastContainer />
       <div className="ajust">
         <Container className="container_transfer_form">
           <Row>
