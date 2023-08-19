@@ -25,8 +25,7 @@ public class AccountService implements AccountMethods {
 		var account = accountRepository.findById(id).orElseThrow(() -> {
 			throw new EntityNotFoundException("Id not found");
 		});
-		var responseDto = new AccountDto();
-		responseDto.getById(account);
+		var responseDto = new AccountDto(account);
 		return responseDto;
 	}
 	
@@ -34,9 +33,8 @@ public class AccountService implements AccountMethods {
 		var pageRequest = PageRequest.of(0, 20, Sort.by("id"));
 		var accounts = accountRepository.findByCustomerId(id, pageRequest); 
 		var responseDtos = new LinkedList<AccountDto>();
-		var responseDto = new AccountDto();
-		accounts.stream().forEach((val) -> {			
-			responseDto.getAllByCustomerId(val);
+		accounts.stream().forEach((val) -> {	
+			var responseDto = new AccountDto(val);
 			responseDtos.add(responseDto);
 		});	
 		return responseDtos;
@@ -46,8 +44,7 @@ public class AccountService implements AccountMethods {
 		var account = accountRepository.findByAgencyAgencyAndAccount(requestDto.getAgency(), requestDto.getAccount()).orElseThrow(() -> {
 			throw new EntityNotFoundException("Agency and account not found");
 		});
-		var responseDto = new AccountDto();
-		responseDto.findByAgencyAndAccount(account);
+		var responseDto = new AccountDto(account);
 		return responseDto;
 	}
 	
@@ -65,8 +62,7 @@ public class AccountService implements AccountMethods {
         account2.deposit(requestDto.getBalance());
         accountRepository.save(account1);
         accountRepository.save(account2);
-        var responseDto = new AccountDto();
-        responseDto.transferBalance(account1);
+        var responseDto = new AccountDto(account1);
         return responseDto;
 	}
 }

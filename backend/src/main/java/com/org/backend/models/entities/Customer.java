@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.org.backend.models.dtos.CustomerDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,9 +19,11 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
+@NoArgsConstructor
 @ToString(exclude = {"accounts"})
 @EqualsAndHashCode(exclude = {"accounts"})
 @Entity
@@ -64,4 +67,22 @@ public class Customer implements Serializable {
 	private Employee employee;
 	@OneToMany(mappedBy = "customer")
 	private List<Account> accounts;
+	
+	public Customer(CustomerDto dto) {
+		this.id = dto.getId();
+		this.cpf = dto.getCpf();
+		this.rg = dto.getRg();
+		this.password = dto.getPassword();
+		this.telephone = dto.getTelephone();
+		this.email = dto.getEmail();
+		this.birthDate = dto.getBirthDate();
+		this.name = dto.getName();
+		this.addressNumber = dto.getAddressNumber();
+		this.addressZipCode = dto.getAddressZipCode();
+		this.address = dto.getAddress();
+		this.addressDistrict = dto.getAddressDistrict();
+		this.addressCity = dto.getAddressCity();
+		this.addressState = dto.getAddressState();
+		this.employee = new Employee(dto.getEmployee());
+	}
 }

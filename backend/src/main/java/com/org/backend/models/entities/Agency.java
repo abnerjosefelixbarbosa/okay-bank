@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.org.backend.models.dtos.AgencyDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,4 +38,10 @@ public class Agency implements Serializable {
 	private Employee employee;
 	@OneToMany(mappedBy = "agency")
 	private List<Account> accounts;
+	
+	public Agency(AgencyDto dto) {
+		this.id = dto.getId();
+		this.agency = dto.getAgency();
+		this.employee = new Employee(dto.getEmployee());
+	}
 }

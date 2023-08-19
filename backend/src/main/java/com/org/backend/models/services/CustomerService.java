@@ -15,11 +15,11 @@ public class CustomerService implements CustomerMethods {
 	private CustumerRepository custumerRepository;
 
 	public CustomerDto loginByCpfAndPassword(CustomerLoginByCpfAndPasswordDto requestDto) {
-	    var customer = custumerRepository.findByCpfAndPassword(requestDto.getCpf(), requestDto.getPassword()).orElseThrow(() -> {
-			throw new EntityNotFoundException("CPF and password not find");
-		});
-	    var responseDto = new CustomerDto();
-	    responseDto.loginByCpfAndPassword(customer);
-        return responseDto;
+		var customer = custumerRepository.findByCpfAndPassword(requestDto.getCpf(), requestDto.getPassword())
+				.orElseThrow(() -> {
+					throw new EntityNotFoundException("CPF and password not find");
+				});
+		var responseDto = new CustomerDto(customer);
+		return responseDto;
 	}
 }

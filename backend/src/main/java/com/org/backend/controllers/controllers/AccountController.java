@@ -30,53 +30,47 @@ import jakarta.validation.Valid;
 public class AccountController {
 	@Autowired
 	private AccountMethods accountMethods;
-	
+
 	@Operation(description = "get by id")
-	@ApiResponses({
-		@ApiResponse(responseCode = "200", description = "Ok"),
-		@ApiResponse(responseCode = "404", description = "Not found")
-	})
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Ok"),
+			@ApiResponse(responseCode = "404", description = "Not found") })
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping(path = "/get-by-id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<AccountDto> getById(@PathVariable(required = false) String id) {
 		var responseDto = accountMethods.getById(id);
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 	}
-	
+
 	@Operation(description = "get all by customer id")
-	@ApiResponses({
-		@ApiResponse(responseCode = "200", description = "Ok"),
-		@ApiResponse(responseCode = "404", description = "Not found")
-	})
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Ok"),
+			@ApiResponse(responseCode = "404", description = "Not found") })
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping(path = "/get-all-by-customer-id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<AccountDto>> getAllByCustomerId(@PathVariable(required = false) String id) {
-		var accountDtos = accountMethods.getAllByCustomerId(id);	
+		var accountDtos = accountMethods.getAllByCustomerId(id);
 		return ResponseEntity.status(HttpStatus.OK).body(accountDtos);
 	}
-	
+
 	@Operation(description = "find by agency and account")
-	@ApiResponses({
-		@ApiResponse(responseCode = "200", description = "Ok"),
-		@ApiResponse(responseCode = "400", description = "Bad request"),
-		@ApiResponse(responseCode = "404", description = "Not found")
-	})
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Ok"),
+			@ApiResponse(responseCode = "400", description = "Bad request"),
+			@ApiResponse(responseCode = "404", description = "Not found") })
 	@ResponseStatus(HttpStatus.OK)
 	@PostMapping(path = "/find-by-agency-and-account", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<AccountDto> findByAgencyAndAccount(@RequestBody @Valid AccountFindByAgencyAndAccountDto requestDto) {
+	public ResponseEntity<AccountDto> findByAgencyAndAccount(
+			@RequestBody @Valid AccountFindByAgencyAndAccountDto requestDto) {
 		var responseDto = accountMethods.findByAgencyAndAccount(requestDto);
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 	}
-	
+
 	@Operation(description = "transfer balance")
-	@ApiResponses({
-		@ApiResponse(responseCode = "200", description = "Ok"),
-		@ApiResponse(responseCode = "400", description = "Bad request"),
-		@ApiResponse(responseCode = "404", description = "Not found")
-	})
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Ok"),
+			@ApiResponse(responseCode = "400", description = "Bad request"),
+			@ApiResponse(responseCode = "404", description = "Not found") })
 	@ResponseStatus(HttpStatus.OK)
 	@PutMapping(path = "/transfer-balance/{id1}/{id2}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<AccountDto> transferBalance(@PathVariable(required = false) String id1, @PathVariable(required = false) String id2, @RequestBody @Valid AccountTransferBalanceDto requestDto) {
+	public ResponseEntity<AccountDto> transferBalance(@PathVariable(required = false) String id1,
+			@PathVariable(required = false) String id2, @RequestBody @Valid AccountTransferBalanceDto requestDto) {
 		requestDto.validation();
 		var responseDto = accountMethods.transferBalance(id1, id2, requestDto);
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);

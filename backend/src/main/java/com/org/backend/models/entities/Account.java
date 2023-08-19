@@ -3,6 +3,8 @@ package com.org.backend.models.entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import com.org.backend.models.dtos.AccountDto;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,6 +39,16 @@ public class Account implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "customer_id", nullable = false)
 	private Customer customer;
+	
+	public Account(AccountDto dto) {
+		this.id = dto.getId();
+		this.account = dto.getAccount();
+		this.password = dto.getPassword();
+		this.balance = dto.getBalance();
+		this.employee = new Employee(dto.getEmployee());
+		this.agency = new Agency(dto.getAgency());
+		this.customer = new Customer(dto.getCustomer());
+	}
 
 	public void deposit(BigDecimal value) {
 		this.balance = this.balance.add(value);

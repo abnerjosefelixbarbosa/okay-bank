@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.org.backend.models.dtos.EmployeeDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,9 +18,11 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
+@NoArgsConstructor
 @ToString(exclude = {"customers", "accounts", "agencies"})
 @EqualsAndHashCode(exclude = {"customers", "accounts", "agencies"})
 @Entity
@@ -46,4 +49,12 @@ public class Employee implements Serializable {
 	private List<Account> accounts;
 	@OneToMany(mappedBy = "employee")
 	private List<Agency> agencies;
+	
+	public Employee(EmployeeDto dto) {
+		this.id = dto.getId();
+		this.matriculation = dto.getMatriculation();
+		this.name = dto.getName();
+		this.salary = dto.getSalary();
+		this.position = new Position(dto.getPosition());
+	}
 }
