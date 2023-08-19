@@ -9,6 +9,6 @@ import com.org.backend.models.dtos.AccountTransferBalanceDto;
 public interface AccountMethods {
 	AccountDto getById(String id);
 	List<AccountDto> getAllByCustomerId(String id);
-	AccountDto findByAgencyAndAccount(AccountFindByAgencyAndAccountDto requestDto);
+	AccountDto getByAgencyAndAccount(AccountFindByAgencyAndAccountDto requestDto);
 	AccountDto transferBalance(String id1, String id2, AccountTransferBalanceDto requestDto);
 }

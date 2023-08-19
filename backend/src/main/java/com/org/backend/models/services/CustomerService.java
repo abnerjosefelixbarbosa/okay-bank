@@ -14,7 +14,7 @@ public class CustomerService implements CustomerMethods {
 	@Autowired
 	private CustumerRepository custumerRepository;
 
-	public CustomerDto loginByCpfAndPassword(CustomerLoginByCpfAndPasswordDto requestDto) {
+	public CustomerDto getByCpfAndPassword(CustomerLoginByCpfAndPasswordDto requestDto) {
 		var customer = custumerRepository.findByCpfAndPassword(requestDto.getCpf(), requestDto.getPassword())
 				.orElseThrow(() -> {
 					throw new EntityNotFoundException("CPF and password not find");

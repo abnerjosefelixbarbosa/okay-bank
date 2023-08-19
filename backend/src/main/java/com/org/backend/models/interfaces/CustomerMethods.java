@@ -4,5 +4,5 @@ import com.org.backend.models.dtos.CustomerDto;
 import com.org.backend.models.dtos.CustomerLoginByCpfAndPasswordDto;
 
 public interface CustomerMethods {
-	CustomerDto loginByCpfAndPassword(CustomerLoginByCpfAndPasswordDto requestDto);
+	CustomerDto getByCpfAndPassword(CustomerLoginByCpfAndPasswordDto requestDto);
 }

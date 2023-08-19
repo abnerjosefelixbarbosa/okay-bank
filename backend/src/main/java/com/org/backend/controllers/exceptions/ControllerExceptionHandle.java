@@ -26,7 +26,7 @@ public class ControllerExceptionHandle {
 		error.setPath(request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	}
-	
+
 	@ExceptionHandler(SQLException.class)
 	public ResponseEntity<HandleError> entityBadRequest(SQLException e, HttpServletRequest request) {
 		HandleError error = new HandleError();
@@ -37,14 +37,15 @@ public class ControllerExceptionHandle {
 		error.setPath(request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	}
-	
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<Map<String, String> > entityBadRequest(MethodArgumentNotValidException e, HttpServletRequest request) {
-		 Map<String, String> errors = new HashMap<>();
-		 e.getBindingResult().getAllErrors().forEach((error) -> {
-			 String fieldName = ((FieldError) error).getField();
-		     String errorMessage = error.getDefaultMessage();
-		     errors.put(fieldName, errorMessage);
+	public ResponseEntity<Map<String, String>> entityBadRequest(MethodArgumentNotValidException e,
+			HttpServletRequest request) {
+		Map<String, String> errors = new HashMap<>();
+		e.getBindingResult().getAllErrors().forEach((error) -> {
+			String fieldName = ((FieldError) error).getField();
+			String errorMessage = error.getDefaultMessage();
+			errors.put(fieldName, errorMessage);
 		});
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
 	}

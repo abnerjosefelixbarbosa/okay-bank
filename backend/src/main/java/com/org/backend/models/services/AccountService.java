@@ -40,7 +40,7 @@ public class AccountService implements AccountMethods {
 		return responseDtos;
 	}
 	
-	public AccountDto findByAgencyAndAccount(AccountFindByAgencyAndAccountDto requestDto) {
+	public AccountDto getByAgencyAndAccount(AccountFindByAgencyAndAccountDto requestDto) {
 		var account = accountRepository.findByAgencyAgencyAndAccount(requestDto.getAgency(), requestDto.getAccount()).orElseThrow(() -> {
 			throw new EntityNotFoundException("Agency and account not found");
 		});

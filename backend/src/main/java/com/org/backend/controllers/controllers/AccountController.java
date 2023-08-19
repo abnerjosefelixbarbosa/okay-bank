@@ -59,7 +59,7 @@ public class AccountController {
 	@PostMapping(path = "/find-by-agency-and-account", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<AccountDto> findByAgencyAndAccount(
 			@RequestBody @Valid AccountFindByAgencyAndAccountDto requestDto) {
-		var responseDto = accountMethods.findByAgencyAndAccount(requestDto);
+		var responseDto = accountMethods.getByAgencyAndAccount(requestDto);
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 	}
 
