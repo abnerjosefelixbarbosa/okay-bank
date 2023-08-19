@@ -2,6 +2,7 @@ package com.org.backend.models.dtos;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.org.backend.models.entities.Customer;
 
 import lombok.AllArgsConstructor;
@@ -18,6 +19,7 @@ public class CustomerDto {
 	private String password;
 	private String telephone;
 	private String email;
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate birthDate;
 	private String name;
 	private Integer addressNumber;
