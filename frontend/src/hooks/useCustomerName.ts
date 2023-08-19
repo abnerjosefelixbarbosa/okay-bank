@@ -6,10 +6,11 @@ export function useCustomerName(customer: Customer) {
 
     useEffect(() => {
       if (customer) {
-        const names: Array<string> = customer.name!.split(" ");
-        setName(names[0]);
+        setName(customer.name!);
       }
     });
 
-    return {name}
+    return {
+      name: name.substring(0, 2)
+    }
 }

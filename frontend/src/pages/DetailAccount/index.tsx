@@ -15,6 +15,7 @@ export function DetailAccount() {
       <CardDetailAccounts  
        account={account}
        agency={account.agency}
+       customer={account.customer}
       />
     </>
   );

@@ -48,7 +48,7 @@ export function FormLogin() {
       .catch((e) => {
         const message: string = e.message;
         if (message.includes("CPF invalid")) {
-          setError("cpf", { type: "invalid", message: e.message });
+          setError("cpf", { type: "invalid", message: message });
         } else {
           toast.error(e.message, {
             autoClose: 3000,
