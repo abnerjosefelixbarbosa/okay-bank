@@ -2,6 +2,7 @@ import { Account, AccountInterface } from "../types/Account";
 import { BASE_URL } from "../utils/Request";
 
 export class AccountService implements AccountInterface  {
+
   async getAllByCustomerId(id: string) {
     const request = await fetch(`${BASE_URL}/accounts/get-all-by-customer-id/${id}`, {
       method: "GET",
@@ -51,6 +52,21 @@ export class AccountService implements AccountInterface  {
         "content-type": "application/json",
         "accept": "application/json",
       },
+    })
+    .then((response) => response.json())
+    .then((data) => data)
+    .catch((e) => e);
+
+    if (request.message) {
+      throw new Error(request.message);
+    }
+
+    return request;
+  }
+
+  async transferBalance(id1: string, id2: string, balance: number, password: string, currentPassword: string) {
+    const request = await fetch(`${BASE_URL}/accounts/transfer-balance/{id1}/{id2}`, {
+
     })
     .then((response) => response.json())
     .then((data) => data)

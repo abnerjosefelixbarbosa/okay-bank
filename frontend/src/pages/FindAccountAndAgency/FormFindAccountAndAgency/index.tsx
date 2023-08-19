@@ -31,7 +31,6 @@ export function FormFindAccountAndAgency() {
   });
 
   function handleFind(data: FormProps) {
-    console.log(location.state.id)
     const newAgency: Agency  = {
       agency: data.agency,
     } 

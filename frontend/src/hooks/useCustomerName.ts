@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import { Customer } from "../types/Customer";
 
 export function useCustomerName(customer: Customer) {
-    const [name, setName] = useState<string>("");
+    const [names, setNames] = useState<Array<string>>([]);
 
     useEffect(() => {
       if (customer) {
-        setName(customer.name!);
+        setNames(customer.name!.split(" "));
       }
     });
 
     return {
-      name: name.substring(0, 2)
+      name: names[0]
     }
 }

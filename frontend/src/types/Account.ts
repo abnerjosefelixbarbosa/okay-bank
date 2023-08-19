@@ -15,4 +15,11 @@ export interface AccountInterface {
   getAllByCustomerId(id: string): Promise<Account[]>;
   findByAgencyAndAccount(data: Account): Promise<Account>;
   getById(id: string): Promise<Account>;
+  transferBalance(
+    id1: string,
+    id2: string,
+    balance: number,
+    password: string,
+    currentPassword: string
+  ): Promise<Account>;
 }

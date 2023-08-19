@@ -1,25 +1,27 @@
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
+import {
+  Button,
+  Form,
+  Container,
+  Row
+} from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
-import Alert from "react-bootstrap/Alert";
-import Col from "react-bootstrap/Col";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-//import { validBalance } from "../../../utils/AccountValidation";
+import { AccountValidation } from "../../../utils/AccountValidation";
+import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 const schema = z.object({
-  balance: z.number(),
+  balance: z.coerce.number(),
 });
 
 type FormProps = z.infer<typeof schema>;
 
 export function FormConfirmBalance() {
-  /*
   const location = useLocation();
   const navigate = useNavigate();
+  const [accountValidation] = useState(new AccountValidation);
   const {
     register,
     handleSubmit,
@@ -32,7 +34,7 @@ export function FormConfirmBalance() {
   });
 
   function handleConfirm(data: FormProps) {
-    validBalance({ ...data, currentBalance: location.state.balance })
+    accountValidation.validBalance(data.balance, location.state.balance)
     .then(() => {
       navigate("/confirm-transfer", {
         state: {
@@ -47,31 +49,26 @@ export function FormConfirmBalance() {
       if (e.message.includes("Balance")) {
         setError("balance", { type: "invalid", message: e.message });
       } else {
-        setError("root.random", { type: "random", message: e.message });
+        toast.error(e.message, {
+          autoClose: 3000,
+          position: "top-center",
+        })
       }
     })
   }
 
   return (
     <>
+      <ToastContainer />
       <div className="ajust">
         <Container className="container_balance_form">
           <Row>
             <Form onSubmit={handleSubmit(handleConfirm)}>
-              <Row>
-                <Col>
-                  {errors.root?.random.message ? (
-                    <Alert variant="danger">
-                      {errors.root?.random.message}
-                    </Alert>
-                  ) : null}
-                </Col>
-              </Row>
               <Form.Group className="mb-3">
                 <Form.Label>Balance</Form.Label>
                 <Form.Control
                   type="text"
-                  {...register("balance", { valueAsNumber: true })}
+                  {...register("balance")}
                   onChange={(e) => {
                     let value = e.target.value;
                     value = value.replace(/\D/g, "");
@@ -99,5 +96,4 @@ export function FormConfirmBalance() {
       </div>
     </>
   );
-  */
 }

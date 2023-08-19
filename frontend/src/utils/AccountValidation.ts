@@ -39,4 +39,11 @@ export class AccountValidation implements AccountInterface {
         const request = await this.accountInterface.getById(id);
         return request
     }
+
+    async transferBalance(id1: string, id2: string, balance: number, password: string, currentPassword: string) {
+        this.setAccountInterface(new AccountService());
+        const request = await this.accountInterface.transferBalance(id1, id2, balance, password, currentPassword);
+
+        return request
+    }
 }
