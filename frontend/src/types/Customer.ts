@@ -17,7 +17,3 @@ export interface Customer {
   addressState?: string;
   employee?: Employee | null;
 }
-
-export interface CustomerInterface {
-  loginByCpfAndPassword(data: Customer): Promise<Customer>;
-}

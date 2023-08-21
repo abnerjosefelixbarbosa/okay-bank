@@ -9,8 +9,8 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { AccountValidation } from "../../../utils/AccountValidation";
 import { ToastContainer, toast } from "react-toastify";
+import { AccountService } from "../../../services/AccountService";
 
 const schema = z.object({
   password: z
@@ -23,7 +23,7 @@ type FormProps = z.infer<typeof schema>;
 
 export function FormConfirmTransfer() {
   const location = useLocation();
-  const [accountValidation] = useState(new AccountValidation())
+  const [accountService] = useState(new AccountService());
   const {
     register,
     handleSubmit,

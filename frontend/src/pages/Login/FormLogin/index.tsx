@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CustomerValidation } from "../../../utils/CustomerValidation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 import { Customer } from "../../../types/Customer";
 import { useState } from "react";
+import { CustomerService } from "../../../services/CustomerService";
 
 const schema = z.object({
   cpf: z.string().regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, "CPF invalid"),
@@ -18,7 +18,7 @@ type FormLogin = z.infer<typeof schema>;
 
 export function FormLogin() {
   const navigate = useNavigate();
-  const [customerValidation] = useState(new CustomerValidation());
+  const [customerService] = useState(new CustomerService());
   const {
     register,
     handleSubmit,
@@ -36,26 +36,32 @@ export function FormLogin() {
       password: data.password,
     };
 
-    customerValidation.loginByCpfAndPassword(newCustomer)
-      .then((data) => {
-        navigate("/apresent-accounts", {
-          state: {
-            id: data.id,
-          },
-          replace: true,
-        });
-      })
-      .catch((e) => {
-        const message: string = e.message;
-        if (message.includes("CPF invalid")) {
-          setError("cpf", { type: "invalid", message: message });
-        } else {
-          toast.error(e.message, {
+    try {
+      customerService.validCpf(newCustomer);
+      customerService
+        .loginByCpfAndPassword(newCustomer)
+        .then((data) => {
+          navigate("/apresent-accounts", {
+            replace: true,
+            state: {
+              id: data.id
+            }
+          });
+        })
+        .catch((error) => {
+          const message: string = error.message;
+
+          toast.error(message, {
             autoClose: 3000,
             position: "top-center",
           });
-        }
-      });
+        });
+    } catch (error: any) {
+      const message: string = error.message;
+
+      if (message.includes("CPF invalid"))
+        setError("cpf", { message: message });
+    }
   }
 
   return (

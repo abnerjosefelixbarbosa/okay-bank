@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Account } from "../types/Account";
-import { AccountValidation } from "../utils/AccountValidation";
+import { AccountService } from "../services/AccountService";
 
 export function useAccounts() {
-    const location = useLocation();
-    const [accounts, setAccounts] = useState<Array<Account>>([]);
-    const [accountValidation] = useState(new AccountValidation());
-  
-    useEffect(() => {
-      accountValidation.getAllByCustomerId(location.state.id).then((data) => {
-        setAccounts(data);
-      });
-    }, []);
+  const location = useLocation();
+  const [accounts, setAccounts] = useState<Array<Account>>([]);
+  const [accountService] = useState(new AccountService());
 
-    return {accounts}
+  useEffect(() => {
+    accountService.getAllByCustomerId(location.state.id).then((data) => {
+      setAccounts(data);
+    });
+  }, []);
+
+  return { accounts };
 }
