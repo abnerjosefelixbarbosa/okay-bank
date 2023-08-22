@@ -5,7 +5,7 @@ import { useProps } from "../../../hooks/useProps";
 
 export function NavbarDetailAccount() {
   const { account } = useProps();
-  const { name } = useCustomerName(account.customer!);
+  const { name } = useCustomerName();
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary navbar">

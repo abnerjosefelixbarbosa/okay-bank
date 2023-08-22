@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Account } from "../types/Account";
 import { AccountService } from "../services/AccountService";
+import { useProps } from "./useProps";
 
 export function useAccount() {
   const location = useLocation();
   const [accountService] = useState(new AccountService());
-  const [account, setAccount] = useState<Account>({});
+  const { updateAccount } = useProps();
 
   useEffect(() => {
     accountService.getById(location.state.id).then((data) => {
-      setAccount(data);
+      updateAccount(data)
     });
   }, []);
-
-  return { account };
 }

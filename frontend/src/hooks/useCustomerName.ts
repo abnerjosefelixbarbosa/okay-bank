@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { Customer } from "../types/Customer";
+import { useProps } from "./useProps";
 
-export function useCustomerName(customer: Customer) {
+export function useCustomerName() {
     const [name, setName] = useState<string>("");
+    const { account } = useProps();
 
     useEffect(() => {
-      if (customer) {
-        const list = customer.name!.split(" ");
-        setName(list[0])
-      }
+      const list = account.customer?.name!.split(" ");
+      if (list) 
+        setName(list![0])
     });
 
     return {

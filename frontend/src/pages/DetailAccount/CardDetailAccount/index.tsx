@@ -1,16 +1,7 @@
 import { Card, Container, Row } from "react-bootstrap";
-import { Account } from "../../../types/Account";
-import { Agency } from "../../../types/Agency";
-import { Customer } from "../../../types/Customer";
 import { useProps } from "../../../hooks/useProps";
 
-interface Props {
-  account?: Account;
-  agency?: Agency;
-  customer?: Customer;
-}
-
-export function CardDetailAccounts(props: Props) {
+export function CardDetailAccounts() {
   const { account } = useProps();
 
   return (
