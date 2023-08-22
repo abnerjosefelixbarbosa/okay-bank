@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Account } from "../../../types/Account";
 import { ToastContainer, toast } from "react-toastify";
 import { Agency } from "../../../types/Agency";
+import { AccountService } from "../../../services/AccountService";
 
 const schema = z.object({
   agency: z.string().regex(/^\d{10}/, "Agency invalid"),
@@ -18,7 +19,7 @@ type FormProps = z.infer<typeof schema>;
 export function FormFindAccountAndAgency() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [accountValidation] = useState(new AccountValidation());
+  const [accountService] = useState(new AccountService());
   const {
     register,
     handleSubmit,
@@ -39,7 +40,7 @@ export function FormFindAccountAndAgency() {
       agency: newAgency
     }
 
-    accountValidation.findByAgencyAndAccount(newAccount)
+    accountService.findByAgencyAndAccount(newAccount)
     .then((data) => {
       navigate("/confirm-balance", {
         state: {

@@ -64,6 +64,9 @@ export class AccountService implements AccountInterface  {
     if (request.message) 
       throw new Error(request.message);
 
+    if (request.id === data.id)
+      throw new Error("Account logged in");
+
     const account: Account = { ...request }
     return account;
   }
