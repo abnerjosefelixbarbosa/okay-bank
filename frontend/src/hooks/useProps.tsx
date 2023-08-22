@@ -1,9 +1,12 @@
 import { Customer } from "../types/Customer";
 import { createContext, useState, useContext } from "react";
+import { Account } from "./../types/Account";
 
 interface ContexProps {
   customer: Customer;
   updateCustomer: (customer: Customer) => void;
+  account: Account;
+  updateAccount: (account: Account) => void;
 }
 
 interface ProviderProps {
@@ -14,9 +17,14 @@ export const MyContext = createContext({} as ContexProps);
 
 export function Provider({ children }: ProviderProps) {
   const [customer, setCustomer] = useState<Customer>({});
+  const [account, setAccount] = useState<Account>({});
 
   function updateCustomer(customer: Customer) {
     setCustomer(customer);
+  }
+
+  function updateAccount(account: Account) {
+    setAccount(account);
   }
 
   return (
@@ -24,6 +32,8 @@ export function Provider({ children }: ProviderProps) {
       value={{
         customer,
         updateCustomer,
+        account,
+        updateAccount,
       }}
     >
       {children}

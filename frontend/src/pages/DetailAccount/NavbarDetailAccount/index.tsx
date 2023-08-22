@@ -1,16 +1,11 @@
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { Account } from "../../../types/Account";
 import { useCustomerName } from "../../../hooks/useCustomerName";
-import { Customer } from "../../../types/Customer";
+import { useProps } from "../../../hooks/useProps";
 
-interface Props {
-  account?: Account;
-  customer?: Customer;
-}
-
-export function NavbarDetailAccount(props: Props) {
-  const { name } = useCustomerName(props.customer!)
+export function NavbarDetailAccount() {
+  const { account } = useProps();
+  const { name } = useCustomerName(account.customer!);
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary navbar">
@@ -24,9 +19,9 @@ export function NavbarDetailAccount(props: Props) {
                 as={Link}
                 to="/find-account-and-agency"
                 state={{
-                  id: props.account?.id,
-                  balance: props.account?.balance,
-                  password: props.account?.password,
+                  id: account?.id,
+                  balance: account?.balance,
+                  password: account?.password,
                 }}
               >
                 Transfer balance

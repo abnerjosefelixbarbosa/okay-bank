@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 import { Customer } from "../types/Customer";
 
 export function useCustomerName(customer: Customer) {
-    const [names, setNames] = useState<Array<string>>([]);
+    const [name, setName] = useState<string>("");
 
     useEffect(() => {
       if (customer) {
-        setNames(customer.name!.split(" "));
+        const list = customer.name!.split(" ");
+        setName(list[0])
       }
     });
 
     return {
-      name: names[0]
+      name: name
     }
 }

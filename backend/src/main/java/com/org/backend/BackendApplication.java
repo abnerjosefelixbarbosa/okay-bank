@@ -16,6 +16,6 @@ public class BackendApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println(text);    
+		System.out.println(text);
 	}
 }
