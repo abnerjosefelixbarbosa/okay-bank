@@ -1,17 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useProps } from "./useProps";
 
 export function useCustomerName() {
-    const [name, setName] = useState<string>("");
-    const { account } = useProps();
+    const { account, updateCustomerName } = useProps();
 
     useEffect(() => {
       const list = account.customer?.name!.split(" ");
       if (list) 
-        setName(list![0])
+        updateCustomerName(list![0])
     });
-
-    return {
-      name: name
-    }
 }
