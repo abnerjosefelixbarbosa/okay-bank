@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { Account } from "../types/Account";
+import { Account } from "../../types/Account";
 
 interface ProviderProps {
   children: React.ReactNode;
