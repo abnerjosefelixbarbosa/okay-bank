@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 import { Customer } from "../../../types/Customer";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { CustomerService } from "../../../services/CustomerService";
 
 const schema = z.object({
