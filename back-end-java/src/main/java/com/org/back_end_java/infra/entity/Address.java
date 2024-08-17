@@ -7,16 +7,16 @@ import lombok.Data;
 @Data
 @Embeddable
 public class Address {
-	@Column(nullable = false, length = 20)
+	@Column(nullable = false)
 	private String postalCodeAddress;
-	@Column(nullable = false, length = 10)
+	@Column(nullable = false)
 	private String numberAddress;
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false)
 	private String nameAddress;
-	@Column(nullable = false, length = 30)
+	@Column(nullable = false)
 	private String districtAddress;
-	@Column(nullable = false, length = 30)
+	@Column(nullable = false)
 	private String cityAddress;
-	@Column(nullable = false, length = 30)
+	@Column(nullable = false)
 	private String stateAddress;
 }

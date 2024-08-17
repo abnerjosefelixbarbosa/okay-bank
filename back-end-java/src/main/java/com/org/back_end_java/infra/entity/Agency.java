@@ -1,12 +1,14 @@
 package com.org.back_end_java.infra.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -19,6 +21,8 @@ public class Agency implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
-	@Column(nullable = false, unique = true, length = 10)
+	@Column(nullable = false, unique = true)
 	private String number;
+	@OneToMany(mappedBy = "agency")
+	private Collection<Account> accounts;
 }
