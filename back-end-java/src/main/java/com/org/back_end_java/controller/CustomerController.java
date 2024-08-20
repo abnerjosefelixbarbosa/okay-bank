@@ -14,12 +14,12 @@ import com.org.back_end_java.domain.usercase.ICustomerUserCase;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping(name = "/customers")
+@RequestMapping(value = "/customers")
 public class CustomerController {
 	@Autowired
 	private ICustomerUserCase customerUserCase;
 	
-	@PostMapping(name = "/register")
+	@PostMapping(value = "/register")
 	public ResponseEntity<String> register(@RequestBody @Valid RegisterCustomerDTO dto) {
 		String response = customerUserCase.register(dto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
