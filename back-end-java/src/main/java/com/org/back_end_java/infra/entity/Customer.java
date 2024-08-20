@@ -16,6 +16,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.Data;
 
 @Entity
@@ -39,6 +41,7 @@ public class Customer implements Serializable, UserDetails {
 	private String cpf;
 	@Column(nullable = false, unique = true)
 	private String rg;
+	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
 	private Date birthDate;
 	@Embedded
