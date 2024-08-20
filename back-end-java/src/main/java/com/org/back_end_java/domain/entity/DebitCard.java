@@ -5,10 +5,10 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class Card {
+public class DebitCard {
 	private String id;
 	private String number;
-	private Date dateExpiration;
+	private Date expirationDate;
 	private String cvv;
 	private Account account;
 }

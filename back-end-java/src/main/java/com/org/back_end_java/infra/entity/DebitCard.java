@@ -1,5 +1,6 @@
 package com.org.back_end_java.infra.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -14,18 +15,20 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "tb_card")
-public class Card {
+@Table(name = "debit_card_tb")
+public class DebitCard implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
 	@Column(nullable = false, unique = true)
 	private String number;
 	@Column(nullable = false)
-	private Date dateExpiration;
+	private Date expirationDate;
 	@Column(nullable = false, unique = true)
 	private String cvv;
 	@OneToOne
-	@JoinColumn(name = "id_account", nullable = false)
+	@JoinColumn(name = "account_id", nullable = false)
 	private Account account;
 }

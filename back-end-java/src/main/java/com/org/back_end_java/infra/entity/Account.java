@@ -12,13 +12,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "tb_account")
+@Table(name = "account_tb")
 public class Account implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -31,15 +30,13 @@ public class Account implements Serializable {
 	private BigDecimal balance;
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
-	private TypeAccount typeAccount;
+	private AccountType accountType;
 	@Column(nullable = false, unique = true)
 	private String password;
 	@ManyToOne
-	@JoinColumn(name = "id_customer", nullable = false)
+	@JoinColumn(name = "customer_id", nullable = false)
 	private Customer customer;
 	@ManyToOne
-	@JoinColumn(name = "id_agency", nullable = false)
+	@JoinColumn(name = "agency_id", nullable = false)
 	private Agency agency;
-	@OneToOne(mappedBy = "account")
-	private Card card;
 }

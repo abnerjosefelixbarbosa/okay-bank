@@ -5,8 +5,8 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum TypeAccount {
-	CURRENT("CURRENT"), SAVINGS("SAVINGS");
+public enum AccountType {
+	CURRENT("CURRENT"), SAVINGS("SAVINGS"), INCOME("INCOME"), SALARY("SALARY");
 	
 	private String name;
 }

@@ -4,10 +4,10 @@ import lombok.Data;
 
 @Data
 public class AddressView {
-	private String postalCodeAddress;
-	private String numberAddress;
-	private String nameAddress;
-	private String districtAddress;
-	private String cityAddress;
-	private String stateAddress;
+	private String postalCode;
+	private String number;
+	private String addressName;
+	private String district;
+	private String city;
+	private String state;
 }

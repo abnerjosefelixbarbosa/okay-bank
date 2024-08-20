@@ -8,15 +8,15 @@ import lombok.Data;
 @Embeddable
 public class Address {
 	@Column(nullable = false)
-	private String postalCodeAddress;
+	private String postalCode;
 	@Column(nullable = false)
-	private String numberAddress;
+	private String number;
 	@Column(nullable = false)
-	private String nameAddress;
+	private String addressName;
 	@Column(nullable = false)
-	private String districtAddress;
+	private String district;
 	@Column(nullable = false)
-	private String cityAddress;
+	private String city;
 	@Column(nullable = false)
-	private String stateAddress;
+	private String state;
 }

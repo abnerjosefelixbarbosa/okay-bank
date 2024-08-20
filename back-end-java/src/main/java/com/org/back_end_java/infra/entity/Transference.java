@@ -16,7 +16,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "tb_transference")
+@Table(name = "transference_tb")
 public class Transference implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -24,13 +24,13 @@ public class Transference implements Serializable {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
 	@Column(nullable = false)
-	private LocalDateTime dateTime;
+	private LocalDateTime transferenceDateTime;
 	@Column(nullable = false)
-	private BigDecimal valueTransference;
+	private BigDecimal transferenceValue;
 	@ManyToOne
-	@JoinColumn(name = "id_customer", nullable = false)
+	@JoinColumn(name = "customer_id", nullable = false)
 	private Customer customer;
 	@ManyToOne
-	@JoinColumn(name = "id_recipient", nullable = false)
+	@JoinColumn(name = "recipient_id", nullable = false)
 	private Recipient recipient;
 }

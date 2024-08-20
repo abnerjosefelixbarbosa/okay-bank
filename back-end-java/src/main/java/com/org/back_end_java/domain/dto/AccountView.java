@@ -2,7 +2,7 @@ package com.org.back_end_java.domain.dto;
 
 import java.math.BigDecimal;
 
-import com.org.back_end_java.domain.entity.TypeAccount;
+import com.org.back_end_java.domain.entity.AccountType;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -14,9 +14,8 @@ public class AccountView {
 	private String number;
 	private BigDecimal balance;
 	@Enumerated(EnumType.STRING)
-	private TypeAccount typeAccount;
+	private AccountType accountType;
 	private String password;
 	private CustomerView customer;
 	private AgencyView agency;
-	private CardView card;
 }

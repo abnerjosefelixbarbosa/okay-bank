@@ -12,9 +12,8 @@ public class Account {
 	private String number;
 	private BigDecimal balance;
 	@Enumerated(EnumType.STRING)
-	private TypeAccount typeAccount;
+	private AccountType accountType;
 	private String password;
 	private Customer customer;
 	private Agency agency;
-	private Card card;
 }

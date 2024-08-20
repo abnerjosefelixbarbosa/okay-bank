@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class CardView {
+public class DebitCardView {
 	private String id;
 	private String number;
 	private Date dateExpiration;
