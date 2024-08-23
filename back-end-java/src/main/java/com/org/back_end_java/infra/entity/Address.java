@@ -11,8 +11,8 @@ public class Address {
 	private String postalCode;
 	@Column(nullable = false)
 	private String number;
-	@Column(nullable = false)
-	private String addressName;
+	@Column(name = "address_name", nullable = false)
+	private String name;
 	@Column(nullable = false)
 	private String district;
 	@Column(nullable = false)

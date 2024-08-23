@@ -1,6 +1,6 @@
 package com.org.back_end_java.domain.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -11,6 +11,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
@@ -24,6 +26,7 @@ public class RegisterCustomerDTO {
 	private String customerEmail;
 	@NotNull
 	@NotEmpty
+	@Pattern(regexp = "^\\d{8}$")
 	private String customerPassword;
 	@NotNull
 	@NotEmpty
@@ -36,7 +39,8 @@ public class RegisterCustomerDTO {
 	@NotEmpty
 	private String customerRg;
 	@NotNull
-	private Date customerBirthDate;
+	@Past
+	private LocalDate customerBirthDate;
 	
 	@NotNull
 	@NotEmpty
@@ -65,6 +69,7 @@ public class RegisterCustomerDTO {
 	private AccountType accountType;
 	@NotNull
 	@NotEmpty
+	@Pattern(regexp = "^\\d{6}$")
 	private String accountPassword;
 	
 	@NotNull

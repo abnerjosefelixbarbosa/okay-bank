@@ -7,5 +7,5 @@ import com.org.back_end_java.infra.entity.Account;
 
 @Repository
 public interface IAccountRepository extends JpaRepository<Account, String> {
-
+	boolean existsByNumberAndPassword(String number, String password);
 }

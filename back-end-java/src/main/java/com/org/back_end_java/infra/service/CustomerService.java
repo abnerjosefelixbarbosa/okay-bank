@@ -14,6 +14,8 @@ import com.org.back_end_java.infra.mapper.AgencyMapper;
 import com.org.back_end_java.infra.mapper.CustomerMapper;
 import com.org.back_end_java.infra.repository.ICustomerRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class CustomerService implements ICustomerService {
 	@Autowired
@@ -35,19 +37,39 @@ public class CustomerService implements ICustomerService {
 		return customer;
 	}
 
+	@Transactional
 	public String register(RegisterCustomerDTO dto) {
 		Customer customer = customerMapper.toCustomer(dto);
 		Account account = accountMapper.toAccount(dto);
 		Agency agency = agencyMapper.toAgency(dto);
+		
+		validateRegister(customer, account, agency);
 		
 		customer = customerRepository.save(customer);
 		agency = agencyService.save(agency);
 		account.setAgency(agency);
 		account.setCustomer(customer);
 		account = accountService.save(account);
-		
-		System.out.println(account.toString());
 	
 		return "registrado com sucesso";
+	}
+	
+	public boolean existsCustomer(Customer customer) {
+		return customerRepository.existsByEmailAndPasswordAndContactAndCpfAndRg(customer.getEmail(), customer.getPassword(), customer.getContact(), customer.getCpf(), customer.getRg());
+	}
+	
+	private void validateRegister(Customer customer, Account account, Agency agency) {
+		boolean existsCustomer = existsCustomer(customer);
+		boolean existsAccount = accountService.existsAccount(account);
+		boolean existsAgency = agencyService.existsAgency(agency);
+		
+		if (existsCustomer)
+			throw new RuntimeException("customer exists");
+		//if (true)
+			
+ 		if (existsAccount)
+			throw new RuntimeException("account exists");
+		if (existsAgency)
+			throw new RuntimeException("agency exists");
 	}
 }

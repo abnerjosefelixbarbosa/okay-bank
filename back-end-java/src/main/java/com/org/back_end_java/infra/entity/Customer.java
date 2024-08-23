@@ -1,8 +1,8 @@
 package com.org.back_end_java.infra.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -16,13 +16,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "customer_tb")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Customer implements Serializable, UserDetails {
 	private static final long serialVersionUID = 1L;
 
@@ -41,9 +43,8 @@ public class Customer implements Serializable, UserDetails {
 	private String cpf;
 	@Column(nullable = false, unique = true)
 	private String rg;
-	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
-	private Date birthDate;
+	private LocalDate birthDate;
 	@Embedded
 	private Address address;
 	

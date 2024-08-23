@@ -14,4 +14,8 @@ public class AgencyService implements IAgencyService {
 	public Agency save(Agency agency) {
 		return agencyRepository.save(agency);
 	}
+	
+	public boolean existsAgency(Agency agency) {
+		return agencyRepository.existsByNumber(agency.getNumber());
+	}
 }

@@ -4,8 +4,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.UUID;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -22,6 +23,10 @@ import org.springframework.test.web.servlet.MvcResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.org.back_end_java.domain.dto.RegisterCustomerDTO;
 import com.org.back_end_java.domain.entity.AccountType;
+import com.org.back_end_java.infra.entity.Account;
+import com.org.back_end_java.infra.entity.Address;
+import com.org.back_end_java.infra.entity.Agency;
+import com.org.back_end_java.infra.entity.Customer;
 import com.org.back_end_java.infra.repository.IAccountRepository;
 import com.org.back_end_java.infra.repository.IAgencyRepository;
 import com.org.back_end_java.infra.repository.ICustomerRepository;
@@ -58,16 +63,16 @@ public class CustomerControllerTest {
 	@Test
 	public void shouldRegisterAndReturnStatus201() throws Exception {
 		RegisterCustomerDTO dto = new RegisterCustomerDTO();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date birthDate = format.parse("1990-05-02");
+		
+		//loadDate();
 		
 		dto.setCustomerName("name1");
 		dto.setCustomerEmail("email1@gmail.com.br");
-		dto.setCustomerPassword("1");
+		dto.setCustomerPassword("11111111");
 		dto.setCustomerContact("(81) 91111-1111");
-		dto.setCustomerCpf("632.872.105-64");
-		dto.setCustomerRg("21.500.362");
-		dto.setCustomerBirthDate(birthDate);
+		dto.setCustomerCpf("63287210564");
+		dto.setCustomerRg("21500362");
+		dto.setCustomerBirthDate(LocalDate.of(1990, 11, 20));
 		
 		dto.setAddressPostalCode("07076-080");
 		dto.setAddressNumber("350");
@@ -78,7 +83,7 @@ public class CustomerControllerTest {
 		
 		dto.setAccountNumber("11111-1");
 		dto.setAccountType(AccountType.SAVINGS);
-		dto.setAccountPassword("1");
+		dto.setAccountPassword("111111");
 		
 		dto.setAgencyNumber("1111-1");
 		
@@ -92,5 +97,43 @@ public class CustomerControllerTest {
 				.andReturn();
 		
 		Assertions.assertEquals("registrado com sucesso", result.getResponse().getContentAsString());
+	}
+	
+	private void loadDate() {
+		Address address = new Address();
+		address.setName("Rua Armando Luongo");
+		address.setCity("Guarulhos");
+		address.setDistrict("Jardim Palmira");
+		address.setNumber("350");
+		address.setPostalCode("07076-080");
+		address.setState("São Paulo");
+		
+		Customer customer = new Customer();
+		customer.setId(UUID.randomUUID().toString());
+		customer.setAddress(address);
+		customer.setBirthDate(LocalDate.of(1990, 11, 20));
+		customer.setContact("(81) 91111-1111");
+		customer.setCpf("63287210564");
+		customer.setEmail("email1@gmail.com.br");
+		customer.setName("name1");
+		customer.setPassword("1");
+		customer.setRg("21500362");
+		
+		Agency agency = new Agency();
+		agency.setId(UUID.randomUUID().toString());
+		agency.setNumber("1111-1");
+		
+		Account account = new Account();
+		account.setId(UUID.randomUUID().toString());
+		account.setAccountType(com.org.back_end_java.infra.entity.AccountType.SAVINGS);
+		account.setBalance(BigDecimal.valueOf(0));
+		account.setNumber("11111-1");
+		account.setPassword("1");
+		
+		customer = customerRepository.save(customer);
+		agency = agencyRepository.save(agency);
+		account.setAgency(agency);
+		account.setCustomer(customer);
+		accountRepository.save(account);		
 	}
 }

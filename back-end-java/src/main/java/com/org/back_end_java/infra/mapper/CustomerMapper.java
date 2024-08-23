@@ -11,7 +11,7 @@ public class CustomerMapper {
 	
 	public Customer toCustomer(RegisterCustomerDTO dto) {
 		Address address = new Address();
-		address.setAddressName(dto.getAddressName());
+		address.setName(dto.getAddressName());
 		address.setCity(dto.getAddressCity());
 		address.setDistrict(dto.getAddressDistrict());
 		address.setNumber(dto.getAddressNumber());

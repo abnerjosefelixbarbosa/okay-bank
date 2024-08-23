@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.org.back_end_java.infra.entity.Agency;
 
 @Repository
-public interface IAgencyRepository extends JpaRepository<Agency, String> {
-
+public interface IAgencyRepository extends JpaRepository<Agency, String> { 
+	boolean existsByNumber(String number);
 }
