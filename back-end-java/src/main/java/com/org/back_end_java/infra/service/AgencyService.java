@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import com.org.back_end_java.infra.entity.Agency;
 import com.org.back_end_java.infra.repository.IAgencyRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class AgencyService implements IAgencyService {
 	@Autowired
@@ -17,5 +19,9 @@ public class AgencyService implements IAgencyService {
 	
 	public boolean existsAgency(Agency agency) {
 		return agencyRepository.existsByNumber(agency.getNumber());
+	}
+	
+	public Agency findAgency(String number) {
+		return agencyRepository.findByNumber(number).orElseThrow(() -> new EntityNotFoundException("agency number not found"));
 	}
 }

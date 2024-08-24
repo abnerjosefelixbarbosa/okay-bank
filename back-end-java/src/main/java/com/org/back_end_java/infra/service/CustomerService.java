@@ -45,31 +45,28 @@ public class CustomerService implements ICustomerService {
 		
 		validateRegister(customer, account, agency);
 		
+		agency = agencyService.findAgency(agency.getNumber());
+		
 		customer = customerRepository.save(customer);
 		agency = agencyService.save(agency);
 		account.setAgency(agency);
 		account.setCustomer(customer);
 		account = accountService.save(account);
 	
-		return "registrado com sucesso";
+		return "registered successfully";
 	}
 	
 	public boolean existsCustomer(Customer customer) {
-		return customerRepository.existsByEmailAndPasswordAndContactAndCpfAndRg(customer.getEmail(), customer.getPassword(), customer.getContact(), customer.getCpf(), customer.getRg());
+		return customerRepository.existsByEmailOrPasswordOrContactOrCpfAndRg(customer.getEmail(), customer.getPassword(), customer.getContact(), customer.getCpf(), customer.getRg());
 	}
 	
 	private void validateRegister(Customer customer, Account account, Agency agency) {
 		boolean existsCustomer = existsCustomer(customer);
 		boolean existsAccount = accountService.existsAccount(account);
-		boolean existsAgency = agencyService.existsAgency(agency);
 		
 		if (existsCustomer)
 			throw new RuntimeException("customer exists");
-		//if (true)
-			
  		if (existsAccount)
 			throw new RuntimeException("account exists");
-		if (existsAgency)
-			throw new RuntimeException("agency exists");
 	}
 }

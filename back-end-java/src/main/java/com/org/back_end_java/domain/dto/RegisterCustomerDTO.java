@@ -13,6 +13,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
@@ -26,7 +27,7 @@ public class RegisterCustomerDTO {
 	private String customerEmail;
 	@NotNull
 	@NotEmpty
-	@Pattern(regexp = "^\\d{8}$")
+	@Pattern(regexp = "^\\d{8}$", message = "must have 8 numeric digits")
 	private String customerPassword;
 	@NotNull
 	@NotEmpty
@@ -69,7 +70,7 @@ public class RegisterCustomerDTO {
 	private AccountType accountType;
 	@NotNull
 	@NotEmpty
-	@Pattern(regexp = "^\\d{6}$")
+	@Pattern(regexp = "^\\d{6}$", message = "must have 6 numeric digits")
 	private String accountPassword;
 	
 	@NotNull

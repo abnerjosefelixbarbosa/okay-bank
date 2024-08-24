@@ -10,5 +10,5 @@ import com.org.back_end_java.infra.entity.Customer;
 @Repository
 public interface ICustomerRepository extends JpaRepository<Customer, String> {
 	Optional<Customer> findByCpf(String cpf);
-	boolean existsByEmailAndPasswordAndContactAndCpfAndRg(String email, String password, String contact, String cpf, String rg);
+	boolean existsByEmailOrPasswordOrContactOrCpfAndRg(String email, String password, String contact, String cpf, String rg);
 }

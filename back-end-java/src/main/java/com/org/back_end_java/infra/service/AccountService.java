@@ -16,6 +16,6 @@ public class AccountService implements IAccountService {
 	}
 
 	public boolean existsAccount(Account account) {
-		return accountRepository.existsByNumberAndPassword(account.getNumber(), account.getPassword());
+		return accountRepository.existsByNumberOrPassword(account.getNumber(), account.getPassword());
 	}
 }
