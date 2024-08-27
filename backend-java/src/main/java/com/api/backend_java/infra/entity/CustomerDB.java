@@ -3,8 +3,6 @@ package com.api.backend_java.infra.entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails.Address;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -42,5 +40,5 @@ public class CustomerDB implements Serializable {
 	@Column(nullable = false)
 	private LocalDate birthDate;
 	@Embedded
-	private Address address;
+	private AddressDB address;
 }

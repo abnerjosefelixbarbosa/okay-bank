@@ -1,5 +1,7 @@
 package com.api.backend_java.infra.entity;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
@@ -10,7 +12,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddressDB {
+public class AddressDB implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	@Column(nullable = false, length = 10)
 	private String postalCode;
 	@Column(nullable = false, length = 4)
