@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddressDB implements Serializable {
+public class Address implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Column(nullable = false, length = 10)

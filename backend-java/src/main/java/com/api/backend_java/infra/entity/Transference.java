@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TransferenceDB implements Serializable {
+public class Transference implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -33,8 +33,8 @@ public class TransferenceDB implements Serializable {
 	private LocalDateTime dateTime;
 	@ManyToOne
 	@JoinColumn(name = "customer_id", nullable = false)
-	private CustomerDB customer;
+	private Customer customer;
 	@ManyToOne
 	@JoinColumn(name = "recipient_id", nullable = false)
-	private RecipientDB recipient;
+	private Recipient recipient;
 }
