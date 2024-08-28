@@ -17,29 +17,39 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.api.backend_java.domain.dto.AgencyDTO;
 import com.api.backend_java.infra.entity.Agency;
+import com.api.backend_java.infra.repository.IAccountRepository;
 import com.api.backend_java.infra.repository.IAgencyRepository;
+import com.api.backend_java.infra.repository.ICustomerRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class AgencyControllerTest {
+class AccountControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 	@Autowired
 	private ObjectMapper objectMappe;
 	@Autowired
 	private IAgencyRepository agencyRepository;
-
+	@Autowired
+	private ICustomerRepository customerRepository;
+	@Autowired
+	private IAccountRepository accountRepository;
+	
 	@BeforeEach
 	void setup() {
+		accountRepository.deleteAll();
 		agencyRepository.deleteAll();
+		customerRepository.deleteAll();
 	}
 
 	@AfterEach
 	void tearDown() {
+		accountRepository.deleteAll();
 		agencyRepository.deleteAll();
+		customerRepository.deleteAll();
 	}
-
+	
 	@Test
 	void shouldCreateAndReturn201Status() throws Exception {
 		AgencyDTO dto = new AgencyDTO("11111");

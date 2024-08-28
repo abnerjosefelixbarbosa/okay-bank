@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.api.backend_java.domain.exception.ExceptionDetails;
+import com.api.backend_java.domain.exception.InvalidDataException;
+import com.api.backend_java.domain.exception.NotFoundException;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
@@ -31,17 +32,17 @@ public class ExcepitionController {
 		return errors;
 	}
 	
-	@ExceptionHandler(EntityNotFoundException.class)
-	public ResponseEntity<ExceptionDetails> handleNotFoundException(EntityNotFoundException e, HttpServletRequest request) {
+	@ExceptionHandler(NotFoundException.class)
+	public ResponseEntity<ExceptionDetails> handleNotFoundException(NotFoundException e, HttpServletRequest request) {
 		ExceptionDetails exceptionDetails = new ExceptionDetails(LocalDateTime.now(), 404, e.getMessage(),
 				request.getRequestURI());
 		return ResponseEntity.status(404).body(exceptionDetails);
 	}
 	
-	@ExceptionHandler(RuntimeException.class)
-	public ResponseEntity<ExceptionDetails> handleNotFoundException(RuntimeException e, HttpServletRequest request) {
-		ExceptionDetails exceptionDetails = new ExceptionDetails(LocalDateTime.now(), 404, e.getMessage(),
+	@ExceptionHandler(InvalidDataException.class)
+	public ResponseEntity<ExceptionDetails> handleNotFoundException(InvalidDataException e, HttpServletRequest request) {
+		ExceptionDetails exceptionDetails = new ExceptionDetails(LocalDateTime.now(), 400, e.getMessage(),
 				request.getRequestURI());
-		return ResponseEntity.status(404).body(exceptionDetails);
+		return ResponseEntity.status(400).body(exceptionDetails);
 	}
 }
