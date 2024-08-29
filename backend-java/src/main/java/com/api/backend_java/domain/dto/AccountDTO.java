@@ -1,11 +1,10 @@
 package com.api.backend_java.domain.dto;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import org.hibernate.validator.constraints.br.CPF;
 
-import com.api.backend_java.domain.entity.AccountType;
+import com.api.backend_java.domain.entity.AccountDomainType;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -19,15 +18,13 @@ public record AccountDTO(
 		@NotEmpty(message = "number must not be empty")
 		@Size(max = 10, message = "number must be max 10")
 		@Pattern(regexp = "^\\d+$", message = "number must have numeric digits")
-		String number,
-		@NotNull(message = "balance must not be null")
-	    BigDecimal balance,
+		String accountNumber,
 	    @NotNull(message = "password must not be null")
 		@NotEmpty(message = "password must not be empty")
-		@Pattern(regexp = "^\\d{8}$", message = "password must have 8 numeric digits")
-		String password,
+		@Pattern(regexp = "^\\d{6}$", message = "password must have 8 numeric digits")
+		String accountPassword,
 		@NotNull(message = "account type must not be null")
-		AccountType accountType,
+		AccountDomainType accountType,
 		@NotNull(message = "agency number must not be null")
 		@NotEmpty(message = "agency number must not be empty")
 		@Size(max = 10, message = "agency number must be max 10")
@@ -50,6 +47,7 @@ public record AccountDTO(
 		@NotNull(message = "customer email must not be null")
 		@NotEmpty(message = "customer email must not be empty")
 		@Email(message = "customer email must not be invalid")
+		@Size(max = 50, message = "customer email must be max 50")
 		String customerEmail,
 		@NotNull(message = "customer contact must not be null")
 		@NotEmpty(message = "customer contact must not be empty")
@@ -58,7 +56,7 @@ public record AccountDTO(
 		String customerContact,
 		@NotNull(message = "customer password must not be null")
 		@NotEmpty(message = "customer password must not be empty")
-		@Pattern(regexp = "^\\d{6}$", message = "customer password must have 6 numeric digits")
+		@Pattern(regexp = "^\\d{8}$", message = "customer password must have 6 numeric digits")
 		String customerPassword,
 		@NotNull(message = "customer birth date must not be null")
 		@Past(message = "customer birth date must be pasted")

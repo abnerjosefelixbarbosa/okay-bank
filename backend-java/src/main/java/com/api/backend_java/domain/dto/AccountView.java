@@ -3,14 +3,14 @@ package com.api.backend_java.domain.dto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import com.api.backend_java.domain.entity.AccountType;
+import com.api.backend_java.domain.entity.AccountDomainType;
 
 public record AccountView(
-		String id,
-		String number,
-	    BigDecimal balance,
-		String password,
-		AccountType accountType,
+		String accountId,
+		String accountNumber,
+	    BigDecimal accountBalance,
+		String accountPassword,
+		AccountDomainType accountType,
 		String agencyId,
 		String agencyNumber,
 		String customerId,

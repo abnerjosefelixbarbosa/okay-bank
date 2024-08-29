@@ -5,13 +5,13 @@ import org.springframework.stereotype.Component;
 import com.api.backend_java.adapter.IAgencyGateway;
 import com.api.backend_java.domain.dto.AgencyDTO;
 import com.api.backend_java.domain.dto.AgencyView;
-import com.api.backend_java.domain.usercase.IAgencyUserCase;
+import com.api.backend_java.domain.usercase.IAgencyUsercase;
 
 import lombok.AllArgsConstructor;
 
 @Component
 @AllArgsConstructor
-public class AgencyUseCase implements IAgencyUserCase {
+public class AgencyUsecase implements IAgencyUsercase {
 	private IAgencyGateway agencyGateway;
 	
 	public AgencyView create(AgencyDTO dto) {

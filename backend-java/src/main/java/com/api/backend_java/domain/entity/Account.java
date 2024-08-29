@@ -14,7 +14,7 @@ public class Account {
 	private String number;
 	private BigDecimal balance;
 	private String password;
-	private AccountType accountType;
+	private AccountDomainType accountType;
 	private Agency agency;
 	private Customer customer;
 }

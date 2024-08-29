@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.backend_java.domain.dto.AgencyDTO;
 import com.api.backend_java.domain.dto.AgencyView;
-import com.api.backend_java.domain.usercase.IAgencyUserCase;
+import com.api.backend_java.domain.usercase.IAgencyUsercase;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -18,11 +18,11 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 public class AgencyController {
-	private IAgencyUserCase agencyUserCase;
+	private IAgencyUsercase agencyUsercase;
 	
 	@PostMapping(value = "/create")
 	public ResponseEntity<AgencyView> create(@RequestBody @Valid AgencyDTO dto) {
-		AgencyView agencyView = agencyUserCase.create(dto);
+		AgencyView agencyView = agencyUsercase.create(dto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(agencyView);
 	}
 }
