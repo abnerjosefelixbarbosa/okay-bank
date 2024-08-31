@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import org.hibernate.validator.constraints.br.CPF;
 
-import com.api.backend_java.domain.entity.AccountDomainType;
+import com.api.backend_java.domain.entity.AccountType;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -18,16 +18,16 @@ public record AccountDTO(
 		@NotEmpty(message = "number must not be empty")
 		@Size(max = 10, message = "number must be max 10")
 		@Pattern(regexp = "^\\d+$", message = "number must have numeric digits")
-		String accountNumber,
-	    @NotNull(message = "password must not be null")
+		String number,
+		@NotNull(message = "password must not be null")
 		@NotEmpty(message = "password must not be empty")
 		@Pattern(regexp = "^\\d{6}$", message = "password must have 8 numeric digits")
-		String accountPassword,
-		@NotNull(message = "account type must not be null")
-		AccountDomainType accountType,
+		String password,
+		@NotNull(message = "account must not be null")
+		AccountType accountType,
 		@NotNull(message = "agency number must not be null")
 		@NotEmpty(message = "agency number must not be empty")
-		@Size(max = 10, message = "agency number must be max 10")
+	    @Size(max = 10, message = "agency number must be max 10")
 		@Pattern(regexp = "^\\d+$", message = "agency number must have numeric digits")
 		String agencyNumber,
 		@NotNull(message = "customer cpf must not be null")
@@ -73,7 +73,7 @@ public record AccountDTO(
 		@NotNull(message = "address name must not be null")
 		@NotEmpty(message = "address name must not be empty")
 		@Size(max = 50, message = "address name must be max 50")
-	    String addressName,
+		String addressName,
 	    @NotNull(message = "address district must not be null")
 		@NotEmpty(message = "address district must not be empty")
 		@Size(max = 30, message = "address district must be max 30")

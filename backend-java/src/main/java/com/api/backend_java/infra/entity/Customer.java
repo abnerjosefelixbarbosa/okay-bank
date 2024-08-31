@@ -3,6 +3,8 @@ package com.api.backend_java.infra.entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import com.api.backend_java.domain.dto.AccountDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -41,4 +43,15 @@ public class Customer implements Serializable {
 	private LocalDate birthDate;
 	@Embedded
 	private Address address;
+
+	public Customer(AccountDTO dto) {
+		cpf = dto.customerCpf();
+		rg = dto.customerRg();
+		name = dto.customerName();
+		email = dto.customerEmail();
+		contact = dto.customerContact();
+		password = dto.customerPassword();
+		birthDate = dto.customerBirthDate();
+		address = new Address(dto);
+	}
 }

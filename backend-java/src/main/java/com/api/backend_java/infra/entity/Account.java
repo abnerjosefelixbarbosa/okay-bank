@@ -3,6 +3,8 @@ package com.api.backend_java.infra.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import com.api.backend_java.domain.dto.AccountDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,7 +24,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Account implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
@@ -40,4 +42,13 @@ public class Account implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "customer_id", nullable = false, unique = true)
 	private Customer customer;
+
+	public Account(AccountDTO dto) {
+		number = dto.number();
+		balance = BigDecimal.ZERO;
+		password = dto.password();
+		accountType = AccountType.valueOf(dto.accountType().getValue());
+		agency = new Agency(dto);
+		customer = new Customer(dto);
+	}
 }

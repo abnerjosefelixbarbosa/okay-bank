@@ -7,5 +7,5 @@ import com.api.backend_java.infra.entity.Customer;
 
 @Repository
 public interface ICustomerRepository extends JpaRepository<Customer, String> {
-
+	boolean existsByCpfOrRgOrEmailOrContactOrPassword(String cpf, String rg, String email, String contact, String password);
 }

@@ -2,6 +2,8 @@ package com.api.backend_java.infra.entity;
 
 import java.io.Serializable;
 
+import com.api.backend_java.domain.dto.AccountDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
@@ -27,4 +29,13 @@ public class Address implements Serializable {
 	private String state;
 	@Column(nullable = false, length = 30)
 	private String city;
+	
+	public Address(AccountDTO dto) {
+		postalCode = dto.addressPostalCode();
+		number = dto.addressNumber();
+		name = dto.addressName();
+		district = dto.addressDistrict();
+		state = dto.addressState();
+		city = dto.addressCity();
+	}
 }

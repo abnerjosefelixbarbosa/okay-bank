@@ -2,6 +2,9 @@ package com.api.backend_java.infra.entity;
 
 import java.io.Serializable;
 
+import com.api.backend_java.domain.dto.AccountDTO;
+import com.api.backend_java.domain.dto.AgencyDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,4 +28,12 @@ public class Agency implements Serializable {
 	private String id;
 	@Column(nullable = false, unique = true, length = 10)
 	private String number;
+	
+	public Agency(AgencyDTO dto) {
+		number = dto.number();
+	}
+
+	public Agency(AccountDTO dto) {
+		number = dto.agencyNumber();
+	}
 }
