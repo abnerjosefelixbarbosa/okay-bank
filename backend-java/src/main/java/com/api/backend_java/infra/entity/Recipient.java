@@ -9,12 +9,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "recipient_tb")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Recipient implements Serializable {
@@ -23,12 +25,12 @@ public class Recipient implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
-	@Column(nullable = false, length = 10)
+	@Column(nullable = false)
 	private String account;
-	@Column(nullable = false, length = 10)
+	@Column(nullable = false)
 	private String agency;
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false)
 	private String bank;
-	@Column(nullable = false, length = 100)
+	@Column(nullable = false)
 	private String name;
 }

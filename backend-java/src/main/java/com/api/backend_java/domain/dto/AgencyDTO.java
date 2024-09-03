@@ -6,9 +6,12 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public record AgencyDTO(
-		@NotEmpty(message = "number not must be empty")
-		@NotNull(message = "number not must be null")
-		@Size(max = 10, message = "number must be max 10")
-		@Pattern(regexp = "^\\d+$", message = "number must have numeric digits")
+		String id,
+		@NotEmpty(message = "number empty")
+		@NotNull(message = "number null")
+		@Size(max = 10, message = "number with max 10 charactes")
+		@Pattern(regexp = "^\\d+$", message = "number with numeric digits")
 		String number
-) {}
+) {
+	
+}

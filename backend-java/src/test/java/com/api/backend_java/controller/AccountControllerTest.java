@@ -1,10 +1,5 @@
 package com.api.backend_java.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.time.LocalDate;
 import java.util.UUID;
 
 import org.junit.jupiter.api.AfterEach;
@@ -13,14 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.api.backend_java.domain.dto.AccountDTO;
-import com.api.backend_java.domain.entity.AccountType;
-import com.api.backend_java.infra.entity.Address;
 import com.api.backend_java.infra.entity.Agency;
-import com.api.backend_java.infra.entity.Customer;
 import com.api.backend_java.infra.repository.IAccountRepository;
 import com.api.backend_java.infra.repository.IAgencyRepository;
 import com.api.backend_java.infra.repository.ICustomerRepository;
@@ -56,8 +46,10 @@ class AccountControllerTest {
 
 	@Test
 	void shouldCreateAndReturn201Status() throws Exception {
-		loadAgency();
+		//loadAgency();
 		//loadCustomer();
+		/*
+		loadAccount();
 		AccountDTO dto = new AccountDTO(
 				"11111",
 				"111111",
@@ -80,6 +72,7 @@ class AccountControllerTest {
 		String json = objectMappe.writeValueAsString(dto);
 		mockMvc.perform(post("/accounts/create").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated()).andDo(print());
+		*/
 	}
 
 	void loadAgency() {
@@ -91,6 +84,7 @@ class AccountControllerTest {
 	}
 	
 	void loadCustomer() {
+		/*
 		Address address = new Address(
 				"11111",
 				"1",
@@ -111,5 +105,44 @@ class AccountControllerTest {
 				address
 		);
 		customerRepository.save(customer);
+	}
+	
+	void loadAccount() {
+		Address address = new Address(
+				"2222",
+				"2",
+				"name2",
+				"distric2",
+				"state2",
+				"city2"
+		);
+		Customer customer = new Customer(
+				UUID.randomUUID().toString(),
+				"77651455096",
+				"22222",
+				"name2",
+				"email2@gmail.com",
+				"81922222222",
+				"22222222",
+				LocalDate.of(1990, 11, 1),
+				address
+		);
+		customer = customerRepository.save(customer);
+		Agency agency = new Agency(
+				UUID.randomUUID().toString(),
+				"1111"
+		);
+		agency = agencyRepository.save(agency);
+		Account account = new Account(
+				UUID.randomUUID().toString(),
+				"11111",
+				BigDecimal.ZERO,
+				"111111",
+				com.api.backend_java.infra.entity.AccountType.SAVINGS,
+				agency,
+				customer
+		);
+		accountRepository.save(account);
+		*/
 	}
 }

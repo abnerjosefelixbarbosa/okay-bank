@@ -6,11 +6,8 @@ import com.api.backend_java.adapter.IAccountGateway;
 import com.api.backend_java.adapter.IAgencyGateway;
 import com.api.backend_java.adapter.ICustomerGateway;
 import com.api.backend_java.domain.dto.AccountDTO;
-import com.api.backend_java.domain.dto.AccountView;
 import com.api.backend_java.domain.exception.InvalidDataException;
 import com.api.backend_java.infra.entity.Account;
-import com.api.backend_java.infra.entity.Agency;
-import com.api.backend_java.infra.entity.Customer;
 import com.api.backend_java.infra.repository.IAccountRepository;
 
 import lombok.AllArgsConstructor;
@@ -22,7 +19,8 @@ public class AccountService implements IAccountGateway {
 	private IAgencyGateway agencyGateway; 
 	private ICustomerGateway customerGateway;
 
-	public AccountView create(AccountDTO dto) {
+	public AccountDTO create(AccountDTO dto) {
+		/*
 		Account account = new Account(dto);
 		validade(account);
 		Customer customer = account.getCustomer();
@@ -30,7 +28,8 @@ public class AccountService implements IAccountGateway {
 		account.setAgency(agency);
 		customer = customerGateway.save(customer);
 		account = accountRepository.save(account);
-		return new AccountView(account);
+		*/
+		return null;
 	}
 	
 	private void validade(Account account) {		
@@ -41,7 +40,12 @@ public class AccountService implements IAccountGateway {
 				account.getCustomer().getContact(),
 				account.getCustomer().getPassword()
 		);
-;		if (existsByCpfOrRgOrEmailOrContactOrPassword) 
-			throw new InvalidDataException("customer cpf or rg or email or contact or password exists");
+		boolean existsByNumber = accountRepository.existsByNumber(
+				account.getNumber()
+		);
+		if (existsByNumber)
+			throw new InvalidDataException("account number exists");
+		if (existsByCpfOrRgOrEmailOrContactOrPassword) 
+			throw new InvalidDataException("customer cpf, rg, email, contact or password exists");
 	}
 }

@@ -2,9 +2,6 @@ package com.api.backend_java.infra.entity;
 
 import java.io.Serializable;
 
-import com.api.backend_java.domain.dto.AccountDTO;
-import com.api.backend_java.domain.dto.AgencyDTO;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,12 +9,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "agency_tb")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Agency implements Serializable {
@@ -26,14 +25,6 @@ public class Agency implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
-	@Column(nullable = false, unique = true, length = 10)
+	@Column(nullable = false, unique = true)
 	private String number;
-	
-	public Agency(AgencyDTO dto) {
-		number = dto.number();
-	}
-
-	public Agency(AccountDTO dto) {
-		number = dto.agencyNumber();
-	}
 }

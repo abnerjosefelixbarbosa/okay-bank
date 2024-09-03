@@ -7,5 +7,7 @@ import com.api.backend_java.infra.entity.Account;
 
 @Repository
 public interface IAccountRepository extends JpaRepository<Account, String> {
-	//Optional<Agency> findByAgencyNumber(String number);
+	default boolean existsByNumber(String number) {
+		return false;
+	}
 }

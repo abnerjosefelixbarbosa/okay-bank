@@ -12,12 +12,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "debitcard_tb")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class DebitCard implements Serializable {
@@ -26,13 +28,13 @@ public class DebitCard implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
-	@Column(nullable = false, unique = true, length = 15)
+	@Column(nullable = false, unique = true)
 	private String number;
 	@Column(nullable = false)
 	private LocalDate expirationDate;
-	@Column(nullable = false, unique = true, length = 10)
+	@Column(nullable = false, unique = true)
 	private String cvv;
 	@ManyToOne
-	@JoinColumn(name = "account_id", nullable = false, unique = true)
+	@JoinColumn(name = "account_id", nullable = false)
 	private Account account;
 }

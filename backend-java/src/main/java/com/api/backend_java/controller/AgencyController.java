@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.backend_java.domain.dto.AgencyDTO;
-import com.api.backend_java.domain.dto.AgencyView;
 import com.api.backend_java.domain.usercase.IAgencyUsercase;
 
 import jakarta.validation.Valid;
@@ -21,8 +20,8 @@ public class AgencyController {
 	private IAgencyUsercase agencyUsercase;
 	
 	@PostMapping(value = "/create")
-	public ResponseEntity<AgencyView> create(@RequestBody @Valid AgencyDTO dto) {
-		AgencyView agencyView = agencyUsercase.create(dto);
-		return ResponseEntity.status(HttpStatus.CREATED).body(agencyView);
+	public ResponseEntity<AgencyDTO> create(@RequestBody @Valid AgencyDTO dto) {
+		AgencyDTO response = agencyUsercase.create(dto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 }

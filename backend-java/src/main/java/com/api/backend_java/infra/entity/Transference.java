@@ -13,12 +13,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "transference_tb")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Transference implements Serializable {
@@ -27,10 +29,10 @@ public class Transference implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
-	@Column(nullable = false, length = 10, name = "transference_value")
-	private BigDecimal value;
-	@Column(nullable = false, length = 10)
+	@Column(nullable = false)
 	private LocalDateTime dateTime;
+	@Column(nullable = false)
+	private BigDecimal trasnsferenceValue;
 	@ManyToOne
 	@JoinColumn(name = "customer_id", nullable = false)
 	private Customer customer;

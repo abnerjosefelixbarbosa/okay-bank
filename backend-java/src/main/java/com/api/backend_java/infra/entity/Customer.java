@@ -3,22 +3,21 @@ package com.api.backend_java.infra.entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import com.api.backend_java.domain.dto.AccountDTO;
-
 import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "customer_tb")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Customer implements Serializable {
@@ -27,31 +26,30 @@ public class Customer implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
-	@Column(nullable = false, unique = true, length = 11)
-	private String cpf;
-	@Column(nullable = false, unique = true, length = 10)
-	private String rg;
-	@Column(nullable = false, length = 100)
+	@Column(nullable = false)
 	private String name;
-	@Column(nullable = false, unique = true, length = 100)
+	@Column(nullable = false, unique = true)
 	private String email;
-	@Column(nullable = false, unique = true, length = 20)
-	private String contact;
-	@Column(nullable = false, unique = true, length = 8)
+	@Column(nullable = false, unique = true)
 	private String password;
+	@Column(nullable = false, unique = true)
+	private String contact;
+	@Column(nullable = false, unique = true)
+	private String cpf;
+	@Column(nullable = false, unique = true)
+	private String rg;
 	@Column(nullable = false)
 	private LocalDate birthDate;
-	@Embedded
-	private Address address;
-
-	public Customer(AccountDTO dto) {
-		cpf = dto.customerCpf();
-		rg = dto.customerRg();
-		name = dto.customerName();
-		email = dto.customerEmail();
-		contact = dto.customerContact();
-		password = dto.customerPassword();
-		birthDate = dto.customerBirthDate();
-		address = new Address(dto);
-	}
+	@Column(nullable = false)
+	private String addressPostalCode;
+	@Column(nullable = false)
+	private String addressNumber;
+	@Column(nullable = false)
+	private String addressName;
+	@Column(nullable = false)
+	private String addressDistrict;
+	@Column(nullable = false)
+	private String addressCity;
+	@Column(nullable = false)
+	private String addressState;
 }

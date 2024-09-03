@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.backend_java.domain.dto.AccountDTO;
-import com.api.backend_java.domain.dto.AccountView;
 import com.api.backend_java.domain.usercase.IAccountUsercase;
 
 import jakarta.validation.Valid;
@@ -20,10 +19,9 @@ import lombok.AllArgsConstructor;
 public class AccountController {
 	private IAccountUsercase accountUsercase;
 	
-	
 	@PostMapping(value = "/create")
-	public ResponseEntity<AccountView> create(@Valid @RequestBody AccountDTO dto) {
-		AccountView view = accountUsercase.create(dto);
-		return ResponseEntity.status(HttpStatus.CREATED).body(view);
+	public ResponseEntity<AccountDTO> create(@Valid @RequestBody AccountDTO dto) {
+		AccountDTO response = accountUsercase.create(dto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 }
