@@ -18,7 +18,6 @@ import lombok.AllArgsConstructor;
 public class CustomerController {
 	@PostMapping(value = "/create")
 	public ResponseEntity<CustomerDTO> create(@RequestBody @Valid CustomerDTO dto) {
-		
 		return ResponseEntity.status(HttpStatus.CREATED).body(null);
 	}
 }
