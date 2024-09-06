@@ -21,7 +21,6 @@ public class AgencyController {
 	
 	@PostMapping(value = "/create")
 	public ResponseEntity<AgencyDTO> create(@RequestBody @Valid AgencyDTO dto) {
-		AgencyDTO response = agencyUsercase.create(dto);
-		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+		return ResponseEntity.status(HttpStatus.CREATED).body(agencyUsercase.create(dto));
 	}
 }

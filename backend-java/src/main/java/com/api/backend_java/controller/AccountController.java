@@ -21,7 +21,6 @@ public class AccountController {
 	
 	@PostMapping(value = "/create")
 	public ResponseEntity<AccountDTO> create(@Valid @RequestBody AccountDTO dto) {
-		AccountDTO response = accountUsercase.create(dto);
-		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+		return ResponseEntity.status(HttpStatus.CREATED).body(accountUsercase.create(dto));
 	}
 }

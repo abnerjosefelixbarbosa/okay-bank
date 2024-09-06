@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.backend_java.domain.dto.CustomerDTO;
+import com.api.backend_java.domain.usercase.ICustomerUsercase;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -16,8 +17,10 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 public class CustomerController {
+	private ICustomerUsercase customerUsercase;
+	
 	@PostMapping(value = "/create")
 	public ResponseEntity<CustomerDTO> create(@RequestBody @Valid CustomerDTO dto) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(null);
+		return ResponseEntity.status(HttpStatus.CREATED).body(customerUsercase.create(dto));
 	}
 }

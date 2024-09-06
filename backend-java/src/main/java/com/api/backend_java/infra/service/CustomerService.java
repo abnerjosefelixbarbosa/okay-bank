@@ -4,7 +4,9 @@ import org.springframework.stereotype.Service;
 
 import com.api.backend_java.adapter.ICustomerGateway;
 import com.api.backend_java.domain.dto.CustomerDTO;
+import com.api.backend_java.domain.exception.InvalidDataException;
 import com.api.backend_java.infra.entity.Customer;
+import com.api.backend_java.infra.mapper.CustomerInfraMapper;
 import com.api.backend_java.infra.repository.ICustomerRepository;
 
 import lombok.AllArgsConstructor;
@@ -13,6 +15,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CustomerService implements ICustomerGateway {
 	private ICustomerRepository customerRepository;
+	private CustomerInfraMapper customerMapper;
 
 	public boolean existsByCpfOrRgOrEmailOrContactOrPassword(String cpf, String rg, String email, String contact,
 			String password) {
@@ -20,11 +23,22 @@ public class CustomerService implements ICustomerGateway {
 	}
 
 	public CustomerDTO create(CustomerDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+		Customer customer = customerMapper.toCustomer(dto);
+		validade(customer);
+		customer = customerRepository.save(customer);
+		return customerMapper.toCustomerDTO(customer);
 	}
 	
 	private void validade(Customer customer) {
+		boolean existsByCpfOrRgOrEmailOrContactOrPassword = customerRepository.existsByCpfOrRgOrEmailOrContactOrPassword(
+						customer.getCpf(),
+						customer.getRg(),
+						customer.getEmail(),
+						customer.getContact(),
+						customer.getPassword()
+		);
 		
+		if (existsByCpfOrRgOrEmailOrContactOrPassword)
+			throw new InvalidDataException("cpf, rg, email, contact or password exists");
 	}
 }

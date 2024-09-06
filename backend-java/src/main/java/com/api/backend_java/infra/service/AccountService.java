@@ -6,7 +6,6 @@ import com.api.backend_java.adapter.IAccountGateway;
 import com.api.backend_java.adapter.IAgencyGateway;
 import com.api.backend_java.adapter.ICustomerGateway;
 import com.api.backend_java.domain.dto.AccountDTO;
-import com.api.backend_java.domain.exception.InvalidDataException;
 import com.api.backend_java.infra.entity.Account;
 import com.api.backend_java.infra.repository.IAccountRepository;
 
@@ -33,19 +32,5 @@ public class AccountService implements IAccountGateway {
 	}
 	
 	private void validade(Account account) {		
-		boolean existsByCpfOrRgOrEmailOrContactOrPassword = customerGateway.existsByCpfOrRgOrEmailOrContactOrPassword(
-				account.getCustomer().getCpf(),
-				account.getCustomer().getRg(),
-				account.getCustomer().getEmail(),
-				account.getCustomer().getContact(),
-				account.getCustomer().getPassword()
-		);
-		boolean existsByNumber = accountRepository.existsByNumber(
-				account.getNumber()
-		);
-		if (existsByNumber)
-			throw new InvalidDataException("account number exists");
-		if (existsByCpfOrRgOrEmailOrContactOrPassword) 
-			throw new InvalidDataException("customer cpf, rg, email, contact or password exists");
 	}
 }
