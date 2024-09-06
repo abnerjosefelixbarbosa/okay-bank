@@ -6,6 +6,7 @@ import com.api.backend_java.adapter.IAccountGateway;
 import com.api.backend_java.domain.dto.AccountDTO;
 import com.api.backend_java.domain.entity.Account;
 import com.api.backend_java.domain.exception.InvalidDataException;
+import com.api.backend_java.domain.mapper.AccountDomainMapper;
 import com.api.backend_java.domain.usercase.IAccountUsercase;
 
 import lombok.AllArgsConstructor;
@@ -14,9 +15,11 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class AccountUsecase implements IAccountUsercase {
 	private IAccountGateway accountGateway;
+	private AccountDomainMapper accountMapper;
 
 	public AccountDTO create(AccountDTO dto) {
-		validate(null);
+		Account account = accountMapper.toAccount(dto);
+		validate(account);
 		return accountGateway.create(dto);
 	}
 	

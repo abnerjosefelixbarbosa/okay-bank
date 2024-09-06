@@ -12,4 +12,8 @@ import lombok.Setter;
 public class Agency {
 	private String id;
 	private String number;
+	
+	public Agency(String id) {
+		this.id = id;
+	}
 }

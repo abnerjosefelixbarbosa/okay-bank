@@ -26,4 +26,8 @@ public class Customer {
 	private String addressDistrict;
 	private String addressState;
 	private String addressCity;
+	
+	public Customer(String id) {
+		this.id = id;
+	}
 }
