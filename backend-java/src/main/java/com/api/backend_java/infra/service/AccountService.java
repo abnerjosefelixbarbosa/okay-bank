@@ -19,15 +19,6 @@ public class AccountService implements IAccountGateway {
 	private ICustomerGateway customerGateway;
 
 	public AccountDTO create(AccountDTO dto) {
-		/*
-		Account account = new Account(dto);
-		validade(account);
-		Customer customer = account.getCustomer();
-		Agency agency = agencyGateway.getByNumber(dto.agencyNumber());
-		account.setAgency(agency);
-		customer = customerGateway.save(customer);
-		account = accountRepository.save(account);
-		*/
 		return null;
 	}
 	

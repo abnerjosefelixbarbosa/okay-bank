@@ -22,7 +22,7 @@ public record AccountDTO(
 		AccountType accountType,
 		@NotNull(message = "password null")
 		@NotEmpty(message = "password empty")
-		@Pattern(regexp = "^\\d{6}$", message = "password with 8 numeric digits")
+		@Pattern(regexp = "^\\d{6}$", message = "password with 6 numeric digits")
 		String password,
 		@NotNull(message = "customer null")
 		CustomerDTO customer,
