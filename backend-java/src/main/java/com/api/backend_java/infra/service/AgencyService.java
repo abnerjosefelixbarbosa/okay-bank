@@ -29,6 +29,10 @@ public class AgencyService implements IAgencyGateway {
 		return agencyRepository.findByNumber(number).orElseThrow(() -> new NotFoundException("agency number not found"));
 	}
 	
+	public Agency getById(String id) {
+		return agencyRepository.findById(id).orElseThrow(() -> new NotFoundException("agency id not found"));
+	}
+	
 	private void validate(Agency agency) {
 		boolean existsByNumber = agencyRepository.existsByNumber(agency.getNumber());
 		

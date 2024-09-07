@@ -7,6 +7,8 @@ import com.api.backend_java.adapter.IAgencyGateway;
 import com.api.backend_java.adapter.ICustomerGateway;
 import com.api.backend_java.domain.dto.AccountDTO;
 import com.api.backend_java.infra.entity.Account;
+import com.api.backend_java.infra.entity.Agency;
+import com.api.backend_java.infra.entity.Customer;
 import com.api.backend_java.infra.mapper.AccountInfraMapper;
 import com.api.backend_java.infra.repository.IAccountRepository;
 
@@ -23,7 +25,12 @@ public class AccountService implements IAccountGateway {
 	public AccountDTO create(AccountDTO dto) {
 		Account account = accountMapper.toAccount(dto);
 		validade(account);
-		return null;
+		Agency agency = agencyGateway.getById(account.getAgency().getId());
+		Customer customer = customerGateway.getById(account.getCustomer().getId());
+		account.setAgency(agency);
+		account.setCustomer(customer);
+		account = accountRepository.save(account);
+		return accountMapper.toAccountDTO(account);
 	}
 	
 	private void validade(Account account) {		

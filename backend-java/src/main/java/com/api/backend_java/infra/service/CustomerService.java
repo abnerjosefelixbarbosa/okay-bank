@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.api.backend_java.adapter.ICustomerGateway;
 import com.api.backend_java.domain.dto.CustomerDTO;
 import com.api.backend_java.domain.exception.InvalidDataException;
+import com.api.backend_java.domain.exception.NotFoundException;
 import com.api.backend_java.infra.entity.Customer;
 import com.api.backend_java.infra.mapper.CustomerInfraMapper;
 import com.api.backend_java.infra.repository.ICustomerRepository;
@@ -27,6 +28,10 @@ public class CustomerService implements ICustomerGateway {
 		validade(customer);
 		customer = customerRepository.save(customer);
 		return customerMapper.toCustomerDTO(customer);
+	}
+	
+	public Customer getById(String id) {
+		return customerRepository.findById(id).orElseThrow(() -> new NotFoundException("customer id not found"));
 	}
 	
 	private void validade(Customer customer) {

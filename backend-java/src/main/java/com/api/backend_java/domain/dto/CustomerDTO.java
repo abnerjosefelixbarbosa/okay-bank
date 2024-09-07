@@ -29,6 +29,7 @@ public record CustomerDTO(
 		@NotNull(message =  "contact null")
 		@NotEmpty(message =  "contact empty")
 		@Size(max = 20, message = "contact with in maximum 20 numeric digits")
+		@Pattern(regexp = "^\\d+$", message = "contact with digit numerics")
 		String contact,
 		@NotNull(message = "cpf null")
 		@NotEmpty(message = "cpf empty")

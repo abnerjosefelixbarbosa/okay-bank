@@ -9,18 +9,42 @@ import com.api.backend_java.domain.dto.AgencyDTO;
 import com.api.backend_java.domain.dto.CustomerDTO;
 import com.api.backend_java.infra.entity.Account;
 import com.api.backend_java.infra.entity.AccountType;
+import com.api.backend_java.infra.entity.Agency;
+import com.api.backend_java.infra.entity.Customer;
 
 @Component
 public class AccountInfraMapper {
 	public Account toAccount(AccountDTO dto) {
+		Customer customer = new Customer(
+				dto.customer().id(),
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null
+		);
+		
+		Agency agency = new Agency(
+				dto.agency().id(),
+				null
+		);
+		
 		return new Account(
-				dto.id(),
+				null,
 				dto.number(),
 				BigDecimal.ZERO,
 				AccountType.valueOf(dto.accountType().getValue()),
 				dto.password(),
-				null,
-				null
+				customer,
+				agency
 	    );
 	}
 	

@@ -6,4 +6,5 @@ import com.api.backend_java.infra.entity.Agency;
 public interface IAgencyGateway {
 	AgencyDTO create(AgencyDTO dto);
 	Agency getByNumber(String number);
+	Agency getById(String id);
 }
