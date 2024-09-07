@@ -17,10 +17,10 @@ public class AccountDomainMapper {
 				dto.accountType(),
 				dto.password(),
 				new Customer(
-						dto.id()
+						dto.customer().id()
 				),
 				new Agency(
-						dto.id()
+						dto.agency().id()
 			    )
 		);
 	}

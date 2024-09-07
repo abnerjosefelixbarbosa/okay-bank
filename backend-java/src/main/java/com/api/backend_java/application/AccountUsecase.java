@@ -24,10 +24,14 @@ public class AccountUsecase implements IAccountUsercase {
 	}
 	
 	private void validate(Account account) {
-		System.out.println(account.getAgency().getId());
-		if (account.getAgency().getId().isEmpty()) 
+		
+		if (account.getCustomer().getId() == null) 
+		    throw new InvalidDataException("customer id null");
+		if (account.getCustomer().getId().isEmpty()) 
 		    throw new InvalidDataException("customer id empty");
-		else if (account.getAgency().getId().isEmpty())
+		if (account.getAgency().getId() == null)
+			throw new InvalidDataException("agency id null");
+		if (account.getAgency().getId().isEmpty())
 			throw new InvalidDataException("agency id empty");
 	}
 }
