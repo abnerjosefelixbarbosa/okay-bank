@@ -1,3 +1,3 @@
 # okay-bank
 
-Aplicativo da okay bank
+Aplicação da okay bank
