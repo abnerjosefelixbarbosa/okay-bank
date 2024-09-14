@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.backend_java.domain.dto.CustomerDTO;
+import com.api.backend_java.domain.dto.LoginDTO;
 import com.api.backend_java.domain.usercase.ICustomerUsercase;
 
 import jakarta.validation.Valid;
@@ -22,5 +23,10 @@ public class CustomerController {
 	@PostMapping(value = "/create")
 	public ResponseEntity<CustomerDTO> create(@RequestBody @Valid CustomerDTO dto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(customerUsercase.create(dto));
+	}
+	
+	@PostMapping(value = "/login")
+	public ResponseEntity<CustomerDTO> login(@RequestBody @Valid LoginDTO dto) {
+		return ResponseEntity.status(HttpStatus.OK).body(null);
 	}
 }

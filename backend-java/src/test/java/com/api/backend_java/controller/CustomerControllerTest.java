@@ -12,14 +12,18 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import com.api.backend_java.domain.dto.CustomerDTO;
+import com.api.backend_java.domain.dto.LoginDTO;
 import com.api.backend_java.infra.entity.Customer;
 import com.api.backend_java.infra.repository.ICustomerRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -110,6 +114,30 @@ class CustomerControllerTest {
 		.andExpect(jsonPath("$.message").value("cpf, rg, email, contact or password exists"))
 		.andDo(print())
 		.andReturn();
+	}
+	
+	@Test
+	@DisplayName("should return status 400 and return MethodArgumentNotValidException")
+	void loginCase3() throws Exception {
+		LoginDTO dto = new LoginDTO(
+				null,
+				null
+		);
+		String json = objectMappe.writeValueAsString(dto);
+		
+		MvcResult mvcResult = mockMvc.perform(
+				post("/customers/login")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(json)
+		)
+		.andExpect(status().isBadRequest())
+		.andDo(print())
+		.andReturn();
+		
+		Assertions.assertThrows(MethodArgumentNotValidException.class, mvcResult.);
+		//MethodArgumentNotValidException
+	
 	}
 
 	void loadCustomer() {
