@@ -3,6 +3,7 @@ package com.api.backend_java.infra.mapper;
 import org.springframework.stereotype.Component;
 
 import com.api.backend_java.domain.dto.CustomerDTO;
+import com.api.backend_java.domain.dto.LoginDTO;
 import com.api.backend_java.infra.entity.Customer;
 
 @Component
@@ -42,6 +43,25 @@ public class CustomerInfraMapper {
 				customer.getAddressDistrict(),
 				customer.getAddressCity(),
 				customer.getAddressState()
+		);
+	}
+
+	public Customer toCustomer(LoginDTO dto) {
+		return new Customer(
+				null,
+				null,
+				null,
+				dto.password(),
+				null,
+				dto.cpf(),
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null
 		);
 	}
 }

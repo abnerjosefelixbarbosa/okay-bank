@@ -117,7 +117,30 @@ class CustomerControllerTest {
 	}
 	
 	@Test
-	@DisplayName("should return status 400 and return MethodArgumentNotValidException")
+	@DisplayName("should return status 400 and return not found error message")
+	void loginCase2() throws Exception {
+		loadCustomer();
+		
+		LoginDTO dto = new LoginDTO(
+				"36896983086",
+				"11111112"
+		);
+		String json = objectMappe.writeValueAsString(dto);
+		
+		mockMvc.perform(
+				post("/customers/login")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(json)
+		)
+		.andExpect(status().isBadRequest())
+		//.andExpect(jsonPath("$.message").value("customer not found"))
+		.andDo(print())
+		.andReturn();
+	}
+	
+	@Test
+	@DisplayName("should return status 400 and return validation error message")
 	void loginCase3() throws Exception {
 		LoginDTO dto = new LoginDTO(
 				null,
@@ -125,7 +148,7 @@ class CustomerControllerTest {
 		);
 		String json = objectMappe.writeValueAsString(dto);
 		
-		MvcResult mvcResult = mockMvc.perform(
+		mockMvc.perform(
 				post("/customers/login")
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)
@@ -134,10 +157,6 @@ class CustomerControllerTest {
 		.andExpect(status().isBadRequest())
 		.andDo(print())
 		.andReturn();
-		
-		Assertions.assertThrows(MethodArgumentNotValidException.class, mvcResult.);
-		//MethodArgumentNotValidException
-	
 	}
 
 	void loadCustomer() {
