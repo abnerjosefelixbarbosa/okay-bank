@@ -12,15 +12,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import com.api.backend_java.domain.dto.CustomerDTO;
 import com.api.backend_java.domain.dto.LoginDTO;
@@ -50,7 +47,7 @@ class CustomerControllerTest {
 	}
 
 	@Test
-	@DisplayName("should return status 201")
+	@DisplayName("should return status 201 and return customer")
 	void createCase1() throws Exception {
 		CustomerDTO dto = new CustomerDTO(
 				null,
@@ -82,7 +79,7 @@ class CustomerControllerTest {
 	}
 	
 	@Test
-	@DisplayName("should return status 400 and return message cpf, rg, email, contact or password exists")
+	@DisplayName("should return status 400 and return customer exists message")
 	void createCase2() throws Exception {
 		loadCustomer();
 		
@@ -117,10 +114,30 @@ class CustomerControllerTest {
 	}
 	
 	@Test
-	@DisplayName("should return status 400 and return not found error message")
+	@DisplayName("should return status 200 and return customer")
+	void loginCase1() throws Exception {
+		loadCustomer();
+		LoginDTO dto = new LoginDTO(
+				"36896983086",
+				"11111111"
+		);
+		String json = objectMappe.writeValueAsString(dto);
+		
+		mockMvc.perform(
+				post("/customers/login")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(json)
+		)
+		.andExpect(status().isOk())
+		.andDo(print())
+		.andReturn();
+	}
+	
+	@Test
+	@DisplayName("should return status 404 and return customer not found message")
 	void loginCase2() throws Exception {
 		loadCustomer();
-		
 		LoginDTO dto = new LoginDTO(
 				"36896983086",
 				"11111112"
@@ -133,14 +150,14 @@ class CustomerControllerTest {
 				.accept(MediaType.APPLICATION_JSON)
 				.content(json)
 		)
-		.andExpect(status().isBadRequest())
-		//.andExpect(jsonPath("$.message").value("customer not found"))
+		.andExpect(status().isNotFound())
+		.andExpect(jsonPath("$.message").value("customer not found"))
 		.andDo(print())
 		.andReturn();
 	}
 	
 	@Test
-	@DisplayName("should return status 400 and return validation error message")
+	@DisplayName("should return status 400 and return data invalid message")
 	void loginCase3() throws Exception {
 		LoginDTO dto = new LoginDTO(
 				null,

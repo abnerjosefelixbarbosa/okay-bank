@@ -27,6 +27,6 @@ public class CustomerController {
 	
 	@PostMapping(value = "/login")
 	public ResponseEntity<CustomerDTO> login(@RequestBody @Valid LoginDTO dto) {
-		return ResponseEntity.status(HttpStatus.OK).body(null);
+		return ResponseEntity.status(HttpStatus.OK).body(customerUsercase.login(dto));
 	}
 }
