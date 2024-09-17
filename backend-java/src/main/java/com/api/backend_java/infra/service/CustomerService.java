@@ -3,8 +3,9 @@ package com.api.backend_java.infra.service;
 import org.springframework.stereotype.Service;
 
 import com.api.backend_java.adapter.ICustomerGateway;
+import com.api.backend_java.domain.dto.CreateCustomerDTO;
 import com.api.backend_java.domain.dto.CustomerDTO;
-import com.api.backend_java.domain.dto.LoginDTO;
+import com.api.backend_java.domain.dto.LoginCustomerDTO;
 import com.api.backend_java.domain.exception.InvalidDataException;
 import com.api.backend_java.domain.exception.NotFoundException;
 import com.api.backend_java.infra.entity.Customer;
@@ -24,14 +25,14 @@ public class CustomerService implements ICustomerGateway {
 		return customerRepository.existsByCpfOrRgOrEmailOrContactOrPassword(cpf, rg, email, contact, password);
 	}
 
-	public CustomerDTO create(CustomerDTO dto) {
+	public CustomerDTO create(CreateCustomerDTO dto) {
 		Customer customer = customerMapper.toCustomer(dto);
 		validade(customer);
 		customer = customerRepository.save(customer);
 		return customerMapper.toCustomerDTO(customer);
 	}
 	
-	public CustomerDTO login(LoginDTO dto) {
+	public CustomerDTO login(LoginCustomerDTO dto) {
 		Customer customer = customerMapper.toCustomer(dto);
 		customer = customerRepository.findByCpfAndPassword(
 				dto.cpf(),

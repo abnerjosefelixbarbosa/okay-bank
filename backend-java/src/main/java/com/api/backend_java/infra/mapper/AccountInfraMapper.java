@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.api.backend_java.domain.dto.AccountDTO;
 import com.api.backend_java.domain.dto.AgencyDTO;
+import com.api.backend_java.domain.dto.CreateAccountDTO;
 import com.api.backend_java.domain.dto.CustomerDTO;
 import com.api.backend_java.infra.entity.Account;
 import com.api.backend_java.infra.entity.AccountType;
@@ -14,7 +15,7 @@ import com.api.backend_java.infra.entity.Customer;
 
 @Component
 public class AccountInfraMapper {
-	public Account toAccount(AccountDTO dto) {
+	public Account toAccount(CreateAccountDTO dto) {
 		Customer customer = new Customer(
 				dto.customer().id(),
 				null,

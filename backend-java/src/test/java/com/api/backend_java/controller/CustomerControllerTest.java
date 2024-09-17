@@ -20,7 +20,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.api.backend_java.domain.dto.CustomerDTO;
-import com.api.backend_java.domain.dto.LoginDTO;
+import com.api.backend_java.domain.dto.LoginCustomerDTO;
 import com.api.backend_java.infra.entity.Customer;
 import com.api.backend_java.infra.repository.ICustomerRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -117,7 +117,7 @@ class CustomerControllerTest {
 	@DisplayName("should return status 200 and return customer")
 	void loginCase1() throws Exception {
 		loadCustomer();
-		LoginDTO dto = new LoginDTO(
+		LoginCustomerDTO dto = new LoginCustomerDTO(
 				"36896983086",
 				"11111111"
 		);
@@ -138,7 +138,7 @@ class CustomerControllerTest {
 	@DisplayName("should return status 404 and return customer not found message")
 	void loginCase2() throws Exception {
 		loadCustomer();
-		LoginDTO dto = new LoginDTO(
+		LoginCustomerDTO dto = new LoginCustomerDTO(
 				"36896983086",
 				"11111112"
 		);
@@ -159,7 +159,7 @@ class CustomerControllerTest {
 	@Test
 	@DisplayName("should return status 400 and return data invalid message")
 	void loginCase3() throws Exception {
-		LoginDTO dto = new LoginDTO(
+		LoginCustomerDTO dto = new LoginCustomerDTO(
 				null,
 				null
 		);

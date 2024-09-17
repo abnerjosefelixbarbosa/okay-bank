@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
-public record LoginDTO(
+public record LoginCustomerDTO(
 		@NotNull(message = "cpf should not be null")
 		@NotEmpty(message = "cpf should not be empty")
 		@CPF(message = "cpf should not be invalid")

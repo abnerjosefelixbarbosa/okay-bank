@@ -2,13 +2,14 @@ package com.api.backend_java.infra.mapper;
 
 import org.springframework.stereotype.Component;
 
+import com.api.backend_java.domain.dto.CreateCustomerDTO;
 import com.api.backend_java.domain.dto.CustomerDTO;
-import com.api.backend_java.domain.dto.LoginDTO;
+import com.api.backend_java.domain.dto.LoginCustomerDTO;
 import com.api.backend_java.infra.entity.Customer;
 
 @Component
 public class CustomerInfraMapper {
-	public Customer toCustomer(CustomerDTO dto) {
+	public Customer toCustomer(CreateCustomerDTO dto) {
 		return new Customer(
 				null,
 				dto.name(),
@@ -24,6 +25,25 @@ public class CustomerInfraMapper {
 				dto.addressDistrict(),
 				dto.addressCity(),
 				dto.addressState()
+		);
+	}
+	
+	public Customer toCustomer(LoginCustomerDTO dto) {
+		return new Customer(
+				null,
+				null,
+				null,
+				dto.password(),
+				null,
+				dto.cpf(),
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null
 		);
 	}
 	
@@ -46,22 +66,5 @@ public class CustomerInfraMapper {
 		);
 	}
 
-	public Customer toCustomer(LoginDTO dto) {
-		return new Customer(
-				null,
-				null,
-				null,
-				dto.password(),
-				null,
-				dto.cpf(),
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-		);
-	}
+	
 }

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.api.backend_java.adapter.IAgencyGateway;
 import com.api.backend_java.domain.dto.AgencyDTO;
+import com.api.backend_java.domain.dto.CreateAgencyDTO;
 import com.api.backend_java.domain.exception.InvalidDataException;
 import com.api.backend_java.domain.exception.NotFoundException;
 import com.api.backend_java.infra.entity.Agency;
@@ -18,7 +19,7 @@ public class AgencyService implements IAgencyGateway {
 	private IAgencyRepository agencyRepository;
 	private AgencyInfraMapper agencyMapper;
 
-	public AgencyDTO create(AgencyDTO dto) {
+	public AgencyDTO create(CreateAgencyDTO dto) {
 		Agency agency = agencyMapper.toAgency(dto);
 		validate(agency);
 		agency = agencyRepository.save(agency);

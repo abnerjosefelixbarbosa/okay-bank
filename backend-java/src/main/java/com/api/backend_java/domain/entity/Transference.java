@@ -16,6 +16,6 @@ public class Transference {
 	private String id;
 	private LocalDateTime dateTime;
 	private BigDecimal valueTransference;
-	private Customer customer;
+	private Account account;
 	private Recipient recipient;
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.backend_java.domain.dto.AccountDTO;
+import com.api.backend_java.domain.dto.CreateAccountDTO;
 import com.api.backend_java.domain.usercase.IAccountUsercase;
 
 import jakarta.validation.Valid;
@@ -20,7 +21,7 @@ public class AccountController {
 	private IAccountUsercase accountUsercase;
 	
 	@PostMapping(value = "/create")
-	public ResponseEntity<AccountDTO> create(@Valid @RequestBody AccountDTO dto) {
+	public ResponseEntity<AccountDTO> create(@Valid @RequestBody CreateAccountDTO dto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(accountUsercase.create(dto));
 	}
 }

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.api.backend_java.adapter.IAccountGateway;
 import com.api.backend_java.domain.dto.AccountDTO;
+import com.api.backend_java.domain.dto.CreateAccountDTO;
 import com.api.backend_java.domain.entity.Account;
 import com.api.backend_java.domain.exception.InvalidDataException;
 import com.api.backend_java.domain.mapper.AccountDomainMapper;
@@ -17,7 +18,7 @@ public class AccountUsecase implements IAccountUsercase {
 	private IAccountGateway accountGateway;
 	private AccountDomainMapper accountMapper;
 
-	public AccountDTO create(AccountDTO dto) {
+	public AccountDTO create(CreateAccountDTO dto) {
 		Account account = accountMapper.toAccount(dto);
 		validate(account);
 		return accountGateway.create(dto);

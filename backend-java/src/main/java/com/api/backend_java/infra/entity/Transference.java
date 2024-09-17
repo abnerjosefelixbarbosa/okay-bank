@@ -34,8 +34,8 @@ public class Transference implements Serializable {
 	@Column(nullable = false)
 	private BigDecimal trasnsferenceValue;
 	@ManyToOne
-	@JoinColumn(name = "customer_id", nullable = false)
-	private Customer customer;
+	@JoinColumn(name = "account_id", nullable = false)
+	private Account account;
 	@ManyToOne
 	@JoinColumn(name = "recipient_id", nullable = false)
 	private Recipient recipient;

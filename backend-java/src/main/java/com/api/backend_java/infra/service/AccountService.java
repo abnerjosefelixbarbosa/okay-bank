@@ -6,6 +6,7 @@ import com.api.backend_java.adapter.IAccountGateway;
 import com.api.backend_java.adapter.IAgencyGateway;
 import com.api.backend_java.adapter.ICustomerGateway;
 import com.api.backend_java.domain.dto.AccountDTO;
+import com.api.backend_java.domain.dto.CreateAccountDTO;
 import com.api.backend_java.domain.exception.InvalidDataException;
 import com.api.backend_java.infra.entity.Account;
 import com.api.backend_java.infra.entity.Agency;
@@ -23,7 +24,7 @@ public class AccountService implements IAccountGateway {
 	private ICustomerGateway customerGateway;
 	private AccountInfraMapper accountMapper;
 
-	public AccountDTO create(AccountDTO dto) {
+	public AccountDTO create(CreateAccountDTO dto) {
 		Account account = accountMapper.toAccount(dto);
 		validade(account);
 		Agency agency = agencyGateway.getById(account.getAgency().getId());
