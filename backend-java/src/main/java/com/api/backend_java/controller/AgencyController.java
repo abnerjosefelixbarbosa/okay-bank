@@ -18,7 +18,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 public class AgencyController {
-	private IAgencyUsercase agencyUsercase;
+	private final IAgencyUsercase agencyUsercase;
 	
 	@PostMapping(value = "/create")
 	public ResponseEntity<AgencyDTO> create(@RequestBody @Valid CreateAgencyDTO dto) {

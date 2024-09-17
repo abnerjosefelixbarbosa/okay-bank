@@ -14,16 +14,18 @@ import com.api.backend_java.infra.entity.Customer;
 import com.api.backend_java.infra.mapper.AccountInfraMapper;
 import com.api.backend_java.infra.repository.IAccountRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
 public class AccountService implements IAccountGateway {
-	private IAccountRepository accountRepository;
-	private IAgencyGateway agencyGateway; 
-	private ICustomerGateway customerGateway;
-	private AccountInfraMapper accountMapper;
+	private final IAccountRepository accountRepository;
+	private final IAgencyGateway agencyGateway; 
+	private final ICustomerGateway customerGateway;
+	private final AccountInfraMapper accountMapper;
 
+	@Transactional
 	public AccountDTO create(CreateAccountDTO dto) {
 		Account account = accountMapper.toAccount(dto);
 		validade(account);

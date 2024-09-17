@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 @Component
 @AllArgsConstructor
 public class AgencyUsecase implements IAgencyUsercase {
-	private IAgencyGateway agencyGateway;
+	private final IAgencyGateway agencyGateway;
 	
 	public AgencyDTO create(CreateAgencyDTO dto) {
 		return agencyGateway.create(dto);

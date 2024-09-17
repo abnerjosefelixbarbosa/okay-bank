@@ -13,7 +13,7 @@ import lombok.AllArgsConstructor;
 @Component
 @AllArgsConstructor
 public class CustomerUsercase implements ICustomerUsercase {
-	private ICustomerGateway customerGateway;
+	private final ICustomerGateway customerGateway;
 
 	public CustomerDTO create(CreateCustomerDTO dto) {
 		return customerGateway.create(dto);

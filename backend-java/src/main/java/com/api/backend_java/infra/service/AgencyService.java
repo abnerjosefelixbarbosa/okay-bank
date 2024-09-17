@@ -11,14 +11,16 @@ import com.api.backend_java.infra.entity.Agency;
 import com.api.backend_java.infra.mapper.AgencyInfraMapper;
 import com.api.backend_java.infra.repository.IAgencyRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
 public class AgencyService implements IAgencyGateway {
-	private IAgencyRepository agencyRepository;
-	private AgencyInfraMapper agencyMapper;
+	private final IAgencyRepository agencyRepository;
+	private final AgencyInfraMapper agencyMapper;
 
+	@Transactional
 	public AgencyDTO create(CreateAgencyDTO dto) {
 		Agency agency = agencyMapper.toAgency(dto);
 		validate(agency);

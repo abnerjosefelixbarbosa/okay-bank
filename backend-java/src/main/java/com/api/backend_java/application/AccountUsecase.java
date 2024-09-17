@@ -15,8 +15,8 @@ import lombok.AllArgsConstructor;
 @Component
 @AllArgsConstructor
 public class AccountUsecase implements IAccountUsercase {
-	private IAccountGateway accountGateway;
-	private AccountDomainMapper accountMapper;
+	private final IAccountGateway accountGateway;
+	private final AccountDomainMapper accountMapper;
 
 	public AccountDTO create(CreateAccountDTO dto) {
 		Account account = accountMapper.toAccount(dto);

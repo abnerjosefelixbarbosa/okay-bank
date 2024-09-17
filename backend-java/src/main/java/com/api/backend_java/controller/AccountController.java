@@ -18,7 +18,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 public class AccountController {
-	private IAccountUsercase accountUsercase;
+	private final IAccountUsercase accountUsercase;
 	
 	@PostMapping(value = "/create")
 	public ResponseEntity<AccountDTO> create(@Valid @RequestBody CreateAccountDTO dto) {

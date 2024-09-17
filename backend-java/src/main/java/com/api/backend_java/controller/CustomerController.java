@@ -19,7 +19,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 public class CustomerController {
-	private ICustomerUsercase customerUsercase;
+	private final ICustomerUsercase customerUsercase;
 	
 	@PostMapping(value = "/create")
 	public ResponseEntity<CustomerDTO> create(@RequestBody @Valid CreateCustomerDTO dto) {
