@@ -4,6 +4,34 @@ Aplicação do okay bank
 
 # Recursos do projeto
 
+## Funcionadidades
+
+- Bancário deve criar conta
+- Bancário deve criar cliente
+- Bancário deve criar agência
+- Cliente deve fazer login
+
+## Backend java
+
+- Lombok
+- Java 17
+- Spring boot
+- Arquitetura limpa
+- SOLID
+- Swegger
+- JUnit5
+- H2
+- PostGree
+- Hibernate/JPA
+
+# Requisições
+
+## Cliente
+
+## Conta
+
+## Agencia
+
 # Autor
 
 Abner José Felix Barbosa
