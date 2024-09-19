@@ -23,9 +23,11 @@ public record CreateAccountDTO(
 		@NotEmpty(message = "password should not be empty")
 		@Pattern(regexp = "^\\d{6}$", message = "password should have 6 numeric digits")
 		String password,
-		@NotNull(message = "customer should not be null")
-		CustomerDTO customer,
-		@NotNull(message =  "agency should not be null")
-		AgencyDTO agency
+		@NotNull(message = "customer id should not be null")
+		@NotEmpty(message = "customer id should not be empty")
+		String customerId,
+		@NotNull(message =  "agency id should not be null")
+		@NotEmpty(message = "customer id should not be empty")
+		String agencyId
 ) {
 }
