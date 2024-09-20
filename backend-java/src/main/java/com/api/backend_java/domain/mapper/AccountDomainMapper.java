@@ -10,18 +10,20 @@ import com.api.backend_java.domain.entity.Customer;
 @Component
 public class AccountDomainMapper {
 	public Account toAccount(CreateAccountDTO dto) {
+		Customer customer = new Customer();
+		customer.setId(dto.customerId());
+
+		Agency agency = new Agency();
+		agency.setId(dto.agencyId());
+
 		return new Account(
 				null,
 				dto.number(),
 				dto.balance(),
 				dto.accountType(),
 				dto.password(),
-				new Customer(
-						dto.customer().id()
-				),
-				new Agency(
-						dto.agency().id()
-			    )
+				customer,
+				agency
 		);
 	}
 }

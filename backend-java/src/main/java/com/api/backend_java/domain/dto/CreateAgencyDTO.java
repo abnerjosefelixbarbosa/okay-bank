@@ -4,12 +4,19 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-public record CreateAgencyDTO(
-		@NotEmpty(message = "number should not be empty")
-		@NotNull(message = "number should not be null")
-		@Size(max = 10, message = "number should have in maximum 10 charactes")
-		@Pattern(regexp = "^\\d+$", message = "number should have numeric digits")
-		String number
-) {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class CreateAgencyDTO {
+	@NotEmpty(message = "number should not be empty")
+	@NotNull(message = "number should not be null")
+	@Size(max = 10, message = "number should have in maximum 10 charactes")
+	@Pattern(regexp = "^\\d+$", message = "number should have numeric digits")
+	private String number;
 }

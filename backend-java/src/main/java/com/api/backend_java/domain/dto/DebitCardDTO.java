@@ -1,12 +1,20 @@
 package com.api.backend_java.domain.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
-public record DebitCardDTO(
-        String id,
-        String number,
-        LocalDate expirationDate,
-        String cvv,
-        AccountDTO account
-) {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class DebitCardDTO {
+    private String id;
+    private String number;
+    private LocalDate expirationDate;
+    private String cvv;
+    private AccountDTO account;
 }

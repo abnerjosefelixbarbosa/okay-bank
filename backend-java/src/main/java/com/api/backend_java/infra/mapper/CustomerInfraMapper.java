@@ -1,5 +1,6 @@
 package com.api.backend_java.infra.mapper;
 
+import com.github.f4b6a3.ulid.UlidCreator;
 import org.springframework.stereotype.Component;
 
 import com.api.backend_java.domain.dto.CreateCustomerDTO;
@@ -10,61 +11,50 @@ import com.api.backend_java.infra.entity.Customer;
 @Component
 public class CustomerInfraMapper {
 	public Customer toCustomer(CreateCustomerDTO dto) {
-		return new Customer(
-				null,
-				dto.name(),
-				dto.email(),
-				dto.password(),
-				dto.contact(),
-				dto.cpf(),
-				dto.rg(),
-				dto.birthDate(),
-				dto.addressPostalCode(),
-				dto.addressNumber(),
-				dto.addressName(),
-				dto.addressDistrict(),
-				dto.addressCity(),
-				dto.addressState()
-		);
+		Customer customer = new Customer();
+		customer.setId(UlidCreator.getUlid().toString());
+		customer.setName(dto.getName());
+		customer.setEmail(dto.getEmail());
+		customer.setPassword(dto.getPassword());
+		customer.setContact(dto.getContact());
+		customer.setCpf(dto.getCpf());
+		customer.setRg(dto.getRg());
+		customer.setBirthDate(dto.getBirthDate());
+		customer.setAddressPostalCode(dto.getAddressPostalCode());
+		customer.setAddressNumber(dto.getAddressNumber());
+		customer.setAddressName(dto.getAddressName());
+		customer.setAddressDistrict(dto.getAddressDistrict());
+		customer.setAddressCity(dto.getAddressCity());
+		customer.setAddressState(dto.getAddressState());
+
+		return customer;
 	}
 	
 	public Customer toCustomer(LoginCustomerDTO dto) {
-		return new Customer(
-				null,
-				null,
-				null,
-				dto.password(),
-				null,
-				dto.cpf(),
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-		);
+		Customer customer = new Customer();
+		customer.setPassword(dto.getPassword());
+		customer.setCpf(dto.getCpf());
+
+		return customer;
 	}
 	
 	public CustomerDTO toCustomerDTO(Customer customer) {
-		return new CustomerDTO(
-				customer.getId(),
-				customer.getName(),
-				customer.getEmail(),
-				customer.getPassword(),
-				customer.getContact(),
-				customer.getCpf(),
-				customer.getRg(),
-				customer.getBirthDate(),
-				customer.getAddressPostalCode(),
-				customer.getAddressNumber(),
-				customer.getAddressName(),
-				customer.getAddressDistrict(),
-				customer.getAddressCity(),
-				customer.getAddressState()
-		);
-	}
+		CustomerDTO customerDTO = new CustomerDTO();
+		customerDTO.setId(customer.getId());
+		customerDTO.setName(customer.getName());
+		customerDTO.setEmail(customer.getEmail());
+		customerDTO.setPassword(customer.getPassword());
+		customerDTO.setContact(customer.getContact());
+		customerDTO.setCpf(customer.getCpf());
+		customerDTO.setRg(customer.getRg());
+		customer.setBirthDate(customer.getBirthDate());
+		customer.setAddressPostalCode(customer.getAddressPostalCode());
+		customer.setAddressNumber(customer.getAddressNumber());
+		customer.setAddressName(customer.getAddressName());
+		customer.setAddressDistrict(customer.getAddressDistrict());
+		customer.setAddressCity(customer.getAddressCity());
+		customer.setAddressState(customer.getAddressState());
 
-	
+		return customerDTO;
+	}
 }
