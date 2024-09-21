@@ -8,6 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.time.LocalDate;
 import java.util.UUID;
 
+import com.api.backend_java.domain.dto.CreateCustomerDTO;
+import com.github.f4b6a3.ulid.UlidCreator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -49,22 +51,20 @@ class CustomerControllerTest {
 	@Test
 	@DisplayName("should return status 201 and return customer")
 	void createCase1() throws Exception {
-		CustomerDTO dto = new CustomerDTO(
-				null,
-				"name1",
-				"email1@gmail.com",
-				"11111111",
-				"81911111111",
-				"36896983086",
-				"11111",
-				LocalDate.of(1990, 11, 11),
-				"11111",
-				"1",
-				"name1",
-				"district1",
-				"city1",
-				"state1"
-		);
+		CreateCustomerDTO dto = new CreateCustomerDTO();
+		dto.setName("name1");
+		dto.setEmail("email1@gmail.com");
+		dto.setPassword("11111111");
+		dto.setContact("81911111111");
+		dto.setCpf("36896983086");
+		dto.setRg("11111");
+		dto.setBirthDate(LocalDate.of(1990, 11, 11));
+		dto.setAddressPostalCode("11111");
+		dto.setAddressNumber("1");
+		dto.setAddressName("name1");
+		dto.setAddressDistrict("district1");
+		dto.setAddressCity("city1");
+		dto.setAddressState("state1");
 		String json = objectMappe.writeValueAsString(dto);
 		
 		mockMvc.perform(
@@ -79,26 +79,24 @@ class CustomerControllerTest {
 	}
 	
 	@Test
-	@DisplayName("should return status 400 and return customer exists message")
+	@DisplayName("should return status 400 and customer exists message")
 	void createCase2() throws Exception {
 		loadCustomer();
-		
-		CustomerDTO dto = new CustomerDTO(
-				null,
-				"name1",
-				"email1@gmail.com",
-				"11111111",
-				"81911111111",
-				"36896983086",
-				"11111",
-				LocalDate.of(1990, 11, 11),
-				"11111",
-				"1",
-				"name1",
-				"district1",
-				"city1",
-				"state1"
-		);
+
+		CreateCustomerDTO dto = new CreateCustomerDTO();
+		dto.setName("name1");
+		dto.setEmail("email1@gmail.com");
+		dto.setPassword("11111111");
+		dto.setContact("81911111111");
+		dto.setCpf("36896983086");
+		dto.setRg("11111");
+		dto.setBirthDate(LocalDate.of(1990, 11, 11));
+		dto.setAddressPostalCode("11111");
+		dto.setAddressNumber("1");
+		dto.setAddressName("name1");
+		dto.setAddressDistrict("district1");
+		dto.setAddressCity("city1");
+		dto.setAddressState("state1");
 		String json = objectMappe.writeValueAsString(dto);
 		
 		mockMvc.perform(
@@ -112,15 +110,45 @@ class CustomerControllerTest {
 		.andDo(print())
 		.andReturn();
 	}
+
+	@Test
+	@DisplayName("should return status 400 and data invalid message")
+	void createCase3() throws Exception {
+		CreateCustomerDTO dto = new CreateCustomerDTO();
+		dto.setName(null);
+		dto.setEmail(null);
+		dto.setPassword(null);
+		dto.setContact(null);
+		dto.setCpf(null);
+		dto.setRg(null);
+		dto.setBirthDate(null);
+		dto.setAddressPostalCode(null);
+		dto.setAddressNumber(null);
+		dto.setAddressName(null);
+		dto.setAddressDistrict(null);
+		dto.setAddressCity(null);
+		dto.setAddressState(null);
+		String json = objectMappe.writeValueAsString(dto);
+
+		mockMvc.perform(
+						post("/customers/create")
+								.contentType(MediaType.APPLICATION_JSON)
+								.accept(MediaType.APPLICATION_JSON)
+								.content(json)
+				)
+				.andExpect(status().isBadRequest())
+				.andDo(print())
+				.andReturn();
+	}
 	
 	@Test
 	@DisplayName("should return status 200 and return customer")
 	void loginCase1() throws Exception {
 		loadCustomer();
-		LoginCustomerDTO dto = new LoginCustomerDTO(
-				"36896983086",
-				"11111111"
-		);
+
+		LoginCustomerDTO dto = new LoginCustomerDTO();
+		dto.setCpf("36896983086");
+		dto.setPassword("11111111");
 		String json = objectMappe.writeValueAsString(dto);
 		
 		mockMvc.perform(
@@ -138,10 +166,10 @@ class CustomerControllerTest {
 	@DisplayName("should return status 404 and return customer not found message")
 	void loginCase2() throws Exception {
 		loadCustomer();
-		LoginCustomerDTO dto = new LoginCustomerDTO(
-				"36896983086",
-				"11111112"
-		);
+
+		LoginCustomerDTO dto = new LoginCustomerDTO();
+		dto.setCpf("36896983086");
+		dto.setPassword("11111112");
 		String json = objectMappe.writeValueAsString(dto);
 		
 		mockMvc.perform(
@@ -159,10 +187,7 @@ class CustomerControllerTest {
 	@Test
 	@DisplayName("should return status 400 and return data invalid message")
 	void loginCase3() throws Exception {
-		LoginCustomerDTO dto = new LoginCustomerDTO(
-				null,
-				null
-		);
+		LoginCustomerDTO dto = new LoginCustomerDTO();
 		String json = objectMappe.writeValueAsString(dto);
 		
 		mockMvc.perform(
@@ -177,22 +202,21 @@ class CustomerControllerTest {
 	}
 
 	void loadCustomer() {
-		Customer customer = new Customer(
-				UUID.randomUUID().toString(),
-				"name1",
-				"email1@gmail.com",
-				"11111111",
-				"81911111111",
-				"36896983086",
-				"11111",
-				LocalDate.of(1990, 11, 11),
-				"11111",
-				"1",
-				"name1",
-				"district1",
-				"city1",
-				"state1"
-		);
+		Customer customer = new Customer();
+		customer.setId(UlidCreator.getUlid().toString());
+		customer.setName("name1");
+		customer.setEmail("email1@gmail.com");
+		customer.setPassword("11111111");
+		customer.setContact("81911111111");
+		customer.setCpf("36896983086");
+		customer.setRg("11111");
+		customer.setBirthDate(LocalDate.of(1990, 11, 11));
+		customer.setAddressPostalCode("11111");
+		customer.setAddressNumber("1");
+		customer.setAddressName("name1");
+		customer.setAddressDistrict("district1");
+		customer.setAddressCity("city1");
+		customer.setAddressState("state1");
 		
 		customerRepository.save(customer);
 	}

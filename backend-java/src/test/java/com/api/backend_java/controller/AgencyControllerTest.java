@@ -7,6 +7,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.UUID;
 
+import com.api.backend_java.domain.dto.CreateAgencyDTO;
+import com.github.f4b6a3.ulid.UlidCreator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -47,10 +49,8 @@ class AgencyControllerTest {
 	@Test
 	@DisplayName("should return 201")
 	void createCase1() throws Exception {
-		AgencyDTO dto = new AgencyDTO(
-				null,
-				"11111"
-		);
+		CreateAgencyDTO dto = new CreateAgencyDTO();
+		dto.setNumber("11111");
 		String json = objectMappe.writeValueAsString(dto);
 		
 		mockMvc.perform(
@@ -65,14 +65,12 @@ class AgencyControllerTest {
 	}
 	
 	@Test
-	@DisplayName("should return 400 and message number exists")
+	@DisplayName("should return 400 and number should not be exists message")
 	void createCase2() throws Exception {
 		loadAgency();
 		
-		AgencyDTO dto = new AgencyDTO(
-				null,
-				"11111"
-		);
+		AgencyDTO dto = new AgencyDTO();
+		dto.setNumber("11111");
 		String json = objectMappe.writeValueAsString(dto);
 		
 		mockMvc.perform(
@@ -81,16 +79,32 @@ class AgencyControllerTest {
 				.accept(MediaType.APPLICATION_JSON)
 				.content(json))
 		.andExpect(status().isBadRequest())
-		.andExpect(jsonPath("$.message").value("number exists"))
+		.andExpect(jsonPath("$.message").value("number should not be exists"))
 		.andDo(print())
 		.andReturn();
 	}
+
+	@Test
+	@DisplayName("should return 400 and data invalid message")
+	void createCase3() throws Exception {
+		AgencyDTO dto = new AgencyDTO();
+		dto.setNumber("11111");
+		String json = objectMappe.writeValueAsString(dto);
+
+		mockMvc.perform(
+						post("/agencies/create")
+								.contentType(MediaType.APPLICATION_JSON)
+								.accept(MediaType.APPLICATION_JSON)
+								.content(json))
+				.andExpect(status().isBadRequest())
+				.andDo(print())
+				.andReturn();
+	}
 	
 	void loadAgency() {
-		Agency agency = new Agency(
-				UUID.randomUUID().toString(),
-				"11111"
-		);
+		Agency agency = new Agency();
+		agency.setId(UlidCreator.getUlid().toString());
+		agency.setNumber("11111");
 		
 		agencyRepository.save(agency);
 	}

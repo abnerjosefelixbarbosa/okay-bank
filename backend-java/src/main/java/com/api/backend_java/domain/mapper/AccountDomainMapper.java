@@ -11,19 +11,19 @@ import com.api.backend_java.domain.entity.Customer;
 public class AccountDomainMapper {
 	public Account toAccount(CreateAccountDTO dto) {
 		Customer customer = new Customer();
-		customer.setId(dto.customerId());
+		customer.setId(dto.getCustomerId());
 
 		Agency agency = new Agency();
-		agency.setId(dto.agencyId());
+		agency.setId(dto.getAgencyId());
 
-		return new Account(
-				null,
-				dto.number(),
-				dto.balance(),
-				dto.accountType(),
-				dto.password(),
-				customer,
-				agency
-		);
+		Account account = new Account();
+		account.setNumber(dto.getNumber());
+		account.setBalance(dto.getBalance());
+		account.setAccountType(dto.getAccountType());
+		account.setPassword(dto.getPassword());
+		account.setCustomer(customer);
+		account.setAgency(agency);
+
+		return account;
 	}
 }

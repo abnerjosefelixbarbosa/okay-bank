@@ -37,8 +37,8 @@ public class CustomerService implements ICustomerGateway {
 	public CustomerDTO login(LoginCustomerDTO dto) {
 		Customer customer = customerMapper.toCustomer(dto);
 		customer = customerRepository.findByCpfAndPassword(
-				dto.cpf(),
-				dto.password()
+				dto.getCpf(),
+				dto.getPassword()
 		).orElseThrow(() -> new NotFoundException("customer not found"));
 		return customerMapper.toCustomerDTO(customer);
 	}

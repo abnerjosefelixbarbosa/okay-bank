@@ -1,9 +1,6 @@
 package com.api.backend_java.domain.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -11,6 +8,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class CustomerDTO {
 	private String id;
 	private String name;

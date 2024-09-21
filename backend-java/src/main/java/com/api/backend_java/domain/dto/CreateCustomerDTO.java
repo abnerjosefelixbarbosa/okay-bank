@@ -45,6 +45,7 @@ public class CreateCustomerDTO {
 	private String cpf;
 	@NotNull(message = "rg should not be null")
 	@NotEmpty(message = "rg should not be empty")
+	@Pattern(regexp = "^\\d+$", message = "rg should have numeric digits")
 	@Size(max = 10, message = "rg should have maximum 10 numeric digits")
 	private String rg;
 	@NotNull(message = "birth date should not be null")
@@ -52,6 +53,7 @@ public class CreateCustomerDTO {
 	private LocalDate birthDate;
 	@NotNull(message = "address postal code should not be null")
 	@NotEmpty(message = "address postal code should not be empty")
+	@Pattern(regexp = "^\\d+$", message = "address postal code should have numeric digits")
 	@Size(max = 10, message = "address postal code should have in maximum 10 character")
 	private String addressPostalCode;
 	@NotNull(message = "address number should not be null")

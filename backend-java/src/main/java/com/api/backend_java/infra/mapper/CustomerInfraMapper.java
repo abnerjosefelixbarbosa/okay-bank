@@ -47,13 +47,13 @@ public class CustomerInfraMapper {
 		customerDTO.setContact(customer.getContact());
 		customerDTO.setCpf(customer.getCpf());
 		customerDTO.setRg(customer.getRg());
-		customer.setBirthDate(customer.getBirthDate());
-		customer.setAddressPostalCode(customer.getAddressPostalCode());
-		customer.setAddressNumber(customer.getAddressNumber());
-		customer.setAddressName(customer.getAddressName());
-		customer.setAddressDistrict(customer.getAddressDistrict());
-		customer.setAddressCity(customer.getAddressCity());
-		customer.setAddressState(customer.getAddressState());
+		customerDTO.setBirthDate(customer.getBirthDate());
+		customerDTO.setAddressPostalCode(customer.getAddressPostalCode());
+		customerDTO.setAddressNumber(customer.getAddressNumber());
+		customerDTO.setAddressName(customer.getAddressName());
+		customerDTO.setAddressDistrict(customer.getAddressDistrict());
+		customerDTO.setAddressCity(customer.getAddressCity());
+		customerDTO.setAddressState(customer.getAddressState());
 
 		return customerDTO;
 	}

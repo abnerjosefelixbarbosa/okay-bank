@@ -40,6 +40,6 @@ public class AgencyService implements IAgencyGateway {
 		boolean existsByNumber = agencyRepository.existsByNumber(agency.getNumber());
 		
 		if (existsByNumber)
-			throw new InvalidDataException("number exists");
+			throw new InvalidDataException("number should not be exists");
 	}
 }
