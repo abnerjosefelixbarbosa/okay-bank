@@ -1,5 +1,7 @@
 package com.api.backend_java.domain.mapper;
 
+import java.math.BigDecimal;
+
 import org.springframework.stereotype.Component;
 
 import com.api.backend_java.domain.dto.CreateAccountDTO;
@@ -18,7 +20,7 @@ public class AccountDomainMapper {
 
 		Account account = new Account();
 		account.setNumber(dto.getNumber());
-		account.setBalance(dto.getBalance());
+		account.setBalance(BigDecimal.ZERO);
 		account.setAccountType(dto.getAccountType());
 		account.setPassword(dto.getPassword());
 		account.setCustomer(customer);

@@ -1,7 +1,5 @@
 package com.api.backend_java.domain.dto;
 
-import java.math.BigDecimal;
-
 import com.api.backend_java.domain.entity.AccountType;
 
 import jakarta.validation.constraints.NotEmpty;
@@ -23,8 +21,6 @@ public class CreateAccountDTO {
 	@Size(max = 10, message = "number should have in maximum 10 character")
 	@Pattern(regexp = "^\\d+$", message = "number should have numeric digits")
 	private String number;
-	@NotNull(message = "balance should not be null")
-	private BigDecimal balance;
 	@NotNull(message = "account should not be null")
 	private AccountType accountType;
 	@NotNull(message = "password should not be null")
@@ -34,7 +30,7 @@ public class CreateAccountDTO {
 	@NotNull(message = "customer id should not be null")
 	@NotEmpty(message = "customer id should not be empty")
 	private String customerId;
-	@NotNull(message =  "agency id should not be null")
-	@NotEmpty(message = "customer id should not be empty")
+	@NotNull(message = "agency id should not be null")
+	@NotEmpty(message = "agency id should not be empty")
 	private String agencyId;
 }

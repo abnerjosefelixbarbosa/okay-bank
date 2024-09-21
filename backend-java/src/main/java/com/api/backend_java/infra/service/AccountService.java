@@ -21,7 +21,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class AccountService implements IAccountGateway {
 	private final IAccountRepository accountRepository;
-	private final IAgencyGateway agencyGateway; 
+	private final IAgencyGateway agencyGateway;
 	private final ICustomerGateway customerGateway;
 	private final AccountInfraMapper accountMapper;
 
@@ -36,11 +36,11 @@ public class AccountService implements IAccountGateway {
 		account = accountRepository.save(account);
 		return accountMapper.toAccountDTO(account);
 	}
-	
-	private void validade(Account account) {	
-		boolean existsByNumberOrPassword = accountRepository
-				.existsByNumberOrPassword(account.getNumber(), account.getPassword());
-		
+
+	private void validade(Account account) {
+		boolean existsByNumberOrPassword = accountRepository.existsByNumberOrPassword(account.getNumber(),
+				account.getPassword());
+
 		if (existsByNumberOrPassword)
 			throw new InvalidDataException("number or password exists");
 	}

@@ -33,29 +33,23 @@ public class CustomerService implements ICustomerGateway {
 		customer = customerRepository.save(customer);
 		return customerMapper.toCustomerDTO(customer);
 	}
-	
+
 	public CustomerDTO login(LoginCustomerDTO dto) {
 		Customer customer = customerMapper.toCustomer(dto);
-		customer = customerRepository.findByCpfAndPassword(
-				dto.getCpf(),
-				dto.getPassword()
-		).orElseThrow(() -> new NotFoundException("customer not found"));
+		customer = customerRepository.findByCpfAndPassword(dto.getCpf(), dto.getPassword())
+				.orElseThrow(() -> new NotFoundException("customer not found"));
 		return customerMapper.toCustomerDTO(customer);
 	}
-	
+
 	public Customer getById(String id) {
 		return customerRepository.findById(id).orElseThrow(() -> new NotFoundException("customer id not found"));
 	}
-	
+
 	private void validade(Customer customer) {
-		boolean existsByCpfOrRgOrEmailOrContactOrPassword = customerRepository.existsByCpfOrRgOrEmailOrContactOrPassword(
-						customer.getCpf(),
-						customer.getRg(),
-						customer.getEmail(),
-						customer.getContact(),
-						customer.getPassword()
-		);
-		
+		boolean existsByCpfOrRgOrEmailOrContactOrPassword = customerRepository
+				.existsByCpfOrRgOrEmailOrContactOrPassword(customer.getCpf(), customer.getRg(), customer.getEmail(),
+						customer.getContact(), customer.getPassword());
+
 		if (existsByCpfOrRgOrEmailOrContactOrPassword)
 			throw new InvalidDataException("cpf, rg, email, contact or password exists");
 	}
