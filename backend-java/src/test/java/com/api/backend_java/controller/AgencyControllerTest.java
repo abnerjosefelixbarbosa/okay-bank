@@ -5,10 +5,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.UUID;
-
-import com.api.backend_java.domain.dto.CreateAgencyDTO;
-import com.github.f4b6a3.ulid.UlidCreator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,9 +17,11 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.api.backend_java.domain.dto.AgencyDTO;
+import com.api.backend_java.domain.dto.CreateAgencyDTO;
 import com.api.backend_java.infra.entity.Agency;
 import com.api.backend_java.infra.repository.IAgencyRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.f4b6a3.ulid.UlidCreator;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -52,36 +50,24 @@ class AgencyControllerTest {
 		CreateAgencyDTO dto = new CreateAgencyDTO();
 		dto.setNumber("11111");
 		String json = objectMappe.writeValueAsString(dto);
-		
-		mockMvc.perform(
-				post("/agencies/create")
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)
-				.content(json)
-		)
-		.andExpect(status().isCreated())
-		.andDo(print())
-		.andReturn();
+
+		mockMvc.perform(post("/agencies/create").contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated()).andDo(print())
+				.andReturn();
 	}
-	
+
 	@Test
 	@DisplayName("should return 400 and number should not be exists message")
 	void createCase2() throws Exception {
 		loadAgency();
-		
+
 		AgencyDTO dto = new AgencyDTO();
 		dto.setNumber("11111");
 		String json = objectMappe.writeValueAsString(dto);
-		
-		mockMvc.perform(
-				post("/agencies/create")
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)
-				.content(json))
-		.andExpect(status().isBadRequest())
-		.andExpect(jsonPath("$.message").value("number should not be exists"))
-		.andDo(print())
-		.andReturn();
+
+		mockMvc.perform(post("/agencies/create").contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.message").value("number should not be exists")).andDo(print()).andReturn();
 	}
 
 	@Test
@@ -91,21 +77,16 @@ class AgencyControllerTest {
 		dto.setNumber("11111");
 		String json = objectMappe.writeValueAsString(dto);
 
-		mockMvc.perform(
-						post("/agencies/create")
-								.contentType(MediaType.APPLICATION_JSON)
-								.accept(MediaType.APPLICATION_JSON)
-								.content(json))
-				.andExpect(status().isBadRequest())
-				.andDo(print())
+		mockMvc.perform(post("/agencies/create").contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print())
 				.andReturn();
 	}
-	
+
 	void loadAgency() {
 		Agency agency = new Agency();
 		agency.setId(UlidCreator.getUlid().toString());
 		agency.setNumber("11111");
-		
+
 		agencyRepository.save(agency);
 	}
 }
