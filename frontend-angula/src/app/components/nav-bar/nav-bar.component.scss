@@ -1,0 +1,39 @@
+.nav-bar {
+    background-color: #00FF7F;
+    overflow: hidden;
+    position: fix;
+    top: 0;
+}
+
+.conteiner-ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.conteiner-ul li {
+    float: left;
+}
+
+.conteiner-ul li a {
+    display: block;
+    color: #000000;
+    text-align: center;
+    padding: 20px;
+    text-decoration: none;
+}
+
+.conteiner-ul li a:hover {
+    background-color: rgba(17, 17, 17, 0.5);
+}
+
+.conteiner-ul span {
+    display: block;
+    color: #000000;
+    text-align: center;
+    padding: 20px;
+}
+
+.right {
+    float: right !important;
+}
