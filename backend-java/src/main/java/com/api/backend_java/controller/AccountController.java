@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.api.backend_java.domain.EnterAccountDTO;
 import com.api.backend_java.domain.dto.AccountDTO;
 import com.api.backend_java.domain.dto.CreateAccountDTO;
 import com.api.backend_java.domain.usercase.IAccountUsercase;
@@ -34,5 +35,17 @@ public class AccountController {
 	})
 	public ResponseEntity<AccountDTO> create(@Valid @RequestBody CreateAccountDTO dto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(accountUsercase.create(dto));
+	}
+	
+	@PostMapping(value = "/enter")
+	@ResponseStatus(value = HttpStatus.CREATED)
+	@Operation(summary = "enter a account")
+	@ApiResponses(value = { 
+			@ApiResponse(responseCode = "200", description = "return account"),
+			@ApiResponse(responseCode = "400", description = "invalid account data"),
+			@ApiResponse(responseCode = "404", description = "not found account data") 
+	})
+	public ResponseEntity<AccountDTO> enterByAccountAndAgency(@Valid @RequestBody EnterAccountDTO dto) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(null);
 	}
 }
