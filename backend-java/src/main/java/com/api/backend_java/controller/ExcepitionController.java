@@ -32,6 +32,7 @@ public class ExcepitionController {
 		return errors;
 	}
 	
+	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(NotFoundException.class)
 	public ResponseEntity<ExceptionDetails> handleNotFoundException(NotFoundException e, HttpServletRequest request) {
 		ExceptionDetails exceptionDetails = new ExceptionDetails(LocalDateTime.now(), 404, e.getMessage(),
@@ -39,6 +40,7 @@ public class ExcepitionController {
 		return ResponseEntity.status(404).body(exceptionDetails);
 	}
 	
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(InvalidDataException.class)
 	public ResponseEntity<ExceptionDetails> handleNotFoundException(InvalidDataException e, HttpServletRequest request) {
 		ExceptionDetails exceptionDetails = new ExceptionDetails(LocalDateTime.now(), 400, e.getMessage(),

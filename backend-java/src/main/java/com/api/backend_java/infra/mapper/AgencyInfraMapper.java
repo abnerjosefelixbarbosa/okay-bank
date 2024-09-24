@@ -20,7 +20,7 @@ public class AgencyInfraMapper {
 	public AgencyDTO toAgencyDTO(Agency agency) {
 		AgencyDTO agencyDTO = new AgencyDTO();
 		agencyDTO.setId(agency.getId());
-		agency.setNumber(agency.getNumber());
+		agencyDTO.setNumber(agency.getNumber());
 
 		return agencyDTO;
 	}
