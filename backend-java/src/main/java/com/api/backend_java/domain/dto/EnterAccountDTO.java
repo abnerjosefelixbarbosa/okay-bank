@@ -1,4 +1,4 @@
-package com.api.backend_java.domain;
+package com.api.backend_java.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
