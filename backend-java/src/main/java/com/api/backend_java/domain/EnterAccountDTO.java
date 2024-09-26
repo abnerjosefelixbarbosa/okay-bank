@@ -12,4 +12,5 @@ import lombok.Setter;
 public class EnterAccountDTO {
 	private String account;
 	private String agency;
+	private String password;
 }
