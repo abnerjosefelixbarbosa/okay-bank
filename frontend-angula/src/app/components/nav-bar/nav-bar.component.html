@@ -1,14 +1,24 @@
 <nav class="nav-bar">
-    <ul class="conteiner-ul">
-        <li>
-            <span>
-                <b>
-                    Okay Bank
-                </b>
-            </span>
-        </li>
-        <li class="right">
-            <a href="#Login">Login</a>
-        </li>
-    </ul>
+  <ul class="conteiner-ul">
+    <li>
+      <a [routerLink]="['/']" routerLinkActive="router-link-active">
+        Okay bank
+      </a>
+    </li>
+    <li class="dropdown-link">
+      <a [routerLink]="['/product-and-service']" routerLinkActive="router-link-active" >
+        Produto e serviço
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/contact']" routerLinkActive="router-link-active" >
+        Contato
+      </a>
+    </li>
+    <li class="right">
+      <a [routerLink]="['/login']" routerLinkActive="router-link-active">
+        Login
+      </a>
+    </li>
+  </ul>
 </nav>
