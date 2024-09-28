@@ -1,5 +1,7 @@
 package com.api.backend_java.infra.service;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.api.backend_java.adapter.ICustomerGateway;
@@ -52,5 +54,9 @@ public class CustomerService implements ICustomerGateway {
 
 		if (existsByCpfOrRgOrEmailOrContactOrPassword)
 			throw new InvalidDataException("cpf, rg, email, contact or password exists");
+	}
+
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		return customerRepository.findByCpf(username).orElseThrow(() -> new NotFoundException("cpf not found"));
 	}
 }
