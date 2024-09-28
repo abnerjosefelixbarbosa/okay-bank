@@ -1,0 +1,21 @@
+
+.conteiner-form-login {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.conteiner-form-login {
+
+}
+
+.controller-form label, input {
+    float: left;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 10px;
+}
