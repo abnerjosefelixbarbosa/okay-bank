@@ -57,6 +57,6 @@ public class CustomerService implements ICustomerGateway {
 	}
 
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return customerRepository.findByCpf(username).orElseThrow(() -> new NotFoundException("cpf not found"));
+		return customerRepository.findByCpf(username).orElseThrow(() -> new UsernameNotFoundException("cpf not found"));
 	}
 }
