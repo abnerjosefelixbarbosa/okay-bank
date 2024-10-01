@@ -1,5 +1,7 @@
 package com.api.backend_java.application;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import com.api.backend_java.adapter.ICustomerGateway;
@@ -21,5 +23,9 @@ public class CustomerUsercase implements ICustomerUsercase {
 	
 	public CustomerDTO login(LoginCustomerDTO dto) {
 		return customerGateway.login(dto);
+	}
+
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		return customerGateway.loadUserByUsername(username);
 	}
 }

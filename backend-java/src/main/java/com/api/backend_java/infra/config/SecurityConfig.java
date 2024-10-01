@@ -80,9 +80,7 @@ public class SecurityConfig {
 			AntPathRequestMatcher.antMatcher("/v3/api-docs.yaml"),
 			AntPathRequestMatcher.antMatcher("/swagger-ui/**"),
 			AntPathRequestMatcher.antMatcher("/swagger-ui.html"),
-			AntPathRequestMatcher.antMatcher("/api/accounts/create"),
-			AntPathRequestMatcher.antMatcher("/api/accounts/login"),
-			AntPathRequestMatcher.antMatcher("/api/accounts/update-password"),
-			AntPathRequestMatcher.antMatcher("/api/emails/send"),
+			AntPathRequestMatcher.antMatcher("/customers/create"),
+			AntPathRequestMatcher.antMatcher("/customers/login")
 	};
 }
