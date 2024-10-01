@@ -81,6 +81,9 @@ public class SecurityConfig {
 			AntPathRequestMatcher.antMatcher("/swagger-ui/**"),
 			AntPathRequestMatcher.antMatcher("/swagger-ui.html"),
 			AntPathRequestMatcher.antMatcher("/customers/create"),
-			AntPathRequestMatcher.antMatcher("/customers/login")
+			AntPathRequestMatcher.antMatcher("/customers/login"),
+			AntPathRequestMatcher.antMatcher("/accounts/create"),
+			AntPathRequestMatcher.antMatcher("/accounts/enter"),
+			AntPathRequestMatcher.antMatcher("/agencies/create")
 	};
 }
