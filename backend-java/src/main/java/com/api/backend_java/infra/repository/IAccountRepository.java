@@ -10,5 +10,6 @@ import com.api.backend_java.infra.entity.Account;
 @Repository
 public interface IAccountRepository extends JpaRepository<Account, String> {
 	boolean existsByNumberOrPassword(String number, String password);
-	Optional<Account> findByAgencyNumberAndNumberAndPassword(String agency, String account, String password);
+	Optional<Account> findByAgencyNumberAndNumber(String agency, String account);
+	Optional<Account> findByNumber(String account);
 }

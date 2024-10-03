@@ -38,23 +38,23 @@ public class AccountInfraMapper {
 	public AccountDTO toAccountDTO(Account account) {
 		CustomerDTO customerDTO = new CustomerDTO();
 		customerDTO.setId(account.getCustomer().getId());
-		customerDTO.setName(account.getCustomer().getName());
-		customerDTO.setEmail(account.getCustomer().getEmail());
-		customerDTO.setPassword(account.getCustomer().getPassword());
-		customerDTO.setContact(account.getCustomer().getContact());
-		customerDTO.setCpf(account.getCustomer().getCpf());
-		customerDTO.setRg(account.getCustomer().getRg());
-		customerDTO.setBirthDate(account.getCustomer().getBirthDate());
-		customerDTO.setAddressPostalCode(account.getCustomer().getAddressPostalCode());
-		customerDTO.setAddressNumber(account.getCustomer().getAddressNumber());
-		customerDTO.setAddressName(account.getCustomer().getAddressName());
-		customerDTO.setAddressDistrict(account.getCustomer().getAddressDistrict());
-		customerDTO.setAddressCity(account.getCustomer().getAddressCity());
-		customerDTO.setAddressState(account.getCustomer().getAddressState());
+		//customerDTO.setName(account.getCustomer().getName());
+		//customerDTO.setEmail(account.getCustomer().getEmail());
+		//customerDTO.setPassword(account.getCustomer().getPassword());
+		//customerDTO.setContact(account.getCustomer().getContact());
+		//customerDTO.setCpf(account.getCustomer().getCpf());
+		//customerDTO.setRg(account.getCustomer().getRg());
+		//customerDTO.setBirthDate(account.getCustomer().getBirthDate());
+		//customerDTO.setAddressPostalCode(account.getCustomer().getAddressPostalCode());
+		//customerDTO.setAddressNumber(account.getCustomer().getAddressNumber());
+		//customerDTO.setAddressName(account.getCustomer().getAddressName());
+		//customerDTO.setAddressDistrict(account.getCustomer().getAddressDistrict());
+		//customerDTO.setAddressCity(account.getCustomer().getAddressCity());
+		//customerDTO.setAddressState(account.getCustomer().getAddressState());
 
 		AgencyDTO agencyDTO = new AgencyDTO();
 		agencyDTO.setId(account.getAgency().getId());
-		agencyDTO.setNumber(account.getAgency().getNumber());
+		//agencyDTO.setNumber(account.getAgency().getNumber());
 
 		AccountDTO accountDTO = new AccountDTO();
 		accountDTO.setId(account.getId());

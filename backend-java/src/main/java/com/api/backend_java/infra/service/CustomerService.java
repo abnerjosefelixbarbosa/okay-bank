@@ -2,6 +2,7 @@ package com.api.backend_java.infra.service;
 
 import java.util.stream.Stream;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,13 +19,13 @@ import com.api.backend_java.infra.mapper.CustomerInfraMapper;
 import com.api.backend_java.infra.repository.ICustomerRepository;
 
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
 
 @Service
-@AllArgsConstructor
 public class CustomerService implements ICustomerGateway {
-	private final ICustomerRepository customerRepository;
-	private final CustomerInfraMapper customerMapper;
+	@Autowired
+	private ICustomerRepository customerRepository;
+	@Autowired
+	private CustomerInfraMapper customerMapper;
 
 	public boolean existsByCpfOrRgOrEmailOrContactOrPassword(String cpf, String rg, String email, String contact,
 			String password) {
@@ -62,10 +63,10 @@ public class CustomerService implements ICustomerGateway {
 						customer.getContact(), customer.getPassword());
 		Stream <Customer> stream = customerRepository.findAll().parallelStream();
 		if (existsByCpfOrRgOrEmailOrContactOrPassword)
-			throw new InvalidDataException("cpf, rg, email, contact or password exists");
+			throw new InvalidDataException("cpf, rg, email, contact or password should not be exists");
 		stream.anyMatch((value) -> {
 			if (crypt().matches(customer.getPassword(), value.getPassword()))
-				throw new InvalidDataException("password exist");
+				throw new InvalidDataException("password should not be exist");
 			return false;
 		});
 	}
