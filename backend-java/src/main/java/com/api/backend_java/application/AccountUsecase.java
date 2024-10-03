@@ -1,27 +1,32 @@
 package com.api.backend_java.application;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.api.backend_java.adapter.IAccountGateway;
 import com.api.backend_java.domain.dto.AccountDTO;
 import com.api.backend_java.domain.dto.CreateAccountDTO;
+import com.api.backend_java.domain.dto.EnterAccountDTO;
 import com.api.backend_java.domain.entity.Account;
 import com.api.backend_java.domain.exception.InvalidDataException;
 import com.api.backend_java.domain.mapper.AccountDomainMapper;
 import com.api.backend_java.domain.usercase.IAccountUsercase;
 
-import lombok.AllArgsConstructor;
-
 @Component
-@AllArgsConstructor
 public class AccountUsecase implements IAccountUsercase {
-	private final IAccountGateway accountGateway;
-	private final AccountDomainMapper accountMapper;
+	@Autowired
+	private IAccountGateway accountGateway;
+	@Autowired
+	private AccountDomainMapper accountMapper;
 
 	public AccountDTO create(CreateAccountDTO dto) {
 		Account account = accountMapper.toAccount(dto);
 		validate(account);
 		return accountGateway.create(dto);
+	}
+	
+	public AccountDTO enter(EnterAccountDTO dto) {
+		return accountGateway.enter(dto);
 	}
 	
 	private void validate(Account account) {

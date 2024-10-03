@@ -1,5 +1,6 @@
 package com.api.backend_java.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,13 +18,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 
 @RequestMapping(value = "/accounts")
 @RestController
-@AllArgsConstructor
 public class AccountController {
-	private final IAccountUsercase accountUsercase;
+	@Autowired
+	private IAccountUsercase accountUsercase;
 	
 	@PostMapping(value = "/create")
 	@ResponseStatus(value = HttpStatus.CREATED)
@@ -46,6 +46,6 @@ public class AccountController {
 			@ApiResponse(responseCode = "404", description = "not found account data") 
 	})
 	public ResponseEntity<AccountDTO> enterByAccountAndAgency(@Valid @RequestBody EnterAccountDTO dto) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(null);
+		return ResponseEntity.status(HttpStatus.CREATED).body(accountUsercase.enter(dto));
 	}
 }

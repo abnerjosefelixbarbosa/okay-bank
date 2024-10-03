@@ -83,7 +83,6 @@ public class SecurityConfig {
 			AntPathRequestMatcher.antMatcher("/customers/create"),
 			AntPathRequestMatcher.antMatcher("/customers/login"),
 			AntPathRequestMatcher.antMatcher("/accounts/create"),
-			AntPathRequestMatcher.antMatcher("/accounts/enter"),
 			AntPathRequestMatcher.antMatcher("/agencies/create")
 	};
 }
