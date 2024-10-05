@@ -26,7 +26,7 @@ public class CustomerInfraMapper {
 		customer.setAddressDistrict(dto.getAddressDistrict());
 		customer.setAddressCity(dto.getAddressCity());
 		customer.setAddressState(dto.getAddressState());
-
+		
 		return customer;
 	}
 	
@@ -34,7 +34,7 @@ public class CustomerInfraMapper {
 		Customer customer = new Customer();
 		customer.setPassword(dto.getPassword());
 		customer.setCpf(dto.getCpf());
-
+		
 		return customer;
 	}
 	
@@ -54,7 +54,7 @@ public class CustomerInfraMapper {
 		customerDTO.setAddressDistrict(customer.getAddressDistrict());
 		customerDTO.setAddressCity(customer.getAddressCity());
 		customerDTO.setAddressState(customer.getAddressState());
-
+		
 		return customerDTO;
 	}
 }
