@@ -2,17 +2,15 @@ package com.api.backend_java.domain.dto;
 
 import java.time.LocalDate;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import com.api.backend_java.infra.entity.Customer;
 
-@Getter
-@Setter
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class CustomerDTO {
 	private String id;
 	private String name;
@@ -28,4 +26,7 @@ public class CustomerDTO {
 	private String addressDistrict;
 	private String addressCity;
 	private String addressState;
+	
+	public CustomerDTO(Customer customer) {
+	}
 }

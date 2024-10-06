@@ -38,13 +38,10 @@ public class CustomerService implements ICustomerGateway {
 	}
 
 	public CustomerDTO login(LoginCustomerDTO dto) {
-		Customer customer = customerMapper.toCustomer(dto);
-		Customer value = customerRepository
-				.findByCpf(dto.getCpf())
-				.orElseThrow(() -> new NotFoundException("customer not unauthorized"));
-		validadePassword(customer.getPassword(), value.getPassword());
-		
-		return customerMapper.toCustomerDTO(value);
+		return customerRepository
+				.findByCpfAndPassword(dto.getCpf(), dto.getPassword())
+				.map(customerMapper::toCustomerDTO)
+				.orElseThrow(() -> new NotFoundException("customer not found"));
 	}
 
 	public Customer getById(String id) {
@@ -76,11 +73,6 @@ public class CustomerService implements ICustomerGateway {
 			if (crypt().matches(customer.getPassword(), value.getPassword()))
 				throw new InvalidDataException("cpf, rg, email, contact or password exists");
 		});
-	}
-	
-	private void validadePassword(String password, String encode) {
-		if (!crypt().matches(password, encode))
-			throw new InvalidDataException("password not exists");
 	}
 	
 	private BCryptPasswordEncoder crypt() {
