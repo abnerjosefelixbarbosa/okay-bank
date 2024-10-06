@@ -52,6 +52,7 @@ public class CustomerController {
 		tokenDTO.setCpf(customer.getCpf());
 		tokenDTO.setPassword(customer.getPassword());
 		tokenDTO.setToken(token);
+		
 		return ResponseEntity.status(HttpStatus.OK).body(tokenDTO);
 	}
 }

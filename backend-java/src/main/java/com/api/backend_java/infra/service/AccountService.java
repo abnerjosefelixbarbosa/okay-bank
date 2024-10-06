@@ -43,6 +43,7 @@ public class AccountService implements IAccountGateway {
 		account.setCustomer(customer);
 		account.setPassword(crypt().encode(account.getPassword()));
 		account = accountRepository.save(account);
+		
 		return accountMapper.toAccountDTO(account);
 	}
 
@@ -50,9 +51,14 @@ public class AccountService implements IAccountGateway {
 		Account account = accountRepository
 				.findByAgencyNumberAndNumber(dto.getAgency(), dto.getAccount())
 				.orElseThrow(() -> new NotFoundException("account not found"));
-		if (!crypt().matches(dto.getPassword(), account.getPassword()))
-			throw new NotFoundException("account not found");
+		validadePassword(dto.getPassword(), account.getPassword());
+		
 		return accountMapper.toAccountDTO(account);
+	}
+	
+	private void validadePassword(String password, String encode) {
+		if (!crypt().matches(password, encode))
+			throw new NotFoundException("account not found");
 	}
 
 	private void validade(Account account) {
@@ -62,6 +68,7 @@ public class AccountService implements IAccountGateway {
 				return true;
 			return false;
 		});
+		
 		if (existsByNumberOrPassword)
 			throw new InvalidDataException("password or number should not be exists");
 	}

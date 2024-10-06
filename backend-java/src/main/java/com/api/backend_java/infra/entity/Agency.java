@@ -1,6 +1,5 @@
 package com.api.backend_java.infra.entity;
 
-import java.io.Serial;
 import java.io.Serializable;
 
 import jakarta.persistence.Column;
@@ -8,18 +7,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "agency_tb")
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Agency implements Serializable {
-	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id

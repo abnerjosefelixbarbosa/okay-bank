@@ -22,6 +22,7 @@ public class AccountUsecase implements IAccountUsercase {
 	public AccountDTO create(CreateAccountDTO dto) {
 		Account account = accountMapper.toAccount(dto);
 		validate(account);
+		
 		return accountGateway.create(dto);
 	}
 	
