@@ -7,10 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RecipientDTO {
-    private String id;
-    private String name;
-    private String account;
-    private String agency;
-    private String bank;
+public class TokenDTO {
+	private String cpf;
+	private String password;
+	private String token;
 }

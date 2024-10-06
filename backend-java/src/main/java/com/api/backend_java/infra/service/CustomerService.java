@@ -2,6 +2,7 @@ package com.api.backend_java.infra.service;
 
 import java.util.stream.Stream;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,18 +19,13 @@ import com.api.backend_java.infra.mapper.CustomerInfraMapper;
 import com.api.backend_java.infra.repository.ICustomerRepository;
 
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
 
 @Service
-@AllArgsConstructor
 public class CustomerService implements ICustomerGateway {
-	private final ICustomerRepository customerRepository;
-	private final CustomerInfraMapper customerMapper;
-
-	public boolean existsByCpfOrRgOrEmailOrContactOrPassword(String cpf, String rg, String email, String contact,
-			String password) {
-		return customerRepository.existsByCpfOrRgOrEmailOrContactOrPassword(cpf, rg, email, contact, password);
-	}
+	@Autowired
+	private ICustomerRepository customerRepository;
+	@Autowired
+	private CustomerInfraMapper customerMapper;
 
 	@Transactional
 	public CustomerDTO create(CreateCustomerDTO dto) {
@@ -37,45 +33,45 @@ public class CustomerService implements ICustomerGateway {
 		validade(customer);
 		customer.setPassword(crypt().encode(customer.getPassword()));
 		customer = customerRepository.save(customer);
+		
 		return customerMapper.toCustomerDTO(customer);
 	}
 
 	public CustomerDTO login(LoginCustomerDTO dto) {
-		Customer customer = customerMapper.toCustomer(dto);
-		validadePassword(customer);
-		customer = customerRepository.findByCpfAndPassword(dto.getCpf(), dto.getPassword())
+		return customerRepository
+				.findByCpfAndPassword(dto.getCpf(), dto.getPassword())
+				.map(customerMapper::toCustomerDTO)
 				.orElseThrow(() -> new NotFoundException("customer not found"));
-		return customerMapper.toCustomerDTO(customer);
 	}
 
 	public Customer getById(String id) {
-		return customerRepository.findById(id).orElseThrow(() -> new NotFoundException("customer id not found"));
+		return customerRepository
+				.findById(id)
+				.orElseThrow(() -> new NotFoundException("customer id not found"));
 	}
 
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return customerRepository.findByCpf(username).orElseThrow(() -> new UsernameNotFoundException("cpf not found"));
+		return customerRepository
+				.findByCpf(username)
+				.orElseThrow(() -> new UsernameNotFoundException("cpf not found"));
 	}
 	
 	private void validade(Customer customer) {
-		boolean existsByCpfOrRgOrEmailOrContactOrPassword = customerRepository
-				.existsByCpfOrRgOrEmailOrContactOrPassword(customer.getCpf(), customer.getRg(), customer.getEmail(),
-						customer.getContact(), customer.getPassword());
-		Stream <Customer> stream = customerRepository.findAll().parallelStream();
-		if (existsByCpfOrRgOrEmailOrContactOrPassword)
-			throw new InvalidDataException("cpf, rg, email, contact or password exists");
-		stream.anyMatch((value) -> {
-			if (crypt().matches(customer.getPassword(), value.getPassword()))
-				throw new InvalidDataException("password exist");
-			return false;
-		});
-	}
+		Stream<Customer> stream = customerRepository
+				.findAll()
+				.stream();
 	
-	private void validadePassword(Customer customer) {
-		Stream <Customer> stream = customerRepository.findAll().parallelStream();
-		stream.anyMatch((value) -> {
+		stream.forEach((value) -> {
+			if (customer.getCpf() == value.getCpf())
+				throw new InvalidDataException("cpf, rg, email, contact or password exists");
+			if (customer.getRg() == value.getRg())
+				throw new InvalidDataException("cpf, rg, email, contact or password exists");
+			if (customer.getEmail() == value.getEmail())
+				throw new InvalidDataException("cpf, rg, email, contact or password exists");
+			if (customer.getContact() == value.getContact())
+				throw new InvalidDataException("cpf, rg, email, contact or password exists");
 			if (crypt().matches(customer.getPassword(), value.getPassword()))
-				throw new InvalidDataException("password exist");
-			return false;
+				throw new InvalidDataException("cpf, rg, email, contact or password exists");
 		});
 	}
 	

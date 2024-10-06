@@ -24,11 +24,13 @@ public class ExcepitionController {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
 		Map<String, String> errors = new HashMap<>();
+		
 		ex.getBindingResult().getAllErrors().forEach(error -> {
 			String fieldName = ((FieldError) error).getField();
 			String errorMessage = error.getDefaultMessage();
 			errors.put(fieldName, errorMessage);
 		});
+		
 		return errors;
 	}
 	
@@ -37,14 +39,16 @@ public class ExcepitionController {
 	public ResponseEntity<ExceptionDetails> handleNotFoundException(NotFoundException e, HttpServletRequest request) {
 		ExceptionDetails exceptionDetails = new ExceptionDetails(LocalDateTime.now(), 404, e.getMessage(),
 				request.getRequestURI());
+		
 		return ResponseEntity.status(404).body(exceptionDetails);
 	}
 	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(InvalidDataException.class)
-	public ResponseEntity<ExceptionDetails> handleNotFoundException(InvalidDataException e, HttpServletRequest request) {
+	public ResponseEntity<ExceptionDetails> handleInvalidDataException(InvalidDataException e, HttpServletRequest request) {
 		ExceptionDetails exceptionDetails = new ExceptionDetails(LocalDateTime.now(), 400, e.getMessage(),
 				request.getRequestURI());
+		
 		return ResponseEntity.status(400).body(exceptionDetails);
 	}
 }

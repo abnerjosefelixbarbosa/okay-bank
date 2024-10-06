@@ -7,7 +7,7 @@ import java.time.ZoneOffset;
 import org.springframework.stereotype.Service;
 
 import com.api.backend_java.adapter.ITokenGateway;
-import com.api.backend_java.domain.dto.CustomerDTO;
+import com.api.backend_java.infra.entity.Customer;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -17,7 +17,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 public class TokenService implements ITokenGateway {
 	private static final String SECRET = "1";
 
-	public String generateToken(CustomerDTO dto) {
+	public String generateToken(Customer dto) {
 		try {
 			Algorithm algorithm = Algorithm.HMAC256(SECRET);
 			String token = JWT.create().withIssuer("auth-api").withSubject(dto.getCpf())
