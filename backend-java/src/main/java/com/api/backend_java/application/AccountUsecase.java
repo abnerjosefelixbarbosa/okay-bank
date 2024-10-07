@@ -32,7 +32,7 @@ public class AccountUsecase implements IAccountUsercase {
 	}
 	
 	public AccountDTO tranfer(String idAccount1, String idAccount2, TransferAccountDTO dto) {
-		return null;
+		return accountGateway.tranfer(idAccount1, idAccount2, dto);
 	}
 	
 	private void validate(Account account) {

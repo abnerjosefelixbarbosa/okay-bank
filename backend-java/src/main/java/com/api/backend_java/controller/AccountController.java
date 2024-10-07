@@ -44,6 +44,6 @@ public class AccountController {
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@Operation(summary = "transfer balance a account")
 	public ResponseEntity<AccountDTO> transfer(@RequestParam String idAccount1, @RequestParam String idAccount2, @Valid @RequestBody TransferAccountDTO dto) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(accountUsercase.tranfer(dto));
+		return ResponseEntity.status(HttpStatus.CREATED).body(accountUsercase.tranfer(idAccount1, idAccount2, dto));
 	}
 }
