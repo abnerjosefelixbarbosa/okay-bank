@@ -62,15 +62,20 @@ public class AccountService implements IAccountGateway {
 	}
 
 	private void validade(Account account) {
-		Stream<Account> stream = accountRepository.findAll().parallelStream();
-		boolean existsByNumberOrPassword = stream.anyMatch((value) -> {
-			if (crypt().matches(account.getPassword(), value.getPassword()) || account.getNumber() == value.getNumber())
+		Stream<Account> stream = accountRepository
+				.findAll()
+				.parallelStream();
+		boolean exists = stream.anyMatch((value) -> {
+			if (account.getNumber() == value.getNumber())
 				return true;
+			if (crypt().matches(account.getPassword(), value.getPassword()))
+				return true;
+			
 			return false;
 		});
 		
-		if (existsByNumberOrPassword)
-			throw new InvalidDataException("password or number should not be exists");
+		if (exists)
+			throw new InvalidDataException("password or number exists");
 	}
 
 	private BCryptPasswordEncoder crypt() {
