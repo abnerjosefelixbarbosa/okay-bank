@@ -59,20 +59,24 @@ public class CustomerService implements ICustomerGateway {
 	private void validade(Customer customer) {
 		Stream<Customer> stream = customerRepository
 				.findAll()
-				.stream();
-	
-		stream.forEach((value) -> {
-			if (customer.getCpf() == value.getCpf())
-				throw new InvalidDataException("cpf, rg, email, contact or password exists");
-			if (customer.getRg() == value.getRg())
-				throw new InvalidDataException("cpf, rg, email, contact or password exists");
-			if (customer.getEmail() == value.getEmail())
-				throw new InvalidDataException("cpf, rg, email, contact or password exists");
-			if (customer.getContact() == value.getContact())
-				throw new InvalidDataException("cpf, rg, email, contact or password exists");
+				.parallelStream();	
+		boolean exists = stream.anyMatch((value) -> {
+			if (customer.getCpf().equals(value.getCpf()))
+				return true;
+			if (customer.getRg().equals(value.getRg()))
+				return true;
+			if (customer.getEmail().equals(value.getEmail()))
+				return true;
+			if (customer.getContact().equals(value.getContact()))
+				return true;
 			if (crypt().matches(customer.getPassword(), value.getPassword()))
-				throw new InvalidDataException("cpf, rg, email, contact or password exists");
+				return true;
+			
+			return false;
 		});
+		
+		if (exists)
+			throw new InvalidDataException("cpf, rg, email, contact or password exists");
 	}
 	
 	private BCryptPasswordEncoder crypt() {
