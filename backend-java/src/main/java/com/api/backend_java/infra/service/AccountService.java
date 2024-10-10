@@ -13,13 +13,18 @@ import com.api.backend_java.domain.dto.AccountDTO;
 import com.api.backend_java.domain.dto.CreateAccountDTO;
 import com.api.backend_java.domain.dto.EnterAccountDTO;
 import com.api.backend_java.domain.dto.TransferAccountDTO;
+import com.api.backend_java.domain.dto.TransferenceDTO;
 import com.api.backend_java.domain.exception.InvalidDataException;
 import com.api.backend_java.domain.exception.NotFoundException;
 import com.api.backend_java.infra.entity.Account;
 import com.api.backend_java.infra.entity.Agency;
 import com.api.backend_java.infra.entity.Customer;
+import com.api.backend_java.infra.entity.Recipient;
+import com.api.backend_java.infra.entity.Transference;
 import com.api.backend_java.infra.mapper.AccountInfraMapper;
 import com.api.backend_java.infra.repository.IAccountRepository;
+import com.api.backend_java.infra.repository.IRecipientRepository;
+import com.api.backend_java.infra.repository.ITransferenceRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -33,6 +38,10 @@ public class AccountService implements IAccountGateway {
 	private ICustomerGateway customerGateway;
 	@Autowired
 	private AccountInfraMapper accountMapper;
+	@Autowired
+	private IRecipientRepository recipientRepository;
+	@Autowired
+	private ITransferenceRepository transferenceRepository;
 
 	@Transactional
 	public AccountDTO create(CreateAccountDTO dto) {
@@ -57,16 +66,23 @@ public class AccountService implements IAccountGateway {
 		return accountMapper.toAccountDTO(account);
 	}
 	
-    public AccountDTO tranfer(String idAccount1, String idAccount2, TransferAccountDTO dto) {
-		Account account1 = accountRepository
-				.findById(idAccount1)
-				.orElseThrow(() -> new NotFoundException("account 1 not found"));
-		Account account2 = accountRepository
-				.findById(idAccount2)
-				.orElseThrow(() -> new NotFoundException("account 2 not found"));
+    public TransferenceDTO transfer(String accountId, TransferAccountDTO dto) {
+		Account account = accountRepository
+				.findById(accountId)
+				.orElseThrow(() -> new NotFoundException("account not found"));
 		
+		account.setBalance(account.getBalance().subtract(dto.getBalance()));
+		account = accountRepository.save(account);
 		
-		return accountMapper.toAccountDTO(account1);
+		Recipient recipient = new Recipient(dto);
+		
+		recipient = recipientRepository.save(recipient);
+		
+		Transference transference = new Transference(dto, recipient, account);
+		
+		transference = transferenceRepository.save(transference);
+		
+		return new TransferenceDTO(transference);
 	}
 	
 	private void validadePassword(String password, String encode) {

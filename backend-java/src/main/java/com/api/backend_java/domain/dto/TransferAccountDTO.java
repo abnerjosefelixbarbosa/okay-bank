@@ -2,7 +2,6 @@ package com.api.backend_java.domain.dto;
 
 import java.math.BigDecimal;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TransferAccountDTO {
-	@NotNull(message = "balance should not be null")
+	private String agency;
+	private String account;
+	private String bank;
+	private String name;
+	//@NotNull(message = "balance should not be null")
 	private BigDecimal balance;
 }

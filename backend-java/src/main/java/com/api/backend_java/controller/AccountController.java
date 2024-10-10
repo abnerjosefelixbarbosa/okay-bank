@@ -15,6 +15,7 @@ import com.api.backend_java.domain.dto.AccountDTO;
 import com.api.backend_java.domain.dto.CreateAccountDTO;
 import com.api.backend_java.domain.dto.EnterAccountDTO;
 import com.api.backend_java.domain.dto.TransferAccountDTO;
+import com.api.backend_java.domain.dto.TransferenceDTO;
 import com.api.backend_java.domain.usercase.IAccountUsercase;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,14 +37,14 @@ public class AccountController {
 	@PostMapping(value = "/enter")
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@Operation(summary = "enter a account")
-	public ResponseEntity<AccountDTO> enterByAccountAndAgency(@Valid @RequestBody EnterAccountDTO dto) {
+	public ResponseEntity<AccountDTO> enter(@Valid @RequestBody EnterAccountDTO dto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(accountUsercase.enter(dto));
 	}
 	
 	@PutMapping(value = "/transfer")
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@Operation(summary = "transfer balance a account")
-	public ResponseEntity<AccountDTO> transfer(@RequestParam String idAccount1, @RequestParam String idAccount2, @Valid @RequestBody TransferAccountDTO dto) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(accountUsercase.tranfer(idAccount1, idAccount2, dto));
+	public ResponseEntity<TransferenceDTO> transfer(@RequestParam String accountId, @Valid @RequestBody TransferAccountDTO dto) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(accountUsercase.transfer(accountId, dto));
 	}
 }

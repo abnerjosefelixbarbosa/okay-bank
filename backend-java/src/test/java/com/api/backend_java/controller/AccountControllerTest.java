@@ -66,45 +66,46 @@ class AccountControllerTest {
     	
         CreateAccountDTO dto = new CreateAccountDTO();
         dto.setNumber("111111");
-        dto.setAccountType(AccountType.CURRENT);
+        dto.setAccountType(AccountType.SAVINGS);
         dto.setPassword("111111");
         dto.setAgencyId(agency.getId());
         dto.setCustomerId(customer.getId());
         String json = objectMappe.writeValueAsString(dto);
         
-        mockMvc.perform(post("/accounts/create").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated()).andDo(print())
-				.andReturn();
+        mockMvc.perform(
+        		post("/accounts/create")
+        		.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(json)
+		)
+        .andExpect(status().isCreated())
+        .andDo(print())
+		.andReturn();
     }
     
     @Test
-    @DisplayName("should return 400 and return data invalid mesager")
-    void createCase2() throws Exception {
-        CreateAccountDTO dto = new CreateAccountDTO();
-        String json = objectMappe.writeValueAsString(dto);
-        
-        mockMvc.perform(post("/accounts/create").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print())
-				.andReturn();
-    }
-    
-    @Test
-    @DisplayName("should return 404 and return not found mesager")
-    void createCase3() throws Exception {
+    @DisplayName("should return 200 and return account")
+    void enterCase1() throws Exception {
     	loadAgency();
     	loadCustomer();
     	
         CreateAccountDTO dto = new CreateAccountDTO();
         dto.setNumber("111111");
-        dto.setAccountType(AccountType.CURRENT);
+        dto.setAccountType(AccountType.SAVINGS);
         dto.setPassword("111111");
-        dto.setAgencyId(agency.getId() + "2");
-        dto.setCustomerId(customer.getId() + "2");
+        dto.setAgencyId(agency.getId());
+        dto.setCustomerId(customer.getId());
         String json = objectMappe.writeValueAsString(dto);
         
-        mockMvc.perform(post("/accounts/create").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isNotFound()).andDo(print())
-				.andReturn();
+        mockMvc.perform(
+        		post("/accounts/enter")
+        		.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(json)
+		)
+        .andExpect(status().isCreated())
+        .andDo(print())
+		.andReturn();
     }
     
     void loadAgency() {

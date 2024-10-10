@@ -8,6 +8,7 @@ import com.api.backend_java.domain.dto.AccountDTO;
 import com.api.backend_java.domain.dto.CreateAccountDTO;
 import com.api.backend_java.domain.dto.EnterAccountDTO;
 import com.api.backend_java.domain.dto.TransferAccountDTO;
+import com.api.backend_java.domain.dto.TransferenceDTO;
 import com.api.backend_java.domain.entity.Account;
 import com.api.backend_java.domain.exception.InvalidDataException;
 import com.api.backend_java.domain.mapper.AccountDomainMapper;
@@ -31,8 +32,8 @@ public class AccountUsecase implements IAccountUsercase {
 		return accountGateway.enter(dto);
 	}
 	
-	public AccountDTO tranfer(String idAccount1, String idAccount2, TransferAccountDTO dto) {
-		return accountGateway.tranfer(idAccount1, idAccount2, dto);
+	public TransferenceDTO transfer(String accountId, TransferAccountDTO dto) {
+		return accountGateway.transfer(accountId, dto);
 	}
 	
 	private void validate(Account account) {
