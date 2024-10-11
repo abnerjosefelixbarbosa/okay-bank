@@ -10,8 +10,10 @@ import com.api.backend_java.domain.dto.EnterAccountDTO;
 import com.api.backend_java.domain.dto.TransferAccountDTO;
 import com.api.backend_java.domain.dto.TransferenceDTO;
 import com.api.backend_java.domain.entity.Account;
+import com.api.backend_java.domain.entity.Transference;
 import com.api.backend_java.domain.exception.InvalidDataException;
 import com.api.backend_java.domain.mapper.AccountDomainMapper;
+import com.api.backend_java.domain.mapper.TransferenceDomainMapper;
 import com.api.backend_java.domain.usercase.IAccountUsercase;
 
 @Component
@@ -20,6 +22,8 @@ public class AccountUsecase implements IAccountUsercase {
 	private IAccountGateway accountGateway;
 	@Autowired
 	private AccountDomainMapper accountMapper;
+	@Autowired
+	private TransferenceDomainMapper transferenceMapper;
 
 	public AccountDTO create(CreateAccountDTO dto) {
 		Account account = accountMapper.toAccount(dto);
@@ -33,7 +37,17 @@ public class AccountUsecase implements IAccountUsercase {
 	}
 	
 	public TransferenceDTO transfer(String accountId, TransferAccountDTO dto) {
+		Transference transference = transferenceMapper.toTransference(dto);
+		validateTransference(transference);
+		
 		return accountGateway.transfer(accountId, dto);
+	}
+	
+	private void validateTransference(Transference transference) {
+		boolean isBalanceZero = transference.getValueTransference().longValue() == 0 || transference.getValueTransference().longValue() < 0;
+		
+		if (isBalanceZero)
+			throw new InvalidDataException("balance is zero");
 	}
 	
 	private void validate(Account account) {

@@ -100,6 +100,7 @@ public class AccountService implements IAccountGateway {
 		Stream<Account> stream = accountRepository
 				.findAll()
 				.parallelStream();
+		
 		boolean exists = stream.anyMatch((value) -> {
 			if (account.getNumber() == value.getNumber())
 				return true;

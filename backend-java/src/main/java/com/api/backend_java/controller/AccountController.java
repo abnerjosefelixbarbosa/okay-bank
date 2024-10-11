@@ -41,6 +41,11 @@ public class AccountController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(accountUsercase.enter(dto));
 	}
 	
+	@PostMapping
+	public ResponseEntity<?> confirme() {
+		return ResponseEntity.status(HttpStatus.OK).body(null);
+	}
+	
 	@PutMapping(value = "/transfer")
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@Operation(summary = "transfer balance a account")
