@@ -9,6 +9,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.api.backend_java.domain.dto.CreateAccountDTO;
+import com.api.backend_java.domain.dto.CreateCustomerDTO;
+import com.api.backend_java.domain.dto.LoginCustomerDTO;
+import com.github.f4b6a3.ulid.UlidCreator;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -53,6 +58,32 @@ public class Customer implements Serializable, UserDetails {
 	private String addressCity;
 	@Column(nullable = false)
 	private String addressState;
+	
+    public Customer(CreateCustomerDTO dto) {
+    	this.id = UlidCreator.getUlid().toString();
+		this.name = dto.getName();
+		this.email = dto.getEmail();
+		this.password = dto.getPassword();
+		this.contact = dto.getContact();
+		this.cpf = dto.getCpf();
+		this.rg = dto.getRg();
+		this.birthDate = dto.getBirthDate();
+		this.addressPostalCode = dto.getAddressPostalCode();
+		this.addressNumber = dto.getAddressNumber();
+		this.addressName = dto.getAddressName();
+		this.addressDistrict = dto.getAddressDistrict();
+		this.addressCity = dto.getAddressCity();
+		this.addressState = dto.getAddressState();
+	}
+    
+    public Customer(LoginCustomerDTO dto) {
+		this.password = dto.getPassword();
+		this.cpf = dto.getCpf();
+	}
+    
+    public Customer(CreateAccountDTO dto) {
+		this.id = dto.getCustomerId();
+	}
 	
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return List.of(new SimpleGrantedAuthority("ROLE_BASIC"));

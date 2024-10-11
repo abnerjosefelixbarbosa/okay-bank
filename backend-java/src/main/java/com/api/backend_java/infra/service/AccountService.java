@@ -22,6 +22,8 @@ import com.api.backend_java.infra.entity.Customer;
 import com.api.backend_java.infra.entity.Recipient;
 import com.api.backend_java.infra.entity.Transference;
 import com.api.backend_java.infra.mapper.AccountInfraMapper;
+import com.api.backend_java.infra.mapper.RecipientInfraMapper;
+import com.api.backend_java.infra.mapper.TransferenceInfraMapper;
 import com.api.backend_java.infra.repository.IAccountRepository;
 import com.api.backend_java.infra.repository.IRecipientRepository;
 import com.api.backend_java.infra.repository.ITransferenceRepository;
@@ -38,6 +40,10 @@ public class AccountService implements IAccountGateway {
 	private ICustomerGateway customerGateway;
 	@Autowired
 	private AccountInfraMapper accountMapper;
+	@Autowired
+	private RecipientInfraMapper recipientMapper;
+	@Autowired
+	private TransferenceInfraMapper transferenceMapper;
 	@Autowired
 	private IRecipientRepository recipientRepository;
 	@Autowired
@@ -67,18 +73,18 @@ public class AccountService implements IAccountGateway {
 	}
 	
     public TransferenceDTO transfer(String accountId, TransferAccountDTO dto) {
-		Account account = accountRepository
+		Account accountFound = accountRepository
 				.findById(accountId)
 				.orElseThrow(() -> new NotFoundException("account not found"));
 		
-		account.setBalance(account.getBalance().subtract(dto.getBalance()));
-		account = accountRepository.save(account);
+		accountFound.setBalance(accountFound.getBalance().subtract(dto.getBalance()));
+		accountFound = accountRepository.save(accountFound);
 		
-		Recipient recipient = new Recipient(dto);
+		Recipient recipient = recipientMapper.toRecipient(dto);
 		
 		recipient = recipientRepository.save(recipient);
 		
-		Transference transference = new Transference(dto, recipient, account);
+		Transference transference = transferenceMapper.toTransference(dto, recipient, accountFound);
 		
 		transference = transferenceRepository.save(transference);
 		

@@ -5,22 +5,17 @@ import org.springframework.stereotype.Component;
 import com.api.backend_java.domain.dto.AgencyDTO;
 import com.api.backend_java.domain.dto.CreateAgencyDTO;
 import com.api.backend_java.infra.entity.Agency;
-import com.github.f4b6a3.ulid.UlidCreator;
 
 @Component
 public class AgencyInfraMapper {
 	public Agency toAgency(CreateAgencyDTO dto) {
-		Agency agency = new Agency();
-		agency.setId(UlidCreator.getUlid().toString());
-		agency.setNumber(dto.getNumber());
+		Agency agency = new Agency(dto);
 
 		return agency;
 	}
 	
 	public AgencyDTO toAgencyDTO(Agency agency) {
-		AgencyDTO agencyDTO = new AgencyDTO();
-		agencyDTO.setId(agency.getId());
-		agencyDTO.setNumber(agency.getNumber());
+		AgencyDTO agencyDTO = new AgencyDTO(agency);
 
 		return agencyDTO;
 	}

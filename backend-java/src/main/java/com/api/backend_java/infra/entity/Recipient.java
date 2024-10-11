@@ -1,6 +1,5 @@
 package com.api.backend_java.infra.entity;
 
-import java.io.Serial;
 import java.io.Serializable;
 
 import com.api.backend_java.domain.dto.TransferAccountDTO;
@@ -20,7 +19,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Recipient implements Serializable {
-	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id
