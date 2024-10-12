@@ -2,6 +2,7 @@ package com.api.backend_java.infra.mapper;
 
 import org.springframework.stereotype.Component;
 
+import com.api.backend_java.domain.dto.CreateAccountDTO;
 import com.api.backend_java.domain.dto.CreateCustomerDTO;
 import com.api.backend_java.domain.dto.CustomerDTO;
 import com.api.backend_java.domain.dto.LoginCustomerDTO;
@@ -25,5 +26,11 @@ public class CustomerInfraMapper {
 		CustomerDTO customerDTO = new CustomerDTO(customer);
 		
 		return customerDTO;
+	}
+
+	public Customer toCustomer(CreateAccountDTO dto) {
+		Customer customer = new Customer(dto);
+		
+		return customer;
 	}
 }

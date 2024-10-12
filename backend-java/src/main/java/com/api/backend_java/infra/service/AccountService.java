@@ -53,6 +53,7 @@ public class AccountService implements IAccountGateway {
 	public AccountDTO create(CreateAccountDTO dto) {
 		Account account = accountMapper.toAccount(dto);
 		validade(account);
+		
 		Agency agency = agencyGateway.getById(account.getAgency().getId());
 		Customer customer = customerGateway.getById(account.getCustomer().getId());
 		account.setAgency(agency);
@@ -76,16 +77,13 @@ public class AccountService implements IAccountGateway {
 		Account accountFound = accountRepository
 				.findById(accountId)
 				.orElseThrow(() -> new NotFoundException("account not found"));
-		
 		accountFound.setBalance(accountFound.getBalance().subtract(dto.getBalance()));
 		accountFound = accountRepository.save(accountFound);
 		
 		Recipient recipient = recipientMapper.toRecipient(dto);
-		
 		recipient = recipientRepository.save(recipient);
 		
 		Transference transference = transferenceMapper.toTransference(dto, recipient, accountFound);
-		
 		transference = transferenceRepository.save(transference);
 		
 		return new TransferenceDTO(transference);

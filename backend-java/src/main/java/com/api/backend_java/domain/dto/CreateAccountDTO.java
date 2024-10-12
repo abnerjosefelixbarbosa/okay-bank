@@ -25,10 +25,12 @@ public class CreateAccountDTO {
 	@NotEmpty(message = "password should not be empty")
 	@Pattern(regexp = "^\\d{6}$", message = "password should have 6 numeric digits")
  	private String password;
+	
 	@NotNull(message = "customer id should not be null")
 	@NotEmpty(message = "customer id should not be empty")
 	private String customerId;
-	@NotNull(message = "agency id should not be null")
+	
 	@NotEmpty(message = "agency id should not be empty")
+	@NotNull(message = "agency id should not be null")
 	private String agencyId;
 }

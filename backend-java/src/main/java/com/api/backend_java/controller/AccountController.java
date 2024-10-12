@@ -41,7 +41,7 @@ public class AccountController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(accountUsercase.enter(dto));
 	}
 	
-	@PostMapping
+	@PostMapping(value = "/confirme")
 	public ResponseEntity<?> confirme() {
 		return ResponseEntity.status(HttpStatus.OK).body(null);
 	}

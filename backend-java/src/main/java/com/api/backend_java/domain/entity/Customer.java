@@ -3,7 +3,6 @@ package com.api.backend_java.domain.entity;
 import java.time.LocalDate;
 
 import com.api.backend_java.domain.dto.CreateAccountDTO;
-import com.api.backend_java.domain.dto.TransferAccountDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

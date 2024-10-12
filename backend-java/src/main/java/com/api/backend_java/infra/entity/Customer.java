@@ -82,7 +82,7 @@ public class Customer implements Serializable, UserDetails {
 	}
     
     public Customer(CreateAccountDTO dto) {
-		this.id = dto.getCustomerId();
+    	this.id = dto.getCustomerId();
 	}
 	
 	public Collection<? extends GrantedAuthority> getAuthorities() {
