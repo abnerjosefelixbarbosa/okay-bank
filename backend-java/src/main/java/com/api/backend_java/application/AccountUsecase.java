@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 
 import com.api.backend_java.adapter.IAccountGateway;
 import com.api.backend_java.domain.dto.AccountDTO;
+import com.api.backend_java.domain.dto.ConfirmeAccountDTO;
+import com.api.backend_java.domain.dto.ConfirmeResponseDTO;
 import com.api.backend_java.domain.dto.CreateAccountDTO;
 import com.api.backend_java.domain.dto.EnterAccountDTO;
 import com.api.backend_java.domain.dto.TransferAccountDTO;
@@ -43,8 +45,12 @@ public class AccountUsecase implements IAccountUsercase {
 		return accountGateway.transfer(accountId, dto);
 	}
 	
+	public ConfirmeResponseDTO confirme(ConfirmeAccountDTO dto) {
+		return null;
+	}
+	
 	private void validateTransference(Transference transference) {
-		boolean isBalanceZero = transference.getValueTransference().longValue() == 0 || transference.getValueTransference().longValue() < 0;
+		boolean isBalanceZero = transference.getValueTransference().doubleValue() == 0 || transference.getValueTransference().doubleValue() < 0;
 		
 		if (isBalanceZero)
 			throw new InvalidDataException("balance is zero");

@@ -65,6 +65,8 @@ public class AccountService implements IAccountGateway {
 	}
 
 	public AccountDTO enter(EnterAccountDTO dto) {
+		System.out.println(dto.toString());
+		
 		Account account = accountRepository
 				.findByAgencyNumberAndNumber(dto.getAgency(), dto.getAccount())
 				.orElseThrow(() -> new NotFoundException("account not found"));

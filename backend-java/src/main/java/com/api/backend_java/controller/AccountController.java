@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.backend_java.domain.dto.AccountDTO;
+import com.api.backend_java.domain.dto.ConfirmeAccountDTO;
+import com.api.backend_java.domain.dto.ConfirmeResponseDTO;
 import com.api.backend_java.domain.dto.CreateAccountDTO;
 import com.api.backend_java.domain.dto.EnterAccountDTO;
 import com.api.backend_java.domain.dto.TransferAccountDTO;
@@ -35,15 +37,17 @@ public class AccountController {
 	}
 	
 	@PostMapping(value = "/enter")
-	@ResponseStatus(value = HttpStatus.CREATED)
+	@ResponseStatus(value = HttpStatus.OK)
 	@Operation(summary = "enter a account")
 	public ResponseEntity<AccountDTO> enter(@Valid @RequestBody EnterAccountDTO dto) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(accountUsercase.enter(dto));
+		return ResponseEntity.status(HttpStatus.OK).body(accountUsercase.enter(dto));
 	}
 	
 	@PostMapping(value = "/confirme")
-	public ResponseEntity<?> confirme() {
-		return ResponseEntity.status(HttpStatus.OK).body(null);
+	@ResponseStatus(value = HttpStatus.OK)
+	@Operation(summary = "confirme password")
+	public ResponseEntity<ConfirmeResponseDTO> confirme(@Valid @RequestBody ConfirmeAccountDTO dto) {
+		return ResponseEntity.status(HttpStatus.OK).body(accountUsercase.confirme(dto));
 	}
 	
 	@PutMapping(value = "/transfer")

@@ -40,7 +40,7 @@ public class SecurityConfig {
 		})
 		.cors(Customizer.withDefaults()).authorizeHttpRequests((auth) -> {
 			auth.requestMatchers(AUTH_WHITELIST).permitAll();
-			auth.anyRequest().authenticated();
+			auth.anyRequest().permitAll();
 		})
 		.sessionManagement((session) -> {
 			session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
