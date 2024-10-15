@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.backend_java.domain.dto.AccountDTO;
 import com.api.backend_java.domain.dto.ConfirmeAccountDTO;
-import com.api.backend_java.domain.dto.ConfirmeResponseDTO;
+import com.api.backend_java.domain.dto.ConfirmeDTO;
 import com.api.backend_java.domain.dto.CreateAccountDTO;
 import com.api.backend_java.domain.dto.EnterAccountDTO;
 import com.api.backend_java.domain.dto.TransferAccountDTO;
@@ -46,7 +46,7 @@ public class AccountController {
 	@PostMapping(value = "/confirme")
 	@ResponseStatus(value = HttpStatus.OK)
 	@Operation(summary = "confirme password")
-	public ResponseEntity<ConfirmeResponseDTO> confirme(@Valid @RequestBody ConfirmeAccountDTO dto) {
+	public ResponseEntity<ConfirmeDTO> confirme(@Valid @RequestBody ConfirmeAccountDTO dto) {
 		return ResponseEntity.status(HttpStatus.OK).body(accountUsercase.confirme(dto));
 	}
 	

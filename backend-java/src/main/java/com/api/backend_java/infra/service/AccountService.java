@@ -10,6 +10,8 @@ import com.api.backend_java.adapter.IAccountGateway;
 import com.api.backend_java.adapter.IAgencyGateway;
 import com.api.backend_java.adapter.ICustomerGateway;
 import com.api.backend_java.domain.dto.AccountDTO;
+import com.api.backend_java.domain.dto.ConfirmeAccountDTO;
+import com.api.backend_java.domain.dto.ConfirmeDTO;
 import com.api.backend_java.domain.dto.CreateAccountDTO;
 import com.api.backend_java.domain.dto.EnterAccountDTO;
 import com.api.backend_java.domain.dto.TransferAccountDTO;
@@ -65,8 +67,6 @@ public class AccountService implements IAccountGateway {
 	}
 
 	public AccountDTO enter(EnterAccountDTO dto) {
-		System.out.println(dto.toString());
-		
 		Account account = accountRepository
 				.findByAgencyNumberAndNumber(dto.getAgency(), dto.getAccount())
 				.orElseThrow(() -> new NotFoundException("account not found"));
@@ -89,6 +89,19 @@ public class AccountService implements IAccountGateway {
 		transference = transferenceRepository.save(transference);
 		
 		return new TransferenceDTO(transference);
+	}
+    
+	public ConfirmeDTO confirme(ConfirmeAccountDTO dto) {
+		 Stream<Account> stream = accountRepository.findAll().stream();
+		 
+		 boolean exists = stream.anyMatch((value) -> {
+			 if (crypt().matches(dto.getPassword(), value.getPassword())) 
+				 return true;
+			 
+			 return false;
+		 });
+		
+		return new ConfirmeDTO(exists);
 	}
 	
 	private void validadePassword(String password, String encode) {

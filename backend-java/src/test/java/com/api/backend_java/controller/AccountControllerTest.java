@@ -9,7 +9,6 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.api.backend_java.domain.dto.ConfirmeAccountDTO;
 import com.api.backend_java.domain.dto.CreateAccountDTO;
 import com.api.backend_java.domain.dto.EnterAccountDTO;
 import com.api.backend_java.domain.entity.AccountType;
@@ -66,7 +66,6 @@ class AccountControllerTest {
 
 	@Test
 	@DisplayName("should return 201 and return account")
-	@Disabled
 	void createCase1() throws Exception {
 		loadAgency();
 		loadCustomer();
@@ -75,8 +74,8 @@ class AccountControllerTest {
 		dto.setNumber("111111");
 		dto.setAccountType(AccountType.SAVINGS);
 		dto.setPassword("111111");
-		dto.setAgencyId(agency.getId());
-		dto.setCustomerId(customer.getId());
+		dto.setAgencyId(this.agency.getId());
+		dto.setCustomerId(this.customer.getId());
 		String json = objectMappe.writeValueAsString(dto);
 
 		mockMvc.perform(post("/accounts/create").contentType(MediaType.APPLICATION_JSON).content(json))
@@ -85,22 +84,36 @@ class AccountControllerTest {
 
 	@Test
 	@DisplayName("should return 200 and return account")
-	//@Disabled
 	void enterCase1() throws Exception {
 		loadAgency();
 		loadCustomer();
 		loadAccount();
-		
+
 		EnterAccountDTO dto = new EnterAccountDTO();
-		dto.setAccount(account.getNumber());
-		dto.setAgency(agency.getNumber());
-		dto.setPassword(account.getPassword());
+		dto.setAccount(this.account.getNumber());
+		dto.setAgency(this.agency.getNumber());
+		dto.setPassword("111111");
 		String json = objectMappe.writeValueAsString(dto);
 
 		mockMvc.perform(post("/accounts/enter").contentType(MediaType.APPLICATION_JSON).content(json))
 				.andExpect(status().isOk()).andDo(print());
 	}
-	
+
+	@Test
+	@DisplayName("should return 200 and return respose")
+	void confirmeCase1() throws Exception {
+		loadAgency();
+		loadCustomer();
+		loadAccount();
+
+		ConfirmeAccountDTO dto = new ConfirmeAccountDTO();
+		dto.setPassword("111112");
+		String json = objectMappe.writeValueAsString(dto);
+
+		mockMvc.perform(post("/accounts/confirme").contentType(MediaType.APPLICATION_JSON).content(json))
+				.andExpect(status().isOk()).andDo(print());
+	}
+
 	void loadAccount() {
 		Account account = new Account();
 		account.setId(UlidCreator.getUlid().toString());
@@ -141,7 +154,7 @@ class AccountControllerTest {
 
 		this.customer = customerRepository.save(customer);
 	}
-	
+
 	BCryptPasswordEncoder crypt() {
 		return new BCryptPasswordEncoder();
 	}

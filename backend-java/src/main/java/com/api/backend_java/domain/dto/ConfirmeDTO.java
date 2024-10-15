@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ConfirmeResponseDTO {
+public class ConfirmeDTO {
 	private Boolean response;
 }
