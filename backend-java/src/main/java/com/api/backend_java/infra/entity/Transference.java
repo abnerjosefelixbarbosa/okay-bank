@@ -5,6 +5,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.api.backend_java.domain.dto.TransferAccountDTO;
+import com.github.f4b6a3.ulid.UlidCreator;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -36,4 +39,12 @@ public class Transference implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "recipient_id", nullable = false)
 	private Recipient recipient;
+	
+	public Transference(TransferAccountDTO dto, Recipient recipient, Account account) {
+		this.id = UlidCreator.getUlid().toString();
+		this.dateTime = LocalDateTime.now();
+		this.trasnsferenceValue = dto.getBalance();
+		this.account = account;
+		this.recipient = recipient;
+	}
 }

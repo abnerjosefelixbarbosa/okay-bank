@@ -2,6 +2,8 @@ package com.api.backend_java.domain.entity;
 
 import java.time.LocalDate;
 
+import com.api.backend_java.domain.dto.CreateAccountDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,4 +26,8 @@ public class Customer {
 	private String addressDistrict;
 	private String addressState;
 	private String addressCity;
+	
+	public Customer(CreateAccountDTO dto) {
+		this.id = dto.getCustomerId();
+	}
 }

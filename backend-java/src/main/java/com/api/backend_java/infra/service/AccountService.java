@@ -10,16 +10,25 @@ import com.api.backend_java.adapter.IAccountGateway;
 import com.api.backend_java.adapter.IAgencyGateway;
 import com.api.backend_java.adapter.ICustomerGateway;
 import com.api.backend_java.domain.dto.AccountDTO;
+import com.api.backend_java.domain.dto.ConfirmeAccountDTO;
+import com.api.backend_java.domain.dto.ConfirmeDTO;
 import com.api.backend_java.domain.dto.CreateAccountDTO;
 import com.api.backend_java.domain.dto.EnterAccountDTO;
 import com.api.backend_java.domain.dto.TransferAccountDTO;
+import com.api.backend_java.domain.dto.TransferenceDTO;
 import com.api.backend_java.domain.exception.InvalidDataException;
 import com.api.backend_java.domain.exception.NotFoundException;
 import com.api.backend_java.infra.entity.Account;
 import com.api.backend_java.infra.entity.Agency;
 import com.api.backend_java.infra.entity.Customer;
+import com.api.backend_java.infra.entity.Recipient;
+import com.api.backend_java.infra.entity.Transference;
 import com.api.backend_java.infra.mapper.AccountInfraMapper;
+import com.api.backend_java.infra.mapper.RecipientInfraMapper;
+import com.api.backend_java.infra.mapper.TransferenceInfraMapper;
 import com.api.backend_java.infra.repository.IAccountRepository;
+import com.api.backend_java.infra.repository.IRecipientRepository;
+import com.api.backend_java.infra.repository.ITransferenceRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -33,11 +42,20 @@ public class AccountService implements IAccountGateway {
 	private ICustomerGateway customerGateway;
 	@Autowired
 	private AccountInfraMapper accountMapper;
+	@Autowired
+	private RecipientInfraMapper recipientMapper;
+	@Autowired
+	private TransferenceInfraMapper transferenceMapper;
+	@Autowired
+	private IRecipientRepository recipientRepository;
+	@Autowired
+	private ITransferenceRepository transferenceRepository;
 
 	@Transactional
 	public AccountDTO create(CreateAccountDTO dto) {
 		Account account = accountMapper.toAccount(dto);
 		validade(account);
+		
 		Agency agency = agencyGateway.getById(account.getAgency().getId());
 		Customer customer = customerGateway.getById(account.getCustomer().getId());
 		account.setAgency(agency);
@@ -57,16 +75,43 @@ public class AccountService implements IAccountGateway {
 		return accountMapper.toAccountDTO(account);
 	}
 	
-    public AccountDTO tranfer(String idAccount1, String idAccount2, TransferAccountDTO dto) {
-		Account account1 = accountRepository
-				.findById(idAccount1)
-				.orElseThrow(() -> new NotFoundException("account 1 not found"));
-		Account account2 = accountRepository
-				.findById(idAccount2)
-				.orElseThrow(() -> new NotFoundException("account 2 not found"));
+    public TransferenceDTO transfer(String accountId, TransferAccountDTO dto) {
+		Account accountFound = accountRepository
+				.findById(accountId)
+				.orElseThrow(() -> new NotFoundException("account not found"));
+		accountFound.setBalance(accountFound.getBalance().subtract(dto.getBalance()));
+		accountFound = accountRepository.save(accountFound);
 		
+		Recipient recipient = recipientMapper.toRecipient(dto);
+		recipient = recipientRepository.save(recipient);
 		
-		return accountMapper.toAccountDTO(account1);
+		Transference transference = transferenceMapper.toTransference(dto, recipient, accountFound);
+		transference = transferenceRepository.save(transference);
+		
+		return new TransferenceDTO(transference);
+	}
+    
+	public ConfirmeDTO confirme(ConfirmeAccountDTO dto) {
+		 boolean exists = validadeConfirmetion(dto.getPassword());
+		 
+		 return new ConfirmeDTO(exists);
+	}
+	
+	private boolean validadeConfirmetion(String password) {
+		Stream<Account> stream = accountRepository.findAll().stream();
+		
+		boolean exists = stream.anyMatch((value) -> {
+			 if (crypt().matches(password, value.getPassword())) 
+				 return true;
+			 
+			 return false;
+		 });
+		 
+		 if (!exists) {
+			 throw new NotFoundException("account not found"); 
+		 }
+		 
+		 return exists;
 	}
 	
 	private void validadePassword(String password, String encode) {
@@ -78,6 +123,7 @@ public class AccountService implements IAccountGateway {
 		Stream<Account> stream = accountRepository
 				.findAll()
 				.parallelStream();
+		
 		boolean exists = stream.anyMatch((value) -> {
 			if (account.getNumber() == value.getNumber())
 				return true;
