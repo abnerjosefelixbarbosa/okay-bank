@@ -46,7 +46,7 @@ public class AccountUsecase implements IAccountUsercase {
 	}
 	
 	public ConfirmeDTO confirme(ConfirmeAccountDTO dto) {
-		return null;
+		return accountGateway.confirme(dto);
 	}
 	
 	private void validateTransference(Transference transference) {

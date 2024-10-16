@@ -92,16 +92,26 @@ public class AccountService implements IAccountGateway {
 	}
     
 	public ConfirmeDTO confirme(ConfirmeAccountDTO dto) {
-		 Stream<Account> stream = accountRepository.findAll().stream();
+		 boolean exists = validadeConfirmetion(dto.getPassword());
 		 
-		 boolean exists = stream.anyMatch((value) -> {
-			 if (crypt().matches(dto.getPassword(), value.getPassword())) 
+		 return new ConfirmeDTO(exists);
+	}
+	
+	private boolean validadeConfirmetion(String password) {
+		Stream<Account> stream = accountRepository.findAll().stream();
+		
+		boolean exists = stream.anyMatch((value) -> {
+			 if (crypt().matches(password, value.getPassword())) 
 				 return true;
 			 
 			 return false;
 		 });
-		
-		return new ConfirmeDTO(exists);
+		 
+		 if (!exists) {
+			 throw new NotFoundException("account not found"); 
+		 }
+		 
+		 return exists;
 	}
 	
 	private void validadePassword(String password, String encode) {

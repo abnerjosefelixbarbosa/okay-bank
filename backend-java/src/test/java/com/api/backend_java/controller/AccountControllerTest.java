@@ -100,14 +100,14 @@ class AccountControllerTest {
 	}
 
 	@Test
-	@DisplayName("should return 200 and return respose")
+	@DisplayName("should return 200 and return true or false")
 	void confirmeCase1() throws Exception {
 		loadAgency();
 		loadCustomer();
 		loadAccount();
 
 		ConfirmeAccountDTO dto = new ConfirmeAccountDTO();
-		dto.setPassword("111112");
+		dto.setPassword("111111");
 		String json = objectMappe.writeValueAsString(dto);
 
 		mockMvc.perform(post("/accounts/confirme").contentType(MediaType.APPLICATION_JSON).content(json))
