@@ -1,14 +1,41 @@
-<nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
+<header>
+  <nav>
+    <div>
+      <a href="">Okay Bank</a>
+      <ul>
+        <li>
+          <a href="">Contato</a>
+        </li>
+        <li>
+          <a href="">Serviços</a>
+          <ul>
+            <li>Conta corrente</li>
+            <li>Conta poupança</li>
+          </ul>
+        </li>
+        <li>
+          <a href="">Login</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<!--
+<nav class="fixed-top navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" [routerLink]="['/']">Okay Bank</a>
-    <div class="collapse navbar-collapse container-fluid">
-      <ul class="navbar-nav">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>  
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/']">Contato</a>
+          <a class="nav-link active" [routerLink]="['/']">Contato</a>
         </li>
         <li class="nav-item dropdown">
           <a
-            class="nav-link dropdown-toggle"
+            class="nav-link active dropdown-toggle"
             role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
@@ -20,27 +47,15 @@
             <li><a class="dropdown-item">Conta poupança</a></li>
           </ul>
         </li>
-        <li class="nav-item float-end" >
-            <a class="nav-link" [routerLink]="['/login']">Login</a>
-        </li>
       </ul>
+      <span class="navbar-text">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" [routerLink]="['/login']">Login</a>
+          </li>
+        </ul>
+      </span>
     </div>
   </div>
-</nav>
-
-<!--
-<nav class="nav-bar">
-    <ul class="conteiner-ul">
-        <li>
-            <span>
-                <b>
-                    Okay Bank
-                </b>
-            </span>
-        </li>
-        <li class="right">
-            <a href="#Login">Login</a>
-        </li>
-    </ul>
 </nav>
 -->
