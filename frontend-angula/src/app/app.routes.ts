@@ -1,6 +1,9 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
+import { ContatoComponent } from './pages/contato/contato.component';
+import { ContaCorrenteComponent } from './pages/conta-corrente/conta-corrente.component';
+import { ContaPoupancaComponent } from './pages/conta-poupanca/conta-poupanca.component';
 
 export const routes: Routes = [
     {
@@ -10,5 +13,17 @@ export const routes: Routes = [
     {
         path: "login",
         component: LoginComponent
-    }
+    },
+    {
+        path: "contato",
+        component: ContatoComponent
+    },
+    {
+        path: "conta-corrente",
+        component: ContaCorrenteComponent
+    },
+    {
+        path: "conta-poupanca",
+        component: ContaPoupancaComponent
+    },
 ];
