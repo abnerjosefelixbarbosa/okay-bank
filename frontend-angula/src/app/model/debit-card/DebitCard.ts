@@ -1,6 +1,6 @@
 import { Account } from './../account/Account';
 
-export interface DebitCard {
+export interface IDebitCard {
   id: String;
   number: String;
   expirationDate: Date;
