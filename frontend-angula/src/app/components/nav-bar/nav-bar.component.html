@@ -1,24 +1,38 @@
-<nav class="nav-bar">
-  <ul class="conteiner-ul">
-    <li>
-      <a [routerLink]="['/']" routerLinkActive="router-link-active">
-        Okay bank
-      </a>
-    </li>
-    <li class="dropdown-link">
-      <a [routerLink]="['/product-and-service']" routerLinkActive="router-link-active" >
-        Produto e serviço
-      </a>
-    </li>
-    <li>
-      <a [routerLink]="['/contact']" routerLinkActive="router-link-active" >
-        Contato
-      </a>
-    </li>
-    <li class="right">
-      <a [routerLink]="['/login']" routerLinkActive="router-link-active">
-        Login
-      </a>
-    </li>
-  </ul>
-</nav>
+<header>
+  <nav class="fixed-top navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" [routerLink]="['/']">Okay Bank</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>  
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" [routerLink]="['/contato']">Contato</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link active dropdown-toggle"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Serviços
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" [routerLink]="['/conta-corrente']">Conta corrente</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/conta-poupanca']">Conta poupança</a></li>
+            </ul>
+          </li>
+        </ul>
+        <span class="navbar-text">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" [routerLink]="['/login']">Login</a>
+            </li>
+          </ul>
+        </span>
+      </div>
+    </div>
+  </nav>
+</header>
