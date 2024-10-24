@@ -1,5 +1,22 @@
-
 .login-form-container {
     margin-top: 300px;
     width: 400px;
+}
+
+.conteiner-form-login {
+    margin: 250px 100px 0 100px;
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px;
+    border: 1px solid #000000;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border-color: #000000;
 }
