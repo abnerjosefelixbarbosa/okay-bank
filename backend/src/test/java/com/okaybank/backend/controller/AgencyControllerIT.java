@@ -44,7 +44,7 @@ class AgencyControllerIT {
 	void tearDown() throws Exception {
 		agencyRepository.deleteAll();
 	}
-	
+
 	// create agency
 
 	@Test
@@ -72,7 +72,7 @@ class AgencyControllerIT {
 		mockMvc.perform(post("/agencies/register").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(obj)).andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	// updade agency
 
 	@Test
@@ -89,7 +89,7 @@ class AgencyControllerIT {
 		mockMvc.perform(put("/agencies/update/" + id).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(obj)).andExpect(status().isOk()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not update agency when id not is existent and return 404 status.")
 	void updateAgencyTest4() throws Exception {

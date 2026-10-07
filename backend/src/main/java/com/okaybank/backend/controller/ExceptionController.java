@@ -33,7 +33,8 @@ public class ExceptionController {
 	}
 
 	@ExceptionHandler(ApplicationException.class)
-	public ResponseEntity<ExceptionResponseDTO> handleApplicationException(ApplicationException e, HttpServletRequest request) {
+	public ResponseEntity<ExceptionResponseDTO> handleApplicationException(ApplicationException e,
+			HttpServletRequest request) {
 		ExceptionResponseDTO response = new ExceptionResponseDTO();
 		response.setLocalDateTime(LocalDateTime.now());
 		response.setMessage(e.getMessage());
@@ -44,7 +45,8 @@ public class ExceptionController {
 	}
 
 	@ExceptionHandler(NotFoundException.class)
-	public ResponseEntity<ExceptionResponseDTO> handleNotFoundException(NotFoundException e, HttpServletRequest request) {
+	public ResponseEntity<ExceptionResponseDTO> handleNotFoundException(NotFoundException e,
+			HttpServletRequest request) {
 		ExceptionResponseDTO response = new ExceptionResponseDTO();
 		response.setLocalDateTime(LocalDateTime.now());
 		response.setMessage(e.getMessage());

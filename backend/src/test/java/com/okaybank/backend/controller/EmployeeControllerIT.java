@@ -41,7 +41,7 @@ class EmployeeControllerIT {
 	private AgencyRepository agencyRepository;
 	@Autowired
 	private EmployeeRepository employeeRepository;
-	
+
 	@BeforeEach
 	void setUp() throws Exception {
 		employeeRepository.deleteAll();
@@ -53,7 +53,7 @@ class EmployeeControllerIT {
 		employeeRepository.deleteAll();
 		agencyRepository.deleteAll();
 	}
-	
+
 	// register employee
 
 	@Test
@@ -63,8 +63,8 @@ class EmployeeControllerIT {
 
 		String number = agencyRepository.save(agency).getNumber();
 
-		EmployeeRequestDTO request = new EmployeeRequestDTO("1111111111", LocalDate.now().withYear(1995), "07772613083", "Nome1",
-				new BigDecimal("1500.00"), "email1@gmail.com", "81911111111", 40, EmployeeType.BANKING,
+		EmployeeRequestDTO request = new EmployeeRequestDTO("1111111111", LocalDate.now().withYear(1995), "07772613083",
+				"Nome1", new BigDecimal("1500.00"), "email1@gmail.com", "81911111111", 40, EmployeeType.BANKING,
 				EmployeeStatus.ACTIVE, "11111", "Nome1", 15, "Distrito1", "Cidade1", "Estado1", number);
 
 		String obj = objectMapper.writeValueAsString(request);
@@ -72,7 +72,7 @@ class EmployeeControllerIT {
 		mockMvc.perform(post("/employees/register").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(obj)).andExpect(status().isCreated()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register employee when salary not has 2 digits and return status 400.")
 	void registerEmployeeTest2() throws Exception {
@@ -80,8 +80,8 @@ class EmployeeControllerIT {
 
 		String number = agencyRepository.save(agency).getNumber();
 
-		EmployeeRequestDTO request = new EmployeeRequestDTO("1111111111", LocalDate.now().withYear(1995), "07772613083", "Nome1",
-				new BigDecimal("1500.0"), "email1@gmail.com", "81911111111", 40, EmployeeType.BANKING,
+		EmployeeRequestDTO request = new EmployeeRequestDTO("1111111111", LocalDate.now().withYear(1995), "07772613083",
+				"Nome1", new BigDecimal("1500.0"), "email1@gmail.com", "81911111111", 40, EmployeeType.BANKING,
 				EmployeeStatus.ACTIVE, "11111", "Nome1", 15, "Distrito1", "Cidade1", "Estado1", number);
 
 		String obj = objectMapper.writeValueAsString(request);
@@ -89,7 +89,7 @@ class EmployeeControllerIT {
 		mockMvc.perform(post("/employees/register").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(obj)).andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register employee when salary is 0.00 and return status 400.")
 	void registerEmployeeTest3() throws Exception {
@@ -97,8 +97,8 @@ class EmployeeControllerIT {
 
 		String number = agencyRepository.save(agency).getNumber();
 
-		EmployeeRequestDTO request = new EmployeeRequestDTO("1111111111", LocalDate.now().withYear(1995), "07772613083", "Nome1",
-				new BigDecimal("0.00"), "email1@gmail.com", "81911111111", 40, EmployeeType.BANKING,
+		EmployeeRequestDTO request = new EmployeeRequestDTO("1111111111", LocalDate.now().withYear(1995), "07772613083",
+				"Nome1", new BigDecimal("0.00"), "email1@gmail.com", "81911111111", 40, EmployeeType.BANKING,
 				EmployeeStatus.ACTIVE, "11111", "Nome1", 15, "Distrito1", "Cidade1", "Estado1", number);
 
 		String obj = objectMapper.writeValueAsString(request);
@@ -106,24 +106,24 @@ class EmployeeControllerIT {
 		mockMvc.perform(post("/employees/register").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(obj)).andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register employee when matriculation is repeated and return status 400.")
 	void registerEmployeeTest4() throws Exception {
 		Agency agency = new Agency(null, "11111", LocalDate.now(), null, null);
 
-	    Agency agency1 = agencyRepository.save(agency);
-	    
-	    Address address = new Address("11111", "Nome1", 10, "Distrito1", "Cidade1", "Estado1");
-	    
+		Agency agency1 = agencyRepository.save(agency);
+
+		Address address = new Address("11111", "Nome1", 10, "Distrito1", "Cidade1", "Estado1");
+
 		Employee employee = new Employee(null, "1111111111", LocalDate.now().withYear(1995), "55036580001", "Nome1",
 				new BigDecimal("1500.00"), "email1@gmail.com", "81911111111", 40, EmployeeType.BANKING,
 				EmployeeStatus.ACTIVE, address, agency1);
-		
+
 		employeeRepository.save(employee);
 
-		EmployeeRequestDTO request = new EmployeeRequestDTO("1111111111", LocalDate.now().withYear(1995), "07772613083", "Nome2",
-				new BigDecimal("1500.00"), "email2@gmail.com", "81922222222", 40, EmployeeType.BANKING,
+		EmployeeRequestDTO request = new EmployeeRequestDTO("1111111111", LocalDate.now().withYear(1995), "07772613083",
+				"Nome2", new BigDecimal("1500.00"), "email2@gmail.com", "81922222222", 40, EmployeeType.BANKING,
 				EmployeeStatus.ACTIVE, "11111", "Nome1", 15, "Distrito1", "Cidade1", "Estado1", agency1.getNumber());
 
 		String obj = objectMapper.writeValueAsString(request);
@@ -131,24 +131,24 @@ class EmployeeControllerIT {
 		mockMvc.perform(post("/employees/register").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(obj)).andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register employee when cpf is repeated and return status 400.")
 	void registerEmployeeTest5() throws Exception {
 		Agency agency = new Agency(null, "11111", LocalDate.now(), null, null);
 
-	    Agency agency1 = agencyRepository.save(agency);
-	    
-	    Address address = new Address("11111", "Nome1", 10, "Distrito1", "Cidade1", "Estado1");
-	    
+		Agency agency1 = agencyRepository.save(agency);
+
+		Address address = new Address("11111", "Nome1", 10, "Distrito1", "Cidade1", "Estado1");
+
 		Employee employee = new Employee(null, "1111111111", LocalDate.now().withYear(1995), "55036580001", "Nome1",
 				new BigDecimal("1500.00"), "email1@gmail.com", "81911111111", 40, EmployeeType.BANKING,
 				EmployeeStatus.ACTIVE, address, agency1);
-		
+
 		employeeRepository.save(employee);
 
-		EmployeeRequestDTO request = new EmployeeRequestDTO("2222222222", LocalDate.now().withYear(1995), "55036580001", "Nome2",
-				new BigDecimal("1500.00"), "email2@gmail.com", "81922222222", 40, EmployeeType.BANKING,
+		EmployeeRequestDTO request = new EmployeeRequestDTO("2222222222", LocalDate.now().withYear(1995), "55036580001",
+				"Nome2", new BigDecimal("1500.00"), "email2@gmail.com", "81922222222", 40, EmployeeType.BANKING,
 				EmployeeStatus.ACTIVE, "11111", "Nome1", 15, "Distrito1", "Cidade1", "Estado1", agency1.getNumber());
 
 		String obj = objectMapper.writeValueAsString(request);
@@ -156,24 +156,24 @@ class EmployeeControllerIT {
 		mockMvc.perform(post("/employees/register").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(obj)).andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register employee when name is repeated and return status 400.")
 	void registerEmployeeTest6() throws Exception {
 		Agency agency = new Agency(null, "11111", LocalDate.now(), null, null);
 
-	    Agency agency1 = agencyRepository.save(agency);
-	    
-	    Address address = new Address("11111", "Nome1", 10, "Distrito1", "Cidade1", "Estado1");
-	    
+		Agency agency1 = agencyRepository.save(agency);
+
+		Address address = new Address("11111", "Nome1", 10, "Distrito1", "Cidade1", "Estado1");
+
 		Employee employee = new Employee(null, "1111111111", LocalDate.now().withYear(1995), "55036580001", "Nome1",
 				new BigDecimal("1500.00"), "email1@gmail.com", "81911111111", 40, EmployeeType.BANKING,
 				EmployeeStatus.ACTIVE, address, agency1);
-		
+
 		employeeRepository.save(employee);
 
-		EmployeeRequestDTO request = new EmployeeRequestDTO("2222222222", LocalDate.now().withYear(1995), "07772613083", "Nome1",
-				new BigDecimal("1500.00"), "email2@gmail.com", "81922222222", 40, EmployeeType.BANKING,
+		EmployeeRequestDTO request = new EmployeeRequestDTO("2222222222", LocalDate.now().withYear(1995), "07772613083",
+				"Nome1", new BigDecimal("1500.00"), "email2@gmail.com", "81922222222", 40, EmployeeType.BANKING,
 				EmployeeStatus.ACTIVE, "11111", "Nome1", 15, "Distrito1", "Cidade1", "Estado1", agency1.getNumber());
 
 		String obj = objectMapper.writeValueAsString(request);
@@ -181,24 +181,24 @@ class EmployeeControllerIT {
 		mockMvc.perform(post("/employees/register").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(obj)).andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register employee when email is repeated and return status 400.")
 	void registerEmployeeTest7() throws Exception {
 		Agency agency = new Agency(null, "11111", LocalDate.now(), null, null);
 
-	    Agency agency1 = agencyRepository.save(agency);
-	    
-	    Address address = new Address("11111", "Nome1", 10, "Distrito1", "Cidade1", "Estado1");
-	    
+		Agency agency1 = agencyRepository.save(agency);
+
+		Address address = new Address("11111", "Nome1", 10, "Distrito1", "Cidade1", "Estado1");
+
 		Employee employee = new Employee(null, "1111111111", LocalDate.now().withYear(1995), "55036580001", "Nome1",
 				new BigDecimal("1500.00"), "email1@gmail.com", "81911111111", 40, EmployeeType.BANKING,
 				EmployeeStatus.ACTIVE, address, agency1);
-		
+
 		employeeRepository.save(employee);
 
-		EmployeeRequestDTO request = new EmployeeRequestDTO("2222222222", LocalDate.now().withYear(1995), "07772613083", "Nome2",
-				new BigDecimal("1500.00"), "email1@gmail.com", "81922222222", 40, EmployeeType.BANKING,
+		EmployeeRequestDTO request = new EmployeeRequestDTO("2222222222", LocalDate.now().withYear(1995), "07772613083",
+				"Nome2", new BigDecimal("1500.00"), "email1@gmail.com", "81922222222", 40, EmployeeType.BANKING,
 				EmployeeStatus.ACTIVE, "11111", "Nome1", 15, "Distrito1", "Cidade1", "Estado1", agency1.getNumber());
 
 		String obj = objectMapper.writeValueAsString(request);
@@ -206,24 +206,24 @@ class EmployeeControllerIT {
 		mockMvc.perform(post("/employees/register").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(obj)).andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register employee when phone is repeated and return status 400.")
 	void registerEmployeeTest8() throws Exception {
 		Agency agency = new Agency(null, "11111", LocalDate.now(), null, null);
 
-	    Agency agency1 = agencyRepository.save(agency);
-	    
-	    Address address = new Address("11111", "Nome1", 10, "Distrito1", "Cidade1", "Estado1");
-	    
+		Agency agency1 = agencyRepository.save(agency);
+
+		Address address = new Address("11111", "Nome1", 10, "Distrito1", "Cidade1", "Estado1");
+
 		Employee employee = new Employee(null, "1111111111", LocalDate.now().withYear(1995), "55036580001", "Nome1",
 				new BigDecimal("1500.00"), "email1@gmail.com", "81911111111", 40, EmployeeType.BANKING,
 				EmployeeStatus.ACTIVE, address, agency1);
-		
+
 		employeeRepository.save(employee);
 
-		EmployeeRequestDTO request = new EmployeeRequestDTO("2222222222", LocalDate.now().withYear(1995), "07772613083", "Nome2",
-				new BigDecimal("1500.00"), "email2@gmail.com", "81911111111", 40, EmployeeType.BANKING,
+		EmployeeRequestDTO request = new EmployeeRequestDTO("2222222222", LocalDate.now().withYear(1995), "07772613083",
+				"Nome2", new BigDecimal("1500.00"), "email2@gmail.com", "81911111111", 40, EmployeeType.BANKING,
 				EmployeeStatus.ACTIVE, "11111", "Nome1", 15, "Distrito1", "Cidade1", "Estado1", agency1.getNumber());
 
 		String obj = objectMapper.writeValueAsString(request);

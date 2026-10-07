@@ -10,5 +10,6 @@ import com.okaybank.backend.model.Agency;
 @Repository
 public interface AgencyRepository extends JpaRepository<Agency, String> {
 	boolean existsByNumber(String number);
+
 	Optional<Agency> findByNumber(String number);
 }

@@ -65,19 +65,19 @@ public class EmployeeRequestDTO {
 	@Size(message = "Nome do endereço não deve ter mais de 30 caracteres.", max = 30)
 	private String addressName;
 	@NotNull(message = "Numero do endereço não deve ser nulo.")
-    private Integer number;
+	private Integer number;
 	@NotNull(message = "Distrito não deve ser nulo ou vazio.")
 	@NotEmpty(message = "Distrito não deve ser nulo ou vazio.")
 	@Size(message = "Distrito não deve ter mais de 30 caracteres.", max = 30)
-    private String district;
+	private String district;
 	@NotNull(message = "Cidade não deve ser nula ou vazia.")
 	@NotEmpty(message = "Cidade não deve ser nula ou vazia.")
 	@Size(message = "Cidade não deve ter mais de 30 caracteres", max = 30)
-    private String city;
+	private String city;
 	@NotNull(message = "Estado não deve ser nulo ou vazio")
 	@NotEmpty(message = "Estado não deve ser nulo ou vazio")
 	@Size(message = "Estado não deve ter mais de 30 caracteres", max = 30)
-    private String state;
+	private String state;
 	@NotNull(message = "Agency number não deve ser nulo ou vazio")
 	@NotEmpty(message = "Agency Number não deve ser nulo ou vazio")
 	@Size(message = "Agency number não deve ter mais de 5 caracteres", max = 5)

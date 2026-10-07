@@ -33,7 +33,8 @@ public class AgencyController {
 
 	@ResponseStatus(HttpStatus.OK)
 	@PutMapping("/update/{id}")
-	public ResponseEntity<AgencyResponseDTO> updateAgency(@PathVariable String id, @RequestBody @Valid AgencyRequestDTO dto) {
+	public ResponseEntity<AgencyResponseDTO> updateAgency(@PathVariable String id,
+			@RequestBody @Valid AgencyRequestDTO dto) {
 		AgencyResponseDTO response = agencySevice.updateAgency(id, dto);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);

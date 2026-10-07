@@ -29,8 +29,8 @@ public class EmployeeResponseDTO {
 	private EmployeeStatus employeeStatus;
 	private String postalCode;
 	private String addressName;
-    private Integer number;
-    private String district;
-    private String city;
-    private String state;
+	private Integer number;
+	private String district;
+	private String city;
+	private String state;
 }
