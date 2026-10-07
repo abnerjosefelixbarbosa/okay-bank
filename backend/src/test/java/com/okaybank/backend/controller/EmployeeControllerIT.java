@@ -1,11 +1,13 @@
 package com.okaybank.backend.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -230,5 +232,52 @@ class EmployeeControllerIT {
 
 		mockMvc.perform(post("/employees/register").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(obj)).andExpect(status().isBadRequest()).andDo(print());
+	}
+
+	// list employees
+
+	@Test
+	@DisplayName("Should list employees and return status 200.")
+	void registerEmployeeTest9() throws Exception {
+		List<Agency> agencies = List.of(new Agency(null, "11111", LocalDate.now(), null, null));
+
+		Agency agency = agencyRepository.saveAll(agencies).get(0);
+
+		List<Employee> employees = List.of(
+				new Employee(null, "1111111111", LocalDate.now().withYear(1995), "55036580001", "Nome1",
+						new BigDecimal("1500.00"), "email1@gmail.com", "81911111111", 40, EmployeeType.BANKING,
+						EmployeeStatus.ACTIVE, new Address("11111", "Nome1", 10, "Distrito1", "Cidade1", "Estado1"),
+						agency),
+				new Employee(null, "2222222222", LocalDate.now().withYear(1995), "76532695408", "Nome2",
+						new BigDecimal("2500.00"), "email2@gmail.com", "81922222222", 40, EmployeeType.MANAGER,
+						EmployeeStatus.ACTIVE, new Address("22222", "Nome2", 20, "Distrito2", "Cidade2", "Estado2"),
+						agency));
+
+		employeeRepository.saveAll(employees);
+
+		mockMvc.perform(get("/employees/list")).andExpect(status().isOk()).andDo(print());
+	}
+
+	@Test
+	@DisplayName("Should list employees when employee status is inactive and return status 200.")
+	void registerEmployeeTest10() throws Exception {
+		List<Agency> agencies = List.of(new Agency(null, "11111", LocalDate.now(), null, null));
+
+		Agency agency = agencyRepository.saveAll(agencies).get(0);
+
+		List<Employee> employees = List.of(
+				new Employee(null, "1111111111", LocalDate.now().withYear(1995), "55036580001", "Nome1",
+						new BigDecimal("1500.00"), "email1@gmail.com", "81911111111", 40, EmployeeType.BANKING,
+						EmployeeStatus.ACTIVE, new Address("11111", "Nome1", 10, "Distrito1", "Cidade1", "Estado1"),
+						agency),
+				new Employee(null, "2222222222", LocalDate.now().withYear(1995), "76532695408", "Nome2",
+						new BigDecimal("2500.00"), "email2@gmail.com", "81922222222", 40, EmployeeType.MANAGER,
+						EmployeeStatus.ACTIVE, new Address("22222", "Nome2", 20, "Distrito2", "Cidade2", "Estado2"),
+						agency));
+
+		employeeRepository.saveAll(employees);
+
+		mockMvc.perform(get("/employees/list").queryParam("employeeStatus", "" + EmployeeStatus.INACTIVE))
+				.andExpect(status().isOk()).andDo(print());
 	}
 }
