@@ -1,7 +1,6 @@
 package com.okaybank.backend.service;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.okaybank.backend.dto.AgencyRequestDTO;
@@ -16,8 +15,11 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class AgencyServiceImp implements AgencyService {
-	@Autowired
-	private AgencyRepository agencyRepository;
+	private final AgencyRepository agencyRepository;
+
+	public AgencyServiceImp(AgencyRepository agencyRepository) {
+		this.agencyRepository = agencyRepository;
+	}
 
 	@Transactional
 	public AgencyResponseDTO registerAgency(AgencyRequestDTO dto) {
@@ -26,6 +28,7 @@ public class AgencyServiceImp implements AgencyService {
 		validateAgency(agency);
 
 		Agency agencySaved = agencyRepository.save(agency);
+		;
 
 		return AgencyMapper.toAgencyResponseDTO(agencySaved);
 	}
@@ -44,6 +47,11 @@ public class AgencyServiceImp implements AgencyService {
 		Agency agencySaved = agencyRepository.save(agencyFound);
 
 		return AgencyMapper.toAgencyResponseDTO(agencySaved);
+	}
+
+	public Agency findByNumber(String number) {
+		return agencyRepository.findByNumber(number)
+				.orElseThrow(() -> new NotFoundException("Número da agência deve ser existente."));
 	}
 
 	private void validateAgency(Agency agency) {

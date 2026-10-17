@@ -1,6 +1,5 @@
 package com.okaybank.backend.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -8,13 +7,11 @@ import org.springframework.stereotype.Service;
 import com.okaybank.backend.dto.EmployeeRequestDTO;
 import com.okaybank.backend.dto.EmployeeResponseDTO;
 import com.okaybank.backend.exception.ApplicationException;
-import com.okaybank.backend.exception.NotFoundException;
 import com.okaybank.backend.mapper.EmployeeMapper;
 import com.okaybank.backend.model.Agency;
 import com.okaybank.backend.model.Employee;
 import com.okaybank.backend.model.EmployeeStatus;
 import com.okaybank.backend.model.EmployeeType;
-import com.okaybank.backend.repository.AgencyRepository;
 import com.okaybank.backend.repository.EmployeeRepository;
 import com.okaybank.backend.specification.EmployeeSpecification;
 
@@ -22,10 +19,13 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class EmployeeServiceImp implements EmployeeService {
-	@Autowired
-	private EmployeeRepository employeeRepository;
-	@Autowired
-	private AgencyRepository agencyRepository;
+	private final EmployeeRepository employeeRepository;
+	private final AgencyService agencyService;
+
+	public EmployeeServiceImp(EmployeeRepository employeeRepository, AgencyService agencyService) {
+		this.employeeRepository = employeeRepository;
+		this.agencyService = agencyService;
+	}
 
 	@Transactional
 	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO dto) {
@@ -33,8 +33,7 @@ public class EmployeeServiceImp implements EmployeeService {
 
 		validateEmployee(employee);
 
-		Agency agencyFound = agencyRepository.findByNumber(dto.getAgencyNumber())
-				.orElseThrow(() -> new NotFoundException("Número da agência deve ser existente."));
+		Agency agencyFound = agencyService.findByNumber(dto.getAgencyNumber());
 
 		employee.setAgency(agencyFound);
 
@@ -62,24 +61,9 @@ public class EmployeeServiceImp implements EmployeeService {
 			throw new ApplicationException("Salário não deve ser 0.00.");
 		}
 
-		if (employeeRepository.existsByMatriculation(employee.getMatriculation())) {
-			throw new ApplicationException("Matricula não deve ser repetida.");
-		}
-
-		if (employeeRepository.existsByCpf(employee.getCpf())) {
-			throw new ApplicationException("CPF não deve ser repetido.");
-		}
-
-		if (employeeRepository.existsByName(employee.getName())) {
-			throw new ApplicationException("Nome não deve ser repetido.");
-		}
-
-		if (employeeRepository.existsByEmail(employee.getEmail())) {
-			throw new ApplicationException("Email não deve ser repetido.");
-		}
-
-		if (employeeRepository.existsByPhone(employee.getPhone())) {
-			throw new ApplicationException("Telefone não deve ser repetido.");
+		if (employeeRepository.existsByMatriculationOrCpfOrNameOrEmailOrPhone(employee.getMatriculation(),
+				employee.getCpf(), employee.getName(), employee.getEmail(), employee.getPhone())) {
+			throw new ApplicationException("Matricula, CPF, nome, email ou telefone não deve ser repetida.");
 		}
 	}
 }

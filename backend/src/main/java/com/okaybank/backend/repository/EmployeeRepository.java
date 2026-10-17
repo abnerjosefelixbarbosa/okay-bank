@@ -8,13 +8,6 @@ import com.okaybank.backend.model.Employee;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, String>, JpaSpecificationExecutor<Employee> {
-	boolean existsByMatriculation(String matriculation);
-
-	boolean existsByCpf(String cpf);
-
-	boolean existsByName(String name);
-
-	boolean existsByEmail(String email);
-
-	boolean existsByPhone(String phone);
+	boolean existsByMatriculationOrCpfOrNameOrEmailOrPhone(String matriculation, String cpf, String name, String email,
+			String phone);
 }
