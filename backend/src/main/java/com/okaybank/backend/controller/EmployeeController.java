@@ -1,6 +1,5 @@
 package com.okaybank.backend.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -24,8 +23,11 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
-	@Autowired
-	private EmployeeService employeeService;
+	private final EmployeeService employeeService;
+
+	public EmployeeController(EmployeeService employeeService) {
+		this.employeeService = employeeService;
+	}
 
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/register")

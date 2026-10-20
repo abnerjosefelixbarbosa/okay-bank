@@ -1,9 +1,10 @@
 package com.okaybank.backend.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -89,7 +90,8 @@ class EmployeeControllerIT {
 		String obj = objectMapper.writeValueAsString(request);
 
 		mockMvc.perform(post("/employees/register").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(obj)).andExpect(status().isBadRequest()).andDo(print());
+				.accept(MediaType.APPLICATION_JSON).content(obj)).andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.message").value("Salário deve ter 2 dígitos.")).andDo(print());
 	}
 
 	@Test
@@ -106,7 +108,8 @@ class EmployeeControllerIT {
 		String obj = objectMapper.writeValueAsString(request);
 
 		mockMvc.perform(post("/employees/register").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(obj)).andExpect(status().isBadRequest()).andDo(print());
+				.accept(MediaType.APPLICATION_JSON).content(obj)).andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.message").value("Salário não deve ser 0.00.")).andDo(print());
 	}
 
 	@Test
@@ -130,8 +133,12 @@ class EmployeeControllerIT {
 
 		String obj = objectMapper.writeValueAsString(request);
 
-		mockMvc.perform(post("/employees/register").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(obj)).andExpect(status().isBadRequest()).andDo(print());
+		mockMvc.perform(post("/employees/register")
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(obj))
+				.andExpect(status().isBadRequest())
+				.andExpect(
+						jsonPath("$.message").value("Matricula, CPF, nome, email ou telefone não deve ser repetida."))
+				.andDo(print());
 	}
 
 	@Test
@@ -155,8 +162,12 @@ class EmployeeControllerIT {
 
 		String obj = objectMapper.writeValueAsString(request);
 
-		mockMvc.perform(post("/employees/register").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(obj)).andExpect(status().isBadRequest()).andDo(print());
+		mockMvc.perform(post("/employees/register")
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(obj))
+				.andExpect(status().isBadRequest())
+				.andExpect(
+						jsonPath("$.message").value("Matricula, CPF, nome, email ou telefone não deve ser repetida."))
+				.andDo(print());
 	}
 
 	@Test
@@ -180,8 +191,12 @@ class EmployeeControllerIT {
 
 		String obj = objectMapper.writeValueAsString(request);
 
-		mockMvc.perform(post("/employees/register").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(obj)).andExpect(status().isBadRequest()).andDo(print());
+		mockMvc.perform(post("/employees/register")
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(obj))
+				.andExpect(status().isBadRequest())
+				.andExpect(
+						jsonPath("$.message").value("Matricula, CPF, nome, email ou telefone não deve ser repetida."))
+				.andDo(print());
 	}
 
 	@Test
@@ -205,8 +220,12 @@ class EmployeeControllerIT {
 
 		String obj = objectMapper.writeValueAsString(request);
 
-		mockMvc.perform(post("/employees/register").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(obj)).andExpect(status().isBadRequest()).andDo(print());
+		mockMvc.perform(post("/employees/register")
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(obj))
+				.andExpect(status().isBadRequest())
+				.andExpect(
+						jsonPath("$.message").value("Matricula, CPF, nome, email ou telefone não deve ser repetida."))
+				.andDo(print());
 	}
 
 	@Test
@@ -230,8 +249,12 @@ class EmployeeControllerIT {
 
 		String obj = objectMapper.writeValueAsString(request);
 
-		mockMvc.perform(post("/employees/register").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(obj)).andExpect(status().isBadRequest()).andDo(print());
+		mockMvc.perform(post("/employees/register")
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(obj))
+				.andExpect(status().isBadRequest())
+				.andExpect(
+						jsonPath("$.message").value("Matricula, CPF, nome, email ou telefone não deve ser repetida."))
+				.andDo(print());
 	}
 
 	// list employees

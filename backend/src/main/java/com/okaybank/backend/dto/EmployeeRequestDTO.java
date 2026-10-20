@@ -23,12 +23,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EmployeeRequestDTO {
-	@NotNull(message = "Matrícula não deve ser nulo.")
+	@NotNull(message = "Matrícula não deve ser nula ou vázia.")
+	@NotEmpty(message = "Matrícula não deve ser nula ou vázia.")
 	@Pattern(regexp = "^[0-9]{10}", message = "Matrícula deve ter 10 caracteres numéricos.")
 	private String matriculation;
 	@NotNull(message = "Data de nascimento não deve ser nulo.")
 	private LocalDate birthDate;
 	@NotNull(message = "CPF não deve ser nulo ou vázio.")
+	@NotEmpty(message = "CPF não deve ser nulo ou vázio.")
 	@Size(message = "CPF não deve ter mais de 11 caracteres", max = 11)
 	@CPF(message = "CPF deve ser valido.")
 	@Pattern(regexp = "^[0-9]*$", message = "CPF deve conter número.")
@@ -41,7 +43,7 @@ public class EmployeeRequestDTO {
 	private BigDecimal salary;
 	@NotNull(message = "Email não deve ser nulo ou vázio.")
 	@NotEmpty(message = "Email não deve ser nulo ou vázio.")
-	@Size(message = "Email não deve ter mais de 30 caracteres", max = 30)
+	@Size(message = "Email não deve ter mais de 30 caracteres.", max = 30)
 	@Email(message = "Email deve ser valido.")
 	private String email;
 	@NotNull(message = "Telefone não deve ser nulo ou vázio.")
@@ -60,26 +62,26 @@ public class EmployeeRequestDTO {
 	@Size(message = "Codigo postal não ter mais de 10 caracteres.", max = 10)
 	@Pattern(regexp = "^[0-9]*$", message = "Codigo postal deve conter número.")
 	private String postalCode;
-	@NotNull(message = "Nome  do endereço não deve ser nulo ou vazio.")
-	@NotEmpty(message = "Nome  do endereço não deve ser nulo ou vazio.")
+	@NotNull(message = "Nome  do endereço não deve ser nulo ou vázio.")
+	@NotEmpty(message = "Nome  do endereço não deve ser nulo ou vázio.")
 	@Size(message = "Nome do endereço não deve ter mais de 30 caracteres.", max = 30)
 	private String addressName;
 	@NotNull(message = "Numero do endereço não deve ser nulo.")
 	private Integer number;
-	@NotNull(message = "Distrito não deve ser nulo ou vazio.")
-	@NotEmpty(message = "Distrito não deve ser nulo ou vazio.")
+	@NotNull(message = "Distrito não deve ser nulo ou vázio.")
+	@NotEmpty(message = "Distrito não deve ser nulo ou vázio.")
 	@Size(message = "Distrito não deve ter mais de 30 caracteres.", max = 30)
 	private String district;
-	@NotNull(message = "Cidade não deve ser nula ou vazia.")
-	@NotEmpty(message = "Cidade não deve ser nula ou vazia.")
+	@NotNull(message = "Cidade não deve ser nula ou vázia.")
+	@NotEmpty(message = "Cidade não deve ser nula ou vázia.")
 	@Size(message = "Cidade não deve ter mais de 30 caracteres", max = 30)
 	private String city;
-	@NotNull(message = "Estado não deve ser nulo ou vazio")
-	@NotEmpty(message = "Estado não deve ser nulo ou vazio")
+	@NotNull(message = "Estado não deve ser nulo ou vázio")
+	@NotEmpty(message = "Estado não deve ser nulo ou vázio")
 	@Size(message = "Estado não deve ter mais de 30 caracteres", max = 30)
 	private String state;
-	@NotNull(message = "Agency number não deve ser nulo ou vazio")
-	@NotEmpty(message = "Agency Number não deve ser nulo ou vazio")
+	@NotNull(message = "Agency number não deve ser nulo ou vázio")
+	@NotEmpty(message = "Agency Number não deve ser nulo ou vázio")
 	@Size(message = "Agency number não deve ter mais de 5 caracteres", max = 5)
 	@Pattern(regexp = "^[0-9]{5}", message = "Numero da agência deve ter 5 caracteres numéricos.")
 	private String agencyNumber;
