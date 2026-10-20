@@ -1,6 +1,5 @@
 package com.okaybank.backend.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +19,11 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/agencies")
 public class AgencyController {
-	@Autowired
-	private AgencyService agencySevice;
+	private final AgencyService agencySevice;
+
+	public AgencyController(AgencyService agencySevice) {
+		this.agencySevice = agencySevice;
+	}
 
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/register")

@@ -13,8 +13,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AgencyRequestDTO {
-	@NotNull(message = "Número não deve ser nulo ou vazio.")
-	@NotEmpty(message = "Número não deve ser nulo ou vazio.")
+	@NotNull(message = "Número não deve ser nulo ou vázio.")
+	@NotEmpty(message = "Número não deve ser nulo ou vázio.")
 	@Pattern(message = "Número deve ter 5 caracteres numéricos.", regexp = "^[0-9]{5}")
 	private String number;
 }

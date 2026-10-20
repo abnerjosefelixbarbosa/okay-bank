@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 import java.time.LocalDate;
 
@@ -48,8 +49,8 @@ class AgencyControllerIT {
 	// create agency
 
 	@Test
-	@DisplayName("Should create agency and return 201 status.")
-	void createAgencyTest1() throws Exception {
+	@DisplayName("Should register agency and return 201 status.")
+	void registerAgencyTest1() throws Exception {
 		AgencyRequestDTO request = new AgencyRequestDTO("11111");
 
 		String obj = objectMapper.writeValueAsString(request);
@@ -59,8 +60,8 @@ class AgencyControllerIT {
 	}
 
 	@Test
-	@DisplayName("Should not create agency when number is repeated and return 400 status.")
-	void createAgencyTest2() throws Exception {
+	@DisplayName("Should not register agency when number is repeated and return 400 status.")
+	void registerAgencyTest2() throws Exception {
 		Agency agency = new Agency(null, "11111", LocalDate.now(), null, null);
 
 		agencyRepository.save(agency);
@@ -70,7 +71,8 @@ class AgencyControllerIT {
 		String obj = objectMapper.writeValueAsString(request);
 
 		mockMvc.perform(post("/agencies/register").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(obj)).andExpect(status().isBadRequest()).andDo(print());
+				.accept(MediaType.APPLICATION_JSON).content(obj)).andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.message").value("Numero não deve ser repetido.")).andDo(print());
 	}
 
 	// updade agency
@@ -101,7 +103,8 @@ class AgencyControllerIT {
 
 		String obj = objectMapper.writeValueAsString(request);
 
-		mockMvc.perform(put("/agencies/update/" + id).contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(obj)).andExpect(status().isOk()).andDo(print());
+		mockMvc.perform(put("/agencies/update/1" + id).contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON).content(obj)).andExpect(status().isNotFound())
+				.andExpect(jsonPath("$.message").value("Id deve ser existente.")).andDo(print());
 	}
 }
