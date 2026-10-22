@@ -46,7 +46,7 @@ class AgencyControllerIT {
 		agencyRepository.deleteAll();
 	}
 
-	// create agency
+	// register agency
 
 	@Test
 	@DisplayName("Should register agency and return 201 status.")
