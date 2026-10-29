@@ -3,6 +3,8 @@ package com.okaybank.backend.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.okaybank.backend.model.enums.CustomerType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;

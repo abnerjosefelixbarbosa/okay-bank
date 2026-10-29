@@ -1,4 +1,4 @@
-package com.okaybank.backend.model;
+package com.okaybank.backend.model.enums;
 
 public enum EmployeeStatus {
 	ACTIVE, INACTIVE;
