@@ -13,7 +13,6 @@ CREATE TABLE IF NOT EXISTS customer_tb (
     phone VARCHAR(30) NOT NULL UNIQUE,
     customer_type VARCHAR(2) NOT NULL,
     
-    -- Address
     postal_code VARCHAR(10) NOT NULL,
     address_name VARCHAR(30) NOT NULL,
     address_number INTEGER NOT NULL,
@@ -30,7 +29,6 @@ CREATE TABLE IF NOT EXISTS employee_tb (
     name VARCHAR(100) NOT NULL UNIQUE,
     salary NUMERIC(30,2) NOT NULL,
     
-    -- Address
     postal_code VARCHAR(10) NOT NULL,
     address_name VARCHAR(30) NOT NULL,
     address_number INTEGER NOT NULL,
@@ -87,14 +85,12 @@ CREATE TABLE IF NOT EXISTS card_tb (
 CREATE TABLE IF NOT EXISTS transfer_tb (
     id VARCHAR PRIMARY KEY,
 
-    -- Payer
     payer_name VARCHAR(100) NOT NULL,
     payer_document VARCHAR(20) NOT NULL,
     payer_institution VARCHAR(50) NOT NULL,
     payer_account_number VARCHAR(10) NOT NULL,
     payer_agency_number VARCHAR(15) NOT NULL,
 
-    -- Receiver
     receiver_name VARCHAR(100) NOT NULL,
     receiver_document VARCHAR(20) NOT NULL,
     receiver_institution VARCHAR(50) NOT NULL,
