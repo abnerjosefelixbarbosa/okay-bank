@@ -25,10 +25,11 @@ import lombok.Setter;
 public class Agency {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "id")
 	private String id;
-	@Column(length = 20, nullable = false, unique = true)
+	@Column(name = "number", length = 20, nullable = false, unique = true)
 	private String number;
-	@Column(nullable = false)
+	@Column(name = "creation_date", nullable = false)
 	private LocalDate creationDate;
 	@OneToMany(mappedBy = "agency", fetch = FetchType.LAZY)
 	private List<Account> accounts;

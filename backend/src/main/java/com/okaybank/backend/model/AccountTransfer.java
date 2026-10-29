@@ -1,5 +1,6 @@
 package com.okaybank.backend.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +22,7 @@ import lombok.Setter;
 public class AccountTransfer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "id")
 	private String id;
 	@ManyToOne
 	@JoinColumn(name = "transfer_id", nullable = false, unique = true)

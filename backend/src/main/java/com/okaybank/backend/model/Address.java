@@ -13,16 +13,16 @@ import lombok.Setter;
 @Setter
 @Embeddable
 public class Address {
-	@Column(length = 10, nullable = false)
+	@Column(name = "postal_code", length = 10, nullable = false)
 	private String postalCode;
 	@Column(name = "address_name", length = 30, nullable = false)
     private String name;
 	@Column(name = "address_number", nullable = false)
     private Integer number;
-	@Column(length = 30, nullable = false)
+	@Column(name = "district", length = 30, nullable = false)
     private String district;
-	@Column(length = 30, nullable = false)
+	@Column(name = "city", length = 30, nullable = false)
     private String city;
-	@Column(length = 30, nullable = false)
+	@Column(name = "state", length = 30, nullable = false)
     private String state;
 }

@@ -30,17 +30,18 @@ import lombok.Setter;
 public class Account {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "id") 
 	private String id;
-	@Column(length = 20, nullable = false, unique = true)
+	@Column(name = "number", length = 20, nullable = false, unique = true)
 	private String number;
-	@Column(precision = 30, scale = 2, nullable = false)
+	@Column(name = "balance", precision = 30, scale = 2, nullable = false)
 	private BigDecimal balance;
-	@Column(nullable = false)
+	@Column(name = "creation_date", nullable = false)
 	private LocalDate creationDate;
-	@Column(nullable = false, unique = true)
+	@Column(name = "password", nullable = false, unique = true)
 	private String password;
 	@Enumerated(EnumType.STRING)
-	@Column(length = 20, nullable = false)
+	@Column(name = "account_type", length = 20, nullable = false)
 	private AccountType accountType;
 	@ManyToOne
 	@JoinColumn(name = "customer_id", nullable = false)

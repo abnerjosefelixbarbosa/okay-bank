@@ -28,28 +28,29 @@ import lombok.Setter;
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "id")
 	private String id;
-	@Column(length = 10, nullable = false, unique = true)
+	@Column(name = "matriculation", length = 10, nullable = false, unique = true)
 	private String matriculation;
-	@Column(nullable = false)
+	@Column(name = "birth_date", nullable = false)
 	private LocalDate birthDate;
-	@Column(length = 11, nullable = false, unique = true)
+	@Column(name = "cpf", length = 11, nullable = false, unique = true)
 	private String cpf;
-	@Column(length = 100, nullable = false, unique = true)
+	@Column(name = "name", length = 100, nullable = false, unique = true)
 	private String name;
-	@Column(precision = 30, scale = 2, nullable = false)
+	@Column(name = "salary", precision = 30, scale = 2, nullable = false)
 	private BigDecimal salary;
-	@Column(length = 30, nullable = false, unique = true)
+	@Column(name = "email", length = 30, nullable = false, unique = true)
 	private String email;
-	@Column(length = 30, nullable = false, unique = true)
+	@Column(name = "phone", length = 30, nullable = false, unique = true)
 	private String phone;
-	@Column(nullable = false)
+	@Column(name = "journey", nullable = false)
 	private Integer journey;
 	@Enumerated(EnumType.STRING)
-	@Column(length = 20, nullable = false)
+	@Column(name = "employee_type", length = 20, nullable = false)
 	private EmployeeType employeeType;
 	@Enumerated(EnumType.STRING)
-	@Column(length = 20, nullable = false)
+	@Column(name = "employee_status", length = 20, nullable = false)
 	private EmployeeStatus employeeStatus; 
 	@Embedded
 	private Address address;

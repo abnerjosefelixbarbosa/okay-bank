@@ -27,27 +27,28 @@ import lombok.Setter;
 public class Card {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "id")
 	private String id;
-	@Column(length = 16, nullable = false, unique = true)
+	@Column(name = "number", length = 16, nullable = false, unique = true)
 	private String number;
-	@Column(length = 100, nullable = false)
+	@Column(name = "holder", length = 100, nullable = false)
 	private String holder;
-	@Column(nullable = false)
+	@Column(name = "validation_date", nullable = false)
 	private LocalDate validationDate;
-	@Column(length = 20, nullable = false)
+	@Column(name = "flag", length = 20, nullable = false)
 	private String flag;
-	@Column(length = 3, nullable = false, unique = true)
+	@Column(name = "cvv", length = 3, nullable = false, unique = true)
 	private String cvv;
-	@Column(nullable = false, unique = true)
+	@Column(name = "password", nullable = false, unique = true)
 	private String password;
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column(name = "card_type", nullable = false)
 	private CardType cardType;
-	@Column(precision = 30, scale = 2)
+	@Column(name = "limit", precision = 30, scale = 2)
 	private BigDecimal limit;
-	@Column(length = 20)
+	@Column(name = "agency", length = 20)
 	private String agency;
-	@Column(length = 20)
+	@Column(name = "account", length = 20)
 	private String account;
 	@ManyToOne
 	@JoinColumn(name = "customer_id", nullable = false)

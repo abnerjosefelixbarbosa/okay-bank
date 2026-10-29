@@ -29,17 +29,18 @@ import lombok.Setter;
 public class Transfer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "id")
 	private String id ;
 	@Embedded
 	private Payer payer;
 	@Embedded
 	private Receiver receiver;
-	@Column(precision = 30, scale = 2, nullable = false)
+	@Column(name = "value", precision = 30, scale = 2, nullable = false)
 	private BigDecimal value;
-	@Column(nullable = false)
+	@Column(name = "transfer_date_and_time", nullable = false)
 	private LocalDateTime transferDateAndTime;
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column(name = "transfer_type", nullable = false)
 	private TransferType transferType;
 	@OneToMany(mappedBy = "transfer", fetch = FetchType.LAZY)
 	private List<AccountTransfer> accountTransfers;

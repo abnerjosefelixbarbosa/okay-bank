@@ -28,21 +28,22 @@ import lombok.Setter;
 public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "id")
 	private String id;
-	@Column(length = 20, nullable = false, unique = true)
+	@Column(name = "document", length = 20, nullable = false, unique = true)
 	private String document;
-	@Column(nullable = false)
+	@Column(name = "birth_date", nullable = false)
 	private LocalDate birthDate;
-	@Column(length = 100, nullable = false, unique = true)
+	@Column(name = "name", length = 100, nullable = false, unique = true)
 	private String name;
-	@Column(length = 30, nullable = false, unique = true)
+	@Column(name = "email", length = 30, nullable = false, unique = true)
 	private String email;
 	@Embedded
 	private Address address;
-	@Column(length = 30, nullable = false, unique = true)
+	@Column(name = "phone", length = 30, nullable = false, unique = true)
 	private String phone;
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = true)
+	@Column(name = "customer_type", nullable = true)
 	private CustomerType customerType;
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
 	private List<Account> accounts;
