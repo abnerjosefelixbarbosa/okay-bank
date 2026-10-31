@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS card_tb (
     cvv VARCHAR(3) NOT NULL UNIQUE,
     password VARCHAR NOT NULL UNIQUE,
     card_type VARCHAR(20) NOT NULL,
-    "limit" NUMERIC(30,2) NOT NULL,
+    card_limit NUMERIC(30,2) NOT NULL,
 
     agency VARCHAR(20) NOT NULL,
     account VARCHAR(20) NOT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS transfer_tb (
     receiver_account_number VARCHAR(20) NOT NULL,
     receiver_agency_number VARCHAR(20) NOT NULL,
 
-    "value" NUMERIC(30,2) NOT NULL,
+    transfer_value NUMERIC(30,2) NOT NULL,
     transfer_date_and_time TIMESTAMP NOT NULL,
     transfer_type VARCHAR(20) NOT NULL
 );

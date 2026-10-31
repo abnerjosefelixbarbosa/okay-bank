@@ -37,7 +37,7 @@ public class Transfer {
 	private Payer payer;
 	@Embedded
 	private Receiver receiver;
-	@Column(name = "value", precision = 30, scale = 2, nullable = false)
+	@Column(name = "transfer_value", precision = 30, scale = 2, nullable = false)
 	private BigDecimal value;
 	@Column(name = "transfer_date_and_time", nullable = false)
 	private LocalDateTime transferDateAndTime;

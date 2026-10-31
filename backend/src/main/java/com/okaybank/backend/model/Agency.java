@@ -3,6 +3,8 @@ package com.okaybank.backend.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.okaybank.backend.dto.request.AgencyRequestDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -35,4 +37,8 @@ public class Agency {
 	private List<Account> accounts;
 	@OneToMany(mappedBy = "agency", fetch = FetchType.LAZY)
 	private List<Employee> employees; 
+	
+	public Agency(AgencyRequestDTO dto) {
+		this(null, dto.number(), LocalDate.now(), null, null);
+	}
 }

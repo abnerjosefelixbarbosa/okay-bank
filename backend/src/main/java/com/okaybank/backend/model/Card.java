@@ -46,7 +46,7 @@ public class Card {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "card_type", nullable = false)
 	private CardType cardType;
-	@Column(name = "limit", precision = 30, scale = 2)
+	@Column(name = "card_limit", precision = 30, scale = 2)
 	private BigDecimal limit;
 	@Column(name = "agency", length = 20)
 	private String agency;
