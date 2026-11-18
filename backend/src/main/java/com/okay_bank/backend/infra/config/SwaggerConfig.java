@@ -1,4 +1,4 @@
-package com.okay_bank.backend.config;
+package com.okay_bank.backend.infra.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
