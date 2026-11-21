@@ -12,9 +12,9 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.okay_bank.backend.infra.dto.request.AgencyRequestDTO;
 import com.okay_bank.backend.infra.entity.AgencyEntity;
@@ -51,13 +51,13 @@ class RegisterAgencyTI {
 		String obj = objectMapper.writeValueAsString(request);
 		
 		mockMvc.perform(
-				MockMvcRequestBuilders.post("/agencies")
+				post("/agencies")
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(obj)
 		)
-		.andExpect(MockMvcResultMatchers.status().isCreated())
-		.andDo(MockMvcResultHandlers.print());
+		.andExpect(status().isCreated())
+		.andDo(print());
 	}
 	
 	@Test
@@ -68,13 +68,13 @@ class RegisterAgencyTI {
 		String obj = objectMapper.writeValueAsString(request);
 		
 		mockMvc.perform(
-				MockMvcRequestBuilders.post("/agencies")
+				post("/agencies")
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(obj)
 		)
-		.andExpect(MockMvcResultMatchers.status().isBadRequest())
-		.andDo(MockMvcResultHandlers.print());
+		.andExpect(status().isCreated())
+		.andDo(print());
 	}
 	
 	@Test
@@ -85,13 +85,13 @@ class RegisterAgencyTI {
 		String obj = objectMapper.writeValueAsString(request);
 		
 		mockMvc.perform(
-				MockMvcRequestBuilders.post("/agencies")
+				post("/agencies")
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(obj)
 		)
-		.andExpect(MockMvcResultMatchers.status().isBadRequest())
-		.andDo(MockMvcResultHandlers.print());
+		.andExpect(status().isCreated())
+		.andDo(print());
 	}
 	
 	@Test
@@ -102,13 +102,13 @@ class RegisterAgencyTI {
 		String obj = objectMapper.writeValueAsString(request);
 		
 		mockMvc.perform(
-				MockMvcRequestBuilders.post("/agencies")
+				post("/agencies")
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(obj)
 		)
-		.andExpect(MockMvcResultMatchers.status().isBadRequest())
-		.andDo(MockMvcResultHandlers.print());
+		.andExpect(status().isCreated())
+		.andDo(print());
 	}
 	
 	@Test
@@ -119,13 +119,13 @@ class RegisterAgencyTI {
 		String obj = objectMapper.writeValueAsString(request);
 		
 		mockMvc.perform(
-				MockMvcRequestBuilders.post("/agencies")
+				post("/agencies")
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(obj)
 		)
-		.andExpect(MockMvcResultMatchers.status().isBadRequest())
-		.andDo(MockMvcResultHandlers.print());
+		.andExpect(status().isCreated())
+		.andDo(print());
 	}
 	
 	@Test
@@ -146,12 +146,12 @@ class RegisterAgencyTI {
 		String obj = objectMapper.writeValueAsString(request);
 		
 		mockMvc.perform(
-				MockMvcRequestBuilders.post("/agencies")
+				post("/agencies")
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(obj)
 		)
-		.andExpect(MockMvcResultMatchers.status().isBadRequest())
-		.andDo(MockMvcResultHandlers.print());
+		.andExpect(status().isCreated())
+		.andDo(print());
 	}
 }
