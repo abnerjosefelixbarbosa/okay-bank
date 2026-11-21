@@ -20,7 +20,7 @@ public class AgencyUserCaseImp implements AgencyUserCase {
 	
 	private void validateAgency(Agency agency) {
 		if (agencyGateway.isExistsNumber(agency)) {
-			throw new ApplicationException("Número da agência não deve ser repetido.");
+			throw new ApplicationException("O número não deve ser repetido.");
 		}
 	}
 }
