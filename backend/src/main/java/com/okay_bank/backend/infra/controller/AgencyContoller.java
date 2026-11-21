@@ -14,6 +14,9 @@ import com.okay_bank.backend.infra.dto.request.AgencyRequestDTO;
 import com.okay_bank.backend.infra.dto.response.AgencyResponseDTO;
 import com.okay_bank.backend.infra.mapper.AgencyMapper;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 
 @RestController
@@ -25,8 +28,13 @@ public class AgencyContoller {
 		this.agencyUserCase = agencyUserCase;
 	}
 
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "201", description = "registra uma agência"),
+			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição")
+	})
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
+	@Operation(summary = "registrar agência", description = "registra uma agência")
 	public ResponseEntity<AgencyResponseDTO> registerAgency(@RequestBody @Valid AgencyRequestDTO resquest) {
 		Agency agency = AgencyMapper.toAgency(resquest);
 		
