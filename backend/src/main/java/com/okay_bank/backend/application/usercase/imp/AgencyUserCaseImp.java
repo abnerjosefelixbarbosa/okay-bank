@@ -18,6 +18,12 @@ public class AgencyUserCaseImp implements AgencyUserCase {
 		return agencyGateway.registerAgency(agency);
 	}
 	
+	public Agency updateAgency(String id, Agency agency) {
+		validateAgency(agency);
+		
+		return agencyGateway.updateAgency(id, agency);
+	}
+	
 	private void validateAgency(Agency agency) {
 		if (agencyGateway.isExistsNumber(agency)) {
 			throw new ApplicationException("O número não deve ser repetido.");
