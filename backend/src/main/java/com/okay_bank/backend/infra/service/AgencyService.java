@@ -30,7 +30,7 @@ public class AgencyService implements AgencyGateway {
         AgencyEntity agencyEntity = AgencyMapper.toAgencyEntity(agency);
         
         AgencyEntity foundAgency = agencyRepository
-				.findById(id).orElseThrow(() -> new NotFoundException("Id deve ser existente."));
+				.findById(id).orElseThrow(() -> new NotFoundException("O id deve ser existente."));
         
         BeanUtils.copyProperties(agencyEntity, foundAgency, "id");
 		
@@ -41,7 +41,7 @@ public class AgencyService implements AgencyGateway {
 	
 	public Agency findAgencyById(String id) {
 		AgencyEntity foundAgency = agencyRepository.findById(id)
-				.orElseThrow(() -> new NotFoundException("Id deve ser existente"));
+				.orElseThrow(() -> new NotFoundException("O Id deve ser existente"));
 		
 		return AgencyMapper.toAgency(foundAgency);
 	}
