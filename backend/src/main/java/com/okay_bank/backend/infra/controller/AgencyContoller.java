@@ -35,9 +35,9 @@ public class AgencyContoller {
 			@ApiResponse(responseCode = "201", description = "registra uma agência"),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição")
 	})
+	@ApiResponse(responseCode = "400", description = "retorna um erro de requesição")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	@Operation(summary = "registrar agência", description = "registra uma agência")
 	public ResponseEntity<AgencyResponseDTO> registerAgency(@RequestBody @Valid AgencyRequestDTO resquest) {
 		Agency agency = AgencyMapper.toAgency(resquest);
 		
@@ -48,6 +48,12 @@ public class AgencyContoller {
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "atualiza uma agência"),
+			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição"),
+			@ApiResponse(responseCode = "404", description = "retorna um erro de não encotrado")
+	})
+	@Operation(summary = "atualizar agência", description = "atualiza uma agência")
 	@PutMapping(value = "/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<AgencyResponseDTO> updateAgency(@PathVariable String id, @RequestBody @Valid AgencyRequestDTO resquest) {
