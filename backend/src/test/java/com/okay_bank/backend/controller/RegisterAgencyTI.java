@@ -73,14 +73,14 @@ class RegisterAgencyTI {
 				.accept(MediaType.APPLICATION_JSON)
 				.content(obj)
 		)
-		.andExpect(status().isCreated())
+		.andExpect(status().isBadRequest())
 		.andDo(print());
 	}
 	
 	@Test
 	@DisplayName("Should not register agency when number is empty and return status 400.")
 	void registerAgencyTest3() throws Exception {
-		AgencyRequestDTO request = new AgencyRequestDTO(null);
+		AgencyRequestDTO request = new AgencyRequestDTO("");
 		
 		String obj = objectMapper.writeValueAsString(request);
 		
@@ -90,7 +90,7 @@ class RegisterAgencyTI {
 				.accept(MediaType.APPLICATION_JSON)
 				.content(obj)
 		)
-		.andExpect(status().isCreated())
+		.andExpect(status().isBadRequest())
 		.andDo(print());
 	}
 	
@@ -107,7 +107,7 @@ class RegisterAgencyTI {
 				.accept(MediaType.APPLICATION_JSON)
 				.content(obj)
 		)
-		.andExpect(status().isCreated())
+		.andExpect(status().isBadRequest())
 		.andDo(print());
 	}
 	
@@ -124,14 +124,14 @@ class RegisterAgencyTI {
 				.accept(MediaType.APPLICATION_JSON)
 				.content(obj)
 		)
-		.andExpect(status().isCreated())
+		.andExpect(status().isBadRequest())
 		.andDo(print());
 	}
 	
 	@Test
 	@DisplayName("Should not register agency when number is repeated and return status 400.")
 	void registerAgencyTest6() throws Exception {
-		AgencyEntity agencyEntity1 = new AgencyEntity(
+		AgencyEntity agency1 = new AgencyEntity(
 				null, 
 				"11111", 
 				LocalDate.now(), 
@@ -139,7 +139,7 @@ class RegisterAgencyTI {
 				null
 		); 
 		
-		agencyRepository.save(agencyEntity1);
+		agencyRepository.save(agency1);
 		
 		AgencyRequestDTO request = new AgencyRequestDTO("11111");
 		
@@ -151,7 +151,7 @@ class RegisterAgencyTI {
 				.accept(MediaType.APPLICATION_JSON)
 				.content(obj)
 		)
-		.andExpect(status().isCreated())
+		.andExpect(status().isBadRequest())
 		.andDo(print());
 	}
 }
