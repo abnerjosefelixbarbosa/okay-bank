@@ -66,6 +66,11 @@ public class AgencyContoller {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "procura uma agência pelo id"),
+			@ApiResponse(responseCode = "404", description = "retorna um erro de não encotrado")
+	})
+	@Operation(summary = "procurar agência pelo id", description = "procura uma agência pelo id")
 	@GetMapping(value = "/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<AgencyResponseDTO> findAgencyById(@PathVariable String id) {		
