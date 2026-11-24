@@ -39,6 +39,13 @@ public class AgencyService implements AgencyGateway {
 		return AgencyMapper.toAgency(savedAgency);
 	}
 	
+	public Agency findAgencyById(String id) {
+		AgencyEntity foundAgency = agencyRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Id deve ser existente"));
+		
+		return AgencyMapper.toAgency(foundAgency);
+	}
+	
 	public boolean isExistsNumber(Agency agency) {
 		return agencyRepository.existsByNumber(agency.getNumber());
 	}

@@ -6,4 +6,6 @@ public interface AgencyUserCase {
 	Agency registerAgency(Agency agency);
 
 	Agency updateAgency(String id, Agency agency);
+
+	Agency findAgencyById(String id);
 }

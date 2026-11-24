@@ -2,6 +2,7 @@ package com.okay_bank.backend.infra.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -53,6 +54,16 @@ public class AgencyContoller {
 		Agency agency = AgencyMapper.toAgency(resquest);
 		
 		agency = agencyUserCase.updateAgency(id, agency);
+		
+		AgencyResponseDTO response = AgencyMapper.toAgencyResponseDTO(agency); 
+		
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+	
+	@GetMapping(value = "/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<AgencyResponseDTO> findAgencyById(@PathVariable String id) {		
+		Agency agency = agencyUserCase.findAgencyById(id);
 		
 		AgencyResponseDTO response = AgencyMapper.toAgencyResponseDTO(agency); 
 		

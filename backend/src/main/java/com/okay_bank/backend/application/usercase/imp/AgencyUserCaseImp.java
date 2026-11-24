@@ -24,6 +24,10 @@ public class AgencyUserCaseImp implements AgencyUserCase {
 		return agencyGateway.updateAgency(id, agency);
 	}
 	
+	public Agency findAgencyById(String id) {
+		return agencyGateway.findAgencyById(id);
+	}
+	
 	private void validateAgency(Agency agency) {
 		if (agencyGateway.isExistsNumber(agency)) {
 			throw new ApplicationException("O número não deve ser repetido.");

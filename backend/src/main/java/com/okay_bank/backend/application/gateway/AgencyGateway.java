@@ -8,4 +8,6 @@ public interface AgencyGateway {
 	Agency updateAgency(String id, Agency agency);
 
 	boolean isExistsNumber(Agency agency);
+
+	Agency findAgencyById(String id);
 }
