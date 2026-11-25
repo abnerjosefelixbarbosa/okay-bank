@@ -1,5 +1,8 @@
 package com.okay_bank.backend.application.gateway;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.okay_bank.backend.application.entity.Agency;
 
 public interface AgencyGateway {
@@ -10,4 +13,6 @@ public interface AgencyGateway {
 	boolean isExistsNumber(Agency agency);
 
 	Agency findAgencyById(String id);
+
+	Page<Agency> listAgencies(String number, Pageable pageable);
 }

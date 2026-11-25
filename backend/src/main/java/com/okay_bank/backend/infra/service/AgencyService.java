@@ -1,6 +1,8 @@
 package com.okay_bank.backend.infra.service;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import com.okay_bank.backend.application.entity.Agency;
@@ -9,6 +11,7 @@ import com.okay_bank.backend.application.gateway.AgencyGateway;
 import com.okay_bank.backend.infra.entity.AgencyEntity;
 import com.okay_bank.backend.infra.mapper.AgencyMapper;
 import com.okay_bank.backend.infra.repository.AgencyRepository;
+import com.okay_bank.backend.infra.specification.AgencySpecification;
 
 @Component
 public class AgencyService implements AgencyGateway {
@@ -44,6 +47,12 @@ public class AgencyService implements AgencyGateway {
 				.orElseThrow(() -> new NotFoundException("O Id deve ser existente"));
 		
 		return AgencyMapper.toAgency(foundAgency);
+	}
+	
+	public Page<Agency> listAgencies(String number, Pageable pageable) {
+		return agencyRepository
+				.findAll(AgencySpecification.filter(number), pageable)
+				.map(AgencyMapper::toAgency);
 	}
 	
 	public boolean isExistsNumber(Agency agency) {

@@ -1,5 +1,8 @@
 package com.okay_bank.backend.application.usercase.imp;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.okay_bank.backend.application.entity.Agency;
 import com.okay_bank.backend.application.exception.ApplicationException;
 import com.okay_bank.backend.application.gateway.AgencyGateway;
@@ -26,6 +29,10 @@ public class AgencyUserCaseImp implements AgencyUserCase {
 	
 	public Agency findAgencyById(String id) {
 		return agencyGateway.findAgencyById(id);
+	}
+	
+	public Page<Agency> listAgencies(String number, Pageable pageable) {
+		return agencyGateway.listAgencies(number, pageable);
 	}
 	
 	private void validateAgency(Agency agency) {
