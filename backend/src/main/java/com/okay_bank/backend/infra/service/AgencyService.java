@@ -13,6 +13,8 @@ import com.okay_bank.backend.infra.mapper.AgencyMapper;
 import com.okay_bank.backend.infra.repository.AgencyRepository;
 import com.okay_bank.backend.infra.specification.AgencySpecification;
 
+import jakarta.transaction.Transactional;
+
 @Component
 public class AgencyService implements AgencyGateway {
 	private final AgencyRepository agencyRepository;
@@ -21,6 +23,7 @@ public class AgencyService implements AgencyGateway {
 		this.agencyRepository = agencyRepository;
 	}
 
+	@Transactional
 	public Agency registerAgency(Agency agency) {
 		AgencyEntity agencyEntity = AgencyMapper.toAgencyEntity(agency);
 		
@@ -29,6 +32,7 @@ public class AgencyService implements AgencyGateway {
 		return AgencyMapper.toAgency(savedAgency);
 	}
 	
+	@Transactional
 	public Agency updateAgency(String id, Agency agency) {
         AgencyEntity agencyEntity = AgencyMapper.toAgencyEntity(agency);
         
