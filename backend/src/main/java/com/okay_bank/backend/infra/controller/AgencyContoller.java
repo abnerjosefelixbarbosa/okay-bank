@@ -84,6 +84,10 @@ public class AgencyContoller {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "listar mais de uma agência")
+	})
+	@Operation(summary = "listar agências", description = "listar mais de uma agência")
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<Page<AgencyResponseDTO>> listAgencies(@RequestParam(defaultValue = "") String number, Pageable pageable) {		
